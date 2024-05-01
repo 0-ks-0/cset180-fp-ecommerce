@@ -48,15 +48,13 @@ create table `products`
 (
 	`id` int unsigned auto_increment,
 	`name` varchar(128) not null,
-	`description` varchar(255) not null,
+	`description` text not null,
 	`vendor_id` int unsigned not null,
-	`inventory` int unsigned not null,
+	`quantity` int unsigned not null,
 	`price` decimal(8, 2) not null,
-	`master_product_id` int unsigned,
 
 	primary key (`id`),
 	foreign key (`vendor_id`) references `vendors` (`id`) on update restrict,
-	foreign key (`master_product_id`) references `products` (`id`) on delete cascade on update restrict,
 
 	constraint check
 	(
@@ -89,7 +87,7 @@ create table `active_warranty`
 create table `product_images`
 (
 	`product_id` int unsigned,
-	`image_data` longblob not null,
+	`image_data` varchar(255) not null,
 
 	foreign key (`product_id`) references `products` (`id`) on delete cascade on update restrict
 );
@@ -98,7 +96,7 @@ create table `product_discounts`
 (
 	`id` int unsigned auto_increment,
 	`product_id` int unsigned,
-	`percentage` decimal(5, 2) not null,
+	`discount` decimal(3, 2) not null,
 	`start_date` date not null,
 	`end_date` date,
 
@@ -107,7 +105,7 @@ create table `product_discounts`
 
 	constraint check
 	(
-		`percentage` between 1.0 and 100.0
+		`discount` between 0 and 1
 	)
 );
 
@@ -135,7 +133,7 @@ create table `orders`
 (
 	`id` int unsigned auto_increment,
 	`cart_id` int unsigned not null,
-	`date` date not null,
+	`date` datetime not null,
 	`price` decimal(16, 2) not null,
 	`status` varchar(16) not null,
 
@@ -181,7 +179,7 @@ create table `complaints`
 create table `complaint_images`
 (
 	`complaint_id` int unsigned not null,
-	`image_data` longblob not null,
+	`image_data` varchar(255) not null,
 
 	foreign key (`complaint_id`) references `complaints` (`id`) on delete cascade on update restrict
 );
@@ -193,7 +191,7 @@ create table `reviews`
 	`user_id` int unsigned not null,
 	`rating` decimal(1, 0) not null,
 	`description` text not null,
-	`date` date not null,
+	`date` datetime not null,
 
 	primary key (`id`),
 	foreign key (`user_id`) references `users` (`id`) on update restrict,
@@ -207,7 +205,7 @@ create table `reviews`
 create table `review_images`
 (
 	`review_id` int unsigned not null,
-	`image_data` longblob not null,
+	`image_data` varchar(255) not null,
 
 	foreign key (`review_id`) references `reviews` (`id`) on delete cascade on update restrict
 );
@@ -246,10 +244,5 @@ create table `chat_attachments`
 	`content` longblob not null,
 
 	primary key (`id`),
-	foreign key (`message_id`) references `chat_messages` (`id`) on delete cascade on update restrict,
-
-	constraint check
-	(
-		`type` in ( 'image_png', 'image_jpg', 'video_mp4', 'file_text' )
-	)
+	foreign key (`message_id`) references `chat_messages` (`id`) on delete cascade on update restrict
 );
