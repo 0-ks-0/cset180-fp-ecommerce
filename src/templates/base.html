@@ -14,20 +14,22 @@
 	</head>
 
 	<body>
-		<header>
-				<div class="navbar">
-					<ul class="navbar_links">
-						<li><a href="/">Account</a></li>
-						<li><a href="/products">Products</a></li>
-						<li><a href="/cart">Cart</a></li>
-						<li><a href="/orders">Orders</a></li>
-					</ul>
+		{% if not no_navbar %}
+			<header>
+					<div class="navbar">
+						<ul class="navbar_links">
+							<li><a href="/">Account</a></li>
+							<li><a href="/products">Products</a></li>
+							<li><a href="/cart">Cart</a></li>
+							<li><a href="/orders">Orders</a></li>
+						</ul>
 
-					<ul class="navbar_links">
-						<li><a href="/login">Logout</a></li>
-					</ul>
-				</div>
-		</header>
+						<ul class="navbar_links">
+							<li><a href="/login">Logout</a></li>
+						</ul>
+					</div>
+			</header>
+		{% endif %}
 
 		<div id="block_body">
 			{% block body %}
