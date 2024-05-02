@@ -386,7 +386,7 @@ def home():
 def create_login():
 	destroy_session(session)
 
-	render_template("login.html")
+	return render_template("login.html")
 
 @app.route("/login/", methods=[ "POST" ])
 def check_login():
