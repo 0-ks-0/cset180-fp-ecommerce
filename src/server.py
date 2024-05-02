@@ -405,11 +405,21 @@ def check_login():
 
 	# Check login through username
 	if username_check:
-		pass
+		if validate_username_login(username_email, password):
+			session["user_id"] = email_check
+			session["email_address"] = username_email
+			session["username"] = get_username(email_check)
+			session["account_type"] = get_account_type(email_check)
 
 	# Check login through email
 	if email_check:
-		pass
+		if validate_email_login(username_email, password):
+			session["user_id"] = email_check
+			session["email_address"] = username_email
+			session["username"] = get_username(email_check)
+			session["account_type"] = get_account_type(email_check)
+
+	return render_template("home.html", account_type = session.get("account_type"))
 
 # End of routes
 
