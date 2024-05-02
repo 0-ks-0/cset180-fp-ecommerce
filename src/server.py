@@ -277,6 +277,32 @@ def get_admin_id(user_id):
 
 	return admin_id[0].id
 
+def get_account_type(user_id):
+	"""
+	:param user_id:
+
+	:return:
+		"admin", "customer", or "vendor" if the user_id exists
+
+		False otherwise
+
+	:rtype:
+		str if the user_id exists
+
+		bool otherwise
+	"""
+
+	if get_customer_id(user_id):
+		return "customer"
+
+	if get_vendor_id(user_id):
+		return "vendor"
+
+	if get_admin_id(user_id):
+		return "admin"
+
+	return False
+
 # End of functions
 
 # Insert test values
