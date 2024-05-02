@@ -367,7 +367,7 @@ def get_account_type(user_id):
 # End of functions
 
 # Insert test values
-run_query("insert into `users` values(null, 'a', 'a', 'a', 'a', 'a')")
+run_query("insert into `users` values(null, 'a', 'a', 'a', 'a', 'ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb')")
 sql.commit()
 
 # End of inserting test values
