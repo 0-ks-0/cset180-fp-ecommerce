@@ -1,8 +1,17 @@
+:root
+{
+	--header_gray: rgb(68, 68, 68);
+
+	--link_hover: rgb(189, 125, 125);
+}
 *
 {
-	font-family: sans-serif;
+	margin: 0;
+	padding: 0;
 
 	box-sizing: border-box;
+
+	font-family: sans-serif;
 }
 
 html, body
@@ -14,7 +23,34 @@ html, body
 	height: 100%;
 }
 
-body
+header
+{
+	background-color: var(--header_gray);
+
+	padding: 1rem 2rem;
+}
+
+/*
+*	Navbar
+*/
+.navbar_links
 {
 	display: flex;
+
+	gap: 1em;
+
+	list-style-type: none;
+
+}
+
+.navbar_links a
+{
+	text-decoration: none;
+
+	color: white
+}
+
+.navbar_links a:hover
+{
+	color: var(--link_hover);
 }
