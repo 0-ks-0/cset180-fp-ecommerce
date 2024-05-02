@@ -96,6 +96,28 @@ def check_user_username(username):
 
 	return user[0].id
 
+def destroy_session(session):
+	"""
+	:param session:
+
+	:return:
+		False if session does not exist
+
+		Nothing otherwise
+	"""
+
+	if not session:
+		return False
+
+	if session.get("user_id"):
+		del session["user_id"]
+
+	if session.get("username"):
+		del session["username"]
+
+	if session.get("email_address"):
+		del session["email_address"]
+
 def validate_session(session):
 	"""
 	:param session:
@@ -120,27 +142,20 @@ def validate_session(session):
 
 	return user_id == check_user_username(username) == check_user_email(email_address)
 
-def destroy_session(session):
+
+def check_session_login(session):
 	"""
+	Destroys session and redirects to the login page if validate_session fails
+
 	:param session:
 
 	:return:
-		False if session does not exist
-
-		Nothing otherwise
+		Redirects to the login page
 	"""
+	if not validate_session(session):
+		destroy_session(session)
+		return redirect("/login")
 
-	if not session:
-		return False
-
-	if session.get("user_id"):
-		del session["user_id"]
-
-	if session.get("username"):
-		del session["username"]
-
-	if session.get("email_address"):
-		del session["email_address"]
 
 # End of functions
 
@@ -154,7 +169,9 @@ sql.commit()
 @app.route("/")
 @app.route("/home/")
 def home():
-	return render_template("base.html")
+	check_session_login(session)
+
+	return render_template("home.html", account_type = session.get("account_type"))
 
 # End of routes
 
