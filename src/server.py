@@ -142,6 +142,8 @@ def destroy_session(session):
 	if session.get("email_address"):
 		del session["email_address"]
 
+# End of functions
+
 # Insert test values
 run_query("insert into `users` values(null, 'a', 'a', 'a', 'a', 'a')")
 sql.commit()
@@ -154,6 +156,7 @@ sql.commit()
 def home():
 	return render_template("base.html")
 
+# End of routes
 
 if __name__ == "__main__":
  	app.run()
