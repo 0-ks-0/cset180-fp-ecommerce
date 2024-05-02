@@ -51,6 +51,7 @@ def get_query_rows(query, parameters = None):
 
 	return list_rows
 
+# Login check for email address
 def check_user_email(email_address):
 	"""
 	:param str email_address: The email associated with a user
@@ -74,6 +75,7 @@ def check_user_email(email_address):
 
 	return user[0].id
 
+# Login check for username
 def check_user_username(username):
 	"""
 	:param str username: The username associated with a user
@@ -97,6 +99,7 @@ def check_user_username(username):
 
 	return user[0].id
 
+# Sessions
 def destroy_session(session):
 	"""
 	:param session:
@@ -157,6 +160,9 @@ def check_session_login(session):
 		destroy_session(session)
 		return redirect("/login")
 
+# End of sessions
+
+# Login Validation
 def sha_encrypt(s):
 	return sha256(s.encode("utf-8")).hexdigest()
 
@@ -211,6 +217,9 @@ def validate_username_login(username, password):
 	stored_password = stored_password[0].password.decode("utf-8")
 	return sha_encrypt(password) == stored_password
 
+# End of login validation
+
+# Get account id
 def get_customer_id(user_id):
 	"""
 	:param user_id:
@@ -277,6 +286,9 @@ def get_admin_id(user_id):
 
 	return admin_id[0].id
 
+# End of get account id
+
+# Get account type
 def get_account_type(user_id):
 	"""
 	:param user_id:
@@ -302,6 +314,8 @@ def get_account_type(user_id):
 		return "admin"
 
 	return False
+
+# End of get account type
 
 # End of functions
 
