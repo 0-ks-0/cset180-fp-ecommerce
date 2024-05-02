@@ -367,7 +367,7 @@ def get_account_type(user_id):
 # End of functions
 
 # Insert test values
-run_query("insert into `users` values(null, 'a', 'a', 'a', 'a', 'ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb')")
+run_query("insert into `users` values(null, 'a', 'a', 'a', 'a@a.a', 'ca978112ca1bbdcafac231b39a23dc4da786eff8147c4e72b9807785afee48bb');")
 sql.commit()
 
 # End of inserting test values
@@ -399,9 +399,6 @@ def check_login():
 	username_check = check_user_username(username_email)
 	email_check = check_user_email(username_email)
 
-	# print(username_check)
-	# print(email_check)
-
 	if not username_check and not email_check:
 		return render_template(
 			"login.html",
@@ -411,15 +408,15 @@ def check_login():
 	# Check login through username
 	if username_check:
 		if validate_username_login(username_email, password):
-			session["user_id"] = email_check
+			session["user_id"] = username_check
 			session["email_address"] = username_email
-			session["username"] = get_username(email_check)
-			session["account_type"] = get_account_type(email_check)
+			session["username"] = get_username(username_check)
+			session["account_type"] = get_account_type(username_check)
 		else:
 			return render_template("login.html", message = "Incorrect password")
 
 	# Check login through email
-	if email_check:
+	elif email_check:
 		if validate_email_login(username_email, password):
 			session["user_id"] = email_check
 			session["email_address"] = username_email
@@ -428,9 +425,7 @@ def check_login():
 		else:
 			return render_template("login.html", message = "Incorrect password")
 
-
 	return redirect("/home")
-
 # End of routes
 
 if __name__ == "__main__":
