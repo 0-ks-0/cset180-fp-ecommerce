@@ -211,6 +211,72 @@ def validate_username_login(username, password):
 	stored_password = stored_password[0].password.decode("utf-8")
 	return sha_encrypt(password) == stored_password
 
+def get_customer_id(user_id):
+	"""
+	:param user_id:
+
+	:return:
+		The customer_id associated with the user_id if the account is customer account
+
+		False otherwise
+
+	:rtype:
+		int if the account is customer account
+
+		bool otherwise
+	"""
+
+	customer_id = get_query_rows(f"select `id` from `customers` where `user_id` = {user_id}")
+
+	if len(customer_id) < 1:
+		return False
+
+	return customer_id[0].id
+
+def get_vendor_id(user_id):
+	"""
+	:param user_id:
+
+	:return:
+		The vendor_id associated with the user_id if the account is vendor account
+
+		False otherwise
+
+	:rtype:
+		int if the account is vendor account
+
+		bool otherwise
+	"""
+
+	vendor_id = get_query_rows(f"select `id` from `vendors` where `user_id` = {user_id}")
+
+	if len(vendor_id) < 1:
+		return False
+
+	return vendor_id[0].id
+
+def get_admin_id(user_id):
+	"""
+	:param user_id:
+
+	:return:
+		The admin_id associated with the user_id if the account is admin account
+
+		False otherwise
+
+	:rtype:
+		int if the account is admin account
+
+		bool otherwise
+	"""
+
+	admin_id = get_query_rows(f"select `id` from `admins` where `user_id` = {user_id}")
+
+	if len(admin_id) < 1:
+		return False
+
+	return admin_id[0].id
+
 # End of functions
 
 # Insert test values
