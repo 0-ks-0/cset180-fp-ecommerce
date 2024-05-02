@@ -326,7 +326,7 @@ def get_username(user_id):
 	bool otherwise
 	"""
 
-	username = get_query_rows(f"select `username` from `users` where `user_id` = {user_id}")
+	username = get_query_rows(f"select `username` from `users` where `id` = {user_id}")
 
 	if len(username) < 1:
 		return False
@@ -398,6 +398,9 @@ def check_login():
 	# Check if username or email exists
 	username_check = check_user_username(username_email)
 	email_check = check_user_email(username_email)
+
+	# print(username_check)
+	# print(email_check)
 
 	if not username_check and not email_check:
 		return render_template(
