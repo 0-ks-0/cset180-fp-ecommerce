@@ -11,7 +11,7 @@ create table `users`
 	`first_name` varchar(64),
 	`last_name` varchar(64),
 	`email_address` varchar(64) unique not null,
-	`password` varchar(255) not null,
+	`password` blob not null,
 
 	primary key (`id`)
 );
