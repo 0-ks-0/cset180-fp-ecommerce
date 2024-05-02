@@ -350,15 +350,17 @@ def check_login():
 	username_check = check_user_username(username_email)
 	email_check = check_user_email(username_email)
 
-	if not username and not email:
+	if not username_check and not email_check:
 		return render_template(
 			"login.html",
 			message = "This username or email does not exist"
 		)
 
+	# Check login through username
 	if username_check:
 		pass
 
+	# Check login through email
 	if email_check:
 		pass
 
