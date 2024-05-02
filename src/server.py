@@ -415,6 +415,8 @@ def check_login():
 			session["email_address"] = username_email
 			session["username"] = get_username(email_check)
 			session["account_type"] = get_account_type(email_check)
+		else:
+			return render_template("login.html", message = "Incorrect password")
 
 	# Check login through email
 	if email_check:
@@ -423,8 +425,11 @@ def check_login():
 			session["email_address"] = username_email
 			session["username"] = get_username(email_check)
 			session["account_type"] = get_account_type(email_check)
+		else:
+			return render_template("login.html", message = "Incorrect password")
 
-	return render_template("home.html", account_type = session.get("account_type"))
+
+	return redirect("/home")
 
 # End of routes
 
