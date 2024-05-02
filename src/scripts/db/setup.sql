@@ -242,7 +242,7 @@ create table `chat_attachments`
 (
 	`id` int unsigned auto_increment,
 	`message_id` int unsigned not null,
-	`content` longblob not null,
+	`content` varchar(255) not null,
 
 	primary key (`id`),
 	foreign key (`message_id`) references `chat_messages` (`id`) on delete cascade on update restrict
