@@ -3,6 +3,7 @@ from sqlalchemy import create_engine, text
 
 from pathlib import Path
 import secrets
+from hashlib import sha256
 
 EXECUTING_DIRECTORY = Path(__file__).parent.resolve()
 
@@ -156,6 +157,59 @@ def check_session_login(session):
 		destroy_session(session)
 		return redirect("/login")
 
+def sha_encrypt(s):
+	return sha256(s.encode("utf-8")).hexdigest()
+
+def validate_email_login(email, password):
+	"""
+	Checks if the password matches the stored password associated with email
+
+	:param email:
+	:param password:
+
+	:return:
+		True if the password matches the stored password associated with email
+
+		False otherwise
+
+	:rtype: bool
+	"""
+
+	if not check_user_email(email):
+		return False
+
+	stored_password = get_query_rows(f"select `password` from `users` where `email_address` = {email}")
+
+	if len(stored_password) < 1:
+		return False
+
+	stored_password = stored_password[0].password.decode("utf-8")
+	return sha_encrypt(password) == stored_password
+
+def validate_username_login(username, password):
+	"""
+	Checks if the password matches the stored password associated with email
+
+	:param username:
+	:param password:
+
+	:return:
+		True if the password matches the stored password associated with username
+
+		False otherwise
+
+	:rtype: bool
+	"""
+	if not check_user_username(username):
+		return False
+
+	stored_password = get_query_rows(f"select `password` from `users` where `username` = {username}")
+
+	if len(stored_password) < 1:
+		return False
+
+	stored_password = stored_password[0].password.decode("utf-8")
+	return sha_encrypt(password) == stored_password
 
 # End of functions
 
@@ -166,12 +220,41 @@ sql.commit()
 # End of inserting test values
 
 # Routes
+# Home route
 @app.route("/")
 @app.route("/home/")
 def home():
 	check_session_login(session)
 
 	return render_template("home.html", account_type = session.get("account_type"))
+
+# Login route
+@app.route("/login/")
+def create_login():
+	destroy_session(session)
+
+	render_template("login.html")
+
+@app.route("/login/", methods=[ "POST" ])
+def check_login():
+	username_email = request.form.get("username_email")
+	password = request.form.get("password")
+
+	# Check if username or email exists
+	username_check = check_user_username(username_email)
+	email_check = check_user_email(username_email)
+
+	if not username and not email:
+		return render_template(
+			"login.html",
+			message = "This username or email does not exist"
+		)
+
+	if username_check:
+		pass
+
+	if email_check:
+		pass
 
 # End of routes
 
