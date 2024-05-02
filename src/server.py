@@ -389,7 +389,7 @@ def home():
 def create_login():
 	destroy_session(session)
 
-	return render_template("login.html")
+	return render_template("login.html", no_navbar = True)
 
 @app.route("/login/", methods=[ "POST" ])
 def check_login():
@@ -403,7 +403,8 @@ def check_login():
 	if not username_check and not email_check:
 		return render_template(
 			"login.html",
-			message = "This username or email does not exist"
+			message = "This username or email does not exist",
+			no_navbar = True
 		)
 
 	# Check login through username
@@ -414,7 +415,11 @@ def check_login():
 			session["username"] = get_username(username_check)
 			session["account_type"] = get_account_type(username_check)
 		else:
-			return render_template("login.html", message = "Incorrect password")
+			return render_template(
+				"login.html",
+				message = "Incorrect password",
+				no_navbar = True
+			)
 
 	# Check login through email
 	elif email_check:
@@ -424,7 +429,11 @@ def check_login():
 			session["username"] = get_username(email_check)
 			session["account_type"] = get_account_type(email_check)
 		else:
-			return render_template("login.html", message = "Incorrect password")
+			return render_template(
+				"login.html",
+				message = "Incorrect password",
+				no_navbar = True
+			)
 
 	return render_template("home.html", account_type = session.get("account_type"))
 
