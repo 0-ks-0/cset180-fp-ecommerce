@@ -426,7 +426,8 @@ def check_login():
 		else:
 			return render_template("login.html", message = "Incorrect password")
 
-	return redirect("/home")
+	return render_template("home.html", account_type = session.get("account_type"))
+
 # End of routes
 
 if __name__ == "__main__":
