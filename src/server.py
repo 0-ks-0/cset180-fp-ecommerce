@@ -310,6 +310,31 @@ def get_admin_id(user_id):
 
 # End of get account id
 
+# Get username
+def get_username(user_id):
+	"""
+	:param int user_id:
+
+	:return:
+	The username associate with the user_id if the account exists
+
+	False otherwise
+
+	:rtype:
+	str if the account exists
+
+	bool otherwise
+	"""
+
+	username = get_query_rows(f"select `username` from `users` where `user_id` = {user_id}")
+
+	if len(username) < 1:
+		return False
+
+	return username[0].username
+
+# End of get username
+
 # Get account type
 def get_account_type(user_id):
 	"""
