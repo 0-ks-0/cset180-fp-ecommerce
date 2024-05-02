@@ -50,6 +50,98 @@ def get_query_rows(query, parameters = None):
 
 	return list_rows
 
+def check_user_email(email_address):
+	"""
+	:param str email_address: The email associated with a user
+
+	:return:
+		The user id if the user account exists
+
+		False otherwise
+
+	:rtype:
+		int if the email exists
+
+		bool otherwise
+
+	"""
+
+	user = get_query_rows(f"select * from `users` where `email_address` = '{email_address}'")
+
+	if len(user) < 1:
+		return False
+
+	return user[0].id
+
+def check_user_username(username):
+	"""
+	:param str username: The username associated with a user
+
+	:return:
+		The user id if the user account exists
+
+		False otherwise
+
+	:rtype:
+		int if the email exists
+
+		bool otherwise
+
+	"""
+
+	user = get_query_rows(f"select * from `users` where `username` = '{username}'")
+
+	if len(user) < 1:
+		return False
+
+	return user[0].id
+
+def validate_session(session):
+	"""
+	:param session:
+
+	:return:
+		True if username and email are correct for user
+
+		False otherwise
+
+	:rtype: bool
+	"""
+
+	if not session:
+		return False
+
+	user_id = session.get("user_id")
+	username = session.get("username")
+	email_address = session.get("email_address")
+
+	if not user_id or not username or not email_address:
+		return False
+
+	return user_id == check_user_username(username) == check_user_email(email_address)
+
+def destroy_session(session):
+	"""
+	:param session:
+
+	:return:
+		False if session does not exist
+
+		Nothing otherwise
+	"""
+
+	if not session:
+		return False
+
+	if session.get("user_id"):
+		del session["user_id"]
+
+	if session.get("username"):
+		del session["username"]
+
+	if session.get("email_address"):
+		del session["email_address"]
+
 # Insert test values
 run_query("insert into `users` values(null, 'a', 'a', 'a', 'a', 'a')")
 sql.commit()
