@@ -34,10 +34,27 @@ def run_file(path, parameters = None):
 run_file("./scripts/db/setup.sql")
 
 
+# Functions
+def get_query_rows(query, parameters = None):
+	results = run_query(query, parameters)
+
+	if not results:
+		return []
+
+	results = results.all()
+
+	list_rows = []
+
+	for row in results:
+		list_rows.append(row._mapping)
+
+	return list_rows
+
 # Insert test values
 run_query("insert into `users` values(null, 'a', 'a', 'a', 'a', 'a')")
 sql.commit()
 
+# End of inserting test values
 
 # Routes
 @app.route("/")
