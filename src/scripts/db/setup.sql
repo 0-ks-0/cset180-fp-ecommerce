@@ -121,10 +121,12 @@ create table `carts`
 
 create table `cart_items`
 (
+	`id` int unsigned,
 	`cart_id` int unsigned,
 	`product_id` int unsigned,
 	`quantity` tinyint unsigned not null,
 
+	primary key (`id`),
 	foreign key (`cart_id`) references `carts` (`id`) on delete cascade on update restrict,
 	foreign key (`product_id`) references `products` (`id`) on delete cascade on update restrict
 );
@@ -156,7 +158,7 @@ create table `complaints`
 (
 	`id` int unsigned auto_increment,
 	`user_id` int unsigned not null,
-	`date` date not null,
+	`date` datetime not null,
 	`title` varchar(255) not null,
 	`description` text not null,
 	`demand` varchar(16) not null,
@@ -240,7 +242,6 @@ create table `chat_attachments`
 (
 	`id` int unsigned auto_increment,
 	`message_id` int unsigned not null,
-	`type` varchar(16) not null,
 	`content` longblob not null,
 
 	primary key (`id`),
