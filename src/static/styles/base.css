@@ -33,6 +33,11 @@ header
 /*
 *	Navbar
 */
+.navbar
+{
+	display: flex;
+	justify-content: space-between;
+}
 .navbar_links
 {
 	display: flex;
