@@ -51,6 +51,28 @@ def get_query_rows(query, parameters = None):
 
 	return list_rows
 
+# Check if account exists
+def user_exists(user_id):
+	"""
+	:param int user_id:
+
+	:return:
+		True if the account associated with the user_id
+
+		False otherwise
+
+	:rtype: bool
+	"""
+
+	account = get_query_rows(f"select * from `users` where `user_id` = {user_id}")
+
+	if len(account) < 1:
+		return False
+
+	return True
+
+# End of check if account exists
+
 # Login check for email address
 def check_user_email(email_address):
 	"""
