@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}
+Login
+{% endblock %}
+
+{% block body %}
+<div class="page_body">
+	<form action="/login/" method="POST">
+		<input type="text" name="username_email" placeholder="Username or Email Address">
+		<input type="password" name="password" placeholder="password">
+
+		<input type="submit" value="Login">
+
+		<p>Don't have an account? <a href="/signup">Sign up</a></p>
+	</form>
+
+	{% if message %}
+		<p>{{ message }}</p>
+	{% endif %}
+</div>
+{% endblock %}
