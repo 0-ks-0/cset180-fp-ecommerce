@@ -168,19 +168,19 @@ def validate_session(session):
 
 	return user_id == check_user_username(username) == check_user_email(email_address)
 
+# def check_session_login(session):
+# 	"""
+# 	Destroys session and redirects to the login page if validate_session fails
 
-def check_session_login(session):
-	"""
-	Destroys session and redirects to the login page if validate_session fails
+# 	:param session:
 
-	:param session:
+# 	:return:
+# 		Redirects to the login page
+# 	"""
 
-	:return:
-		Redirects to the login page
-	"""
-	if not validate_session(session):
-		destroy_session(session)
-		return redirect("/login")
+# 	if not validate_session(session):
+# 		destroy_session(session)
+# 		return redirect("/login")
 
 # End of sessions
 
@@ -377,7 +377,9 @@ sql.commit()
 @app.route("/")
 @app.route("/home/")
 def home():
-	check_session_login(session)
+	if not validate_session(session):
+		destroy_session(session)
+		return redirect("/login")
 
 	return render_template("home.html", account_type = session.get("account_type"))
 
