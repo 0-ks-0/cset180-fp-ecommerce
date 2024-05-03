@@ -143,7 +143,7 @@ def create_user_account(account_type, username, first_name, last_name, email_add
 		   '{first_name}',
 		   '{last_name}',
 		   '{email_address}',
-		   '{sha_encrypt(password)}'
+		   '{sha_hash(password)}'
 		);
 	""")
 
@@ -260,7 +260,7 @@ def validate_session(session):
 # End of sessions
 
 # Login Validation
-def sha_encrypt(s):
+def sha_hash(s):
 	return sha256(s.encode("utf-8")).hexdigest()
 
 def validate_email_login(email, password):
@@ -287,7 +287,7 @@ def validate_email_login(email, password):
 		return False
 
 	stored_password = stored_password[0].password.decode("utf-8")
-	return sha_encrypt(password) == stored_password
+	return sha_hash(password) == stored_password
 
 def validate_username_login(username, password):
 	"""
@@ -312,7 +312,7 @@ def validate_username_login(username, password):
 		return False
 
 	stored_password = stored_password[0].password.decode("utf-8")
-	return sha_encrypt(password) == stored_password
+	return sha_hash(password) == stored_password
 
 # End of login validation
 
@@ -582,7 +582,7 @@ def check_signup():
 				'{first_name}',
 				'{last_name}',
 				'{email_address}',
-				'{sha_encrypt(password)}'
+				'{sha_hash(password)}'
 			);
 		""")
 
