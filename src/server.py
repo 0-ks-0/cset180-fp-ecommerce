@@ -444,7 +444,7 @@ def get_account_type(user_id):
 # Insert test values
 # Accounts
 # Customer accounts
-create_user_account("customer", "customer", "Customer", "Account", "c@c.c", "2e7d2c03a9507ae265ecf5b5356885a53393a2029d241394997265a1a25aefc6")
+create_user_account("customer", "customer", "Customer", "Account", "c@c.c", "c")
 create_user_account("customer", "lawrencetheflorence", "Jessica", "Lawrence", 'jessicalawrence@gmail.com', 'j')
 
 # Vendor accounts
