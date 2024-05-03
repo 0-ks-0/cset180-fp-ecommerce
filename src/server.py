@@ -393,6 +393,10 @@ def get_account_type(user_id):
 create_user_account("customer", "customer", "Customer", "Account", "c@c.c", "2e7d2c03a9507ae265ecf5b5356885a53393a2029d241394997265a1a25aefc6")
 create_user_account("customer", "lawrencetheflorence", "Jessica", "Lawrence", 'jessicalawrence@gmail.com', 'j')
 
+# Vendor accounts
+create_user_account("vendor", 'food_schmood', 'Food', 'Schmood', 'contact@foodschmood.com', 'f')
+create_user_account("vendor", 'the_clean_mile', 'Clean', 'Mile', 'contact@thecleanmile.com', 'c')
+
 sql.commit()
 
 # End of inserting test values
