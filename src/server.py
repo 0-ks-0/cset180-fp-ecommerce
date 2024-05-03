@@ -124,6 +124,7 @@ def check_user_username(username):
 # Sessions
 def destroy_session(session):
 	"""
+	Destroys the session if it exists
 	:param session:
 
 	:return:
