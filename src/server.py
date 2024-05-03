@@ -368,6 +368,7 @@ def get_account_type(user_id):
 # End of functions
 
 # Insert test values
+# Customer account
 run_query("""
 	insert into `users`
 	values
@@ -381,6 +382,7 @@ run_query("""
 	);"""
 )
 run_query("insert into `customers` values(null, 1);")
+
 sql.commit()
 
 # End of inserting test values
@@ -470,6 +472,7 @@ def check_signup():
 			no_navbar = True,
 			message = "Passwords do not match"
 		)
+
 	# Check if account with that email address exists
 	if check_user_email(email_address):
 		return render_template(
@@ -477,6 +480,7 @@ def check_signup():
 			no_navbar = True,
 			message = "An account with that email addresss already exists"
 		)
+
 	# Check if account with that username exists
 	if check_user_username(username):
 		return render_template(
@@ -519,7 +523,8 @@ def check_signup():
 		return render_template(
 			"signup.html",
 			no_navbar = True,
-			message = "Sorry, your account could not be created")
+			message = "Sorry, your account could not be created"
+		)
 
 # End of routes
 
