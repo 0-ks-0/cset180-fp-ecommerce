@@ -121,7 +121,7 @@ def check_user_username(username):
 
 	return user[0].id
 
-# Creating test accounts
+# Create test accounts
 def create_user_account(account_type, username, first_name, last_name, email_address, password):
 	if account_type not in ("customer", "vendor", "admin"):
 		return
@@ -390,19 +390,7 @@ def get_account_type(user_id):
 
 # Insert test values
 # Customer account
-run_query("""
-	insert into `users`
-	values
-	(
-		null,
-		'customer',
-		'Customer',
-		'Account',
-		'c@c.c',
-		'2e7d2c03a9507ae265ecf5b5356885a53393a2029d241394997265a1a25aefc6'
-	);"""
-)
-run_query("insert into `customers` values( null, (select last_insert_id()) );")
+create_user_account("customer", "customer", "Customer", "Account", "c@c.c", "2e7d2c03a9507ae265ecf5b5356885a53393a2029d241394997265a1a25aefc6")
 
 sql.commit()
 
