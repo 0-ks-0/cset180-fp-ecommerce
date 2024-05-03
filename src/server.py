@@ -156,6 +156,29 @@ def create_user_account(account_type, username, first_name, last_name, email_add
 		);
 	""")
 
+# Create products
+def create_product(name, description, vendor_id, quantity, price):
+	#TODO Validate vendor_id
+
+	if quantity < 0:
+		raise Exception("Quantity must be greater than 0")
+
+	if price < 0:
+		raise Exception("Price must be greater than 0.00")
+
+	run_query(f"""
+		insert into `products`
+		values
+		(
+			null,
+			'{name}',
+			'{description}',
+			{vendor_id},
+			{quantity},
+			{price}
+		);
+	""")
+
 # Sessions
 def destroy_session(session):
 	"""
