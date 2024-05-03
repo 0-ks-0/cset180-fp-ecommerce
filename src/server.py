@@ -121,6 +121,37 @@ def check_user_username(username):
 
 	return user[0].id
 
+# Creating test accounts
+def create_user_account(username, first_name, last_name, email_address, password):
+	"""
+	:return:
+		True if the account could be created
+		False otherwise
+	"""
+
+	if check_user_username(username):
+		print("Duplicate username")
+		return False
+
+	if check_user_email(email_address):
+		print("Duplicate email address")
+		return False
+
+	run_query(f"""
+		insert into `users`
+		values
+		(
+		   null,
+		   '{username}',
+		   '{first_name}',
+		   '{last_name}',
+		   '{email_address}',
+		   '{sha_encrypt(password)}'
+		);
+	""")
+
+	return True
+
 # Sessions
 def destroy_session(session):
 	"""
