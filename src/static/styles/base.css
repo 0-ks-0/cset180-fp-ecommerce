@@ -30,6 +30,11 @@ header
 	padding: 1rem 2rem;
 }
 
+.flex_row
+{
+	display: flex;
+}
+
 /*
 *	Navbar
 */
