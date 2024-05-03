@@ -485,7 +485,6 @@ def check_signup():
 			message = "An account with that username already exists"
 		)
 
-
 	first_name = request.form.get("first_name")
 	last_name = request.form.get("last_name")
 
