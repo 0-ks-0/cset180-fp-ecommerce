@@ -212,20 +212,6 @@ def validate_session(session):
 
 	return user_id == check_user_username(username) == check_user_email(email_address)
 
-# def check_session_login(session):
-# 	"""
-# 	Destroys session and redirects to the login page if validate_session fails
-
-# 	:param session:
-
-# 	:return:
-# 		Redirects to the login page
-# 	"""
-
-# 	if not validate_session(session):
-# 		destroy_session(session)
-# 		return redirect("/login")
-
 # End of sessions
 
 # Login Validation
