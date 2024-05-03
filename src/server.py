@@ -397,6 +397,9 @@ create_user_account("customer", "lawrencetheflorence", "Jessica", "Lawrence", 'j
 create_user_account("vendor", 'food_schmood', 'Food', 'Schmood', 'contact@foodschmood.com', 'f')
 create_user_account("vendor", 'the_clean_mile', 'Clean', 'Mile', 'contact@thecleanmile.com', 'c')
 
+# Admin accounts
+create_user_account("admin", 'rcampbell', 'Rebecca', 'Campbell', 'rebecca_campbell@gmail.com', 'r')
+
 sql.commit()
 
 # End of inserting test values
