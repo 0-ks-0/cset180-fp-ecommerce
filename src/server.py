@@ -437,6 +437,13 @@ def check_login():
 
 	return render_template("home.html", account_type = session.get("account_type"))
 
+# Sign up route
+@app.route("/signup/")
+def create_signup():
+	destroy_session(session)
+
+	return render_template("signup.html", no_navbar = True)
+
 # End of routes
 
 if __name__ == "__main__":
