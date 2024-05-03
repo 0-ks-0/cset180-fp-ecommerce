@@ -77,8 +77,8 @@ create table `active_warranty`
 (
 	`warranty_id` int unsigned not null,
 	`user_id` int unsigned not null,
-	`activation_date` date not null,
-	`expiration_date` date,
+	`activation_date` datetime not null,
+	`expiration_date` datetime,
 
 	foreign key (`warranty_id`) references `product_warranty` (`id`) on delete cascade on update restrict,
 	foreign key (`user_id`) references `users` (`id`) on delete cascade on update restrict
@@ -97,8 +97,8 @@ create table `product_discounts`
 	`id` int unsigned auto_increment,
 	`product_id` int unsigned,
 	`discount` decimal(3, 2) not null,
-	`start_date` date not null,
-	`end_date` date,
+	`start_date` datetime not null,
+	`end_date` datetime,
 
 	primary key (`id`),
 	foreign key (`product_id`) references `products` (`id`) on delete cascade on update restrict,
