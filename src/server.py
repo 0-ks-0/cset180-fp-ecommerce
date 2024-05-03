@@ -444,6 +444,72 @@ def create_signup():
 
 	return render_template("signup.html", no_navbar = True)
 
+@app.route("/signup/", methods = [ "POST" ])
+def check_signup():
+	username = request.form.get("username")
+	email_address = request.form.get("email_address")
+	password = request.form.get("password")
+	password_confirm = request.form.get("password_confirm")
+
+	# Check if passwords match
+	if password != password_confirm:
+		return render_template(
+			"signup.html",
+			no_navbar = True,
+			message = "Passwords do not match"
+		)
+	# Check if account with that email address exists
+	if check_user_email(email_address):
+		return render_template(
+			"signup.html",
+			no_navbar = True,
+			message = "An account with that email addresss already exists"
+		)
+	# Check if account with that username exists
+	if check_user_username(username):
+		return render_template(
+			"signup.html",
+			no_navbar = True,
+			message = "An account with that username already exists"
+		)
+
+
+	first_name = request.form.get("first_name")
+	last_name = request.form.get("last_name")
+
+	# Insert into users table
+	try:
+		run_query(f"""
+			insert into `users`
+			values
+			(
+				null,
+				'{username}',
+				'{first_name}',
+				'{last_name}',
+				'{email_address}',
+				'{sha_encrypt(password)}'
+			);
+		""")
+
+		# Insert into customers or vendors table
+		account_type = request.form.get("account_type")
+
+		if not account_type in ("customers", "vendors"):
+			raise Exception("Invalid account type")
+
+		run_query(f"insert into `{account_type}` values ( null, {check_user_email(email_address)} );")
+
+		sql.commit()
+
+		return redirect("/login")
+
+	except:
+		return render_template(
+			"signup.html",
+			no_navbar = True,
+			message = "Sorry, your account could not be created")
+
 # End of routes
 
 if __name__ == "__main__":
