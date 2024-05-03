@@ -179,6 +179,36 @@ def create_product(name, description, vendor_id, quantity, price):
 		);
 	""")
 
+def create_product_discount(product_id, discount, start_date, end_date = None):
+	# TODO validate product_id
+
+	if discount < 0 or discount > 1:
+		raise Exception("Discount must be between 0.00 and 1.00")
+
+	# TODO check format of start_date
+
+	# Format end_date
+	if end_date:
+		# TODO check format of end_date if not None
+
+		end_date = f"'{end_date}'"
+	else:
+		end_date = f"null"
+
+	run_query(f"""
+		insert into `products`
+		values
+		(
+			null,
+			{product_id},
+			{discount},
+			'{start_date}',
+			{end_date}
+		);
+	""")
+
+# End of creating products
+
 # Sessions
 def destroy_session(session):
 	"""
