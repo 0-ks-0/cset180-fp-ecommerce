@@ -424,10 +424,16 @@ create_user_account("vendor", 'the_clean_mile', 'Clean', 'Mile', 'contact@thecle
 # Admin accounts
 create_user_account("admin", 'rcampbell', 'Rebecca', 'Campbell', 'rebecca_campbell@gmail.com', 'r')
 
-sql.commit()
-
 # Products
+# Food Schmood
+create_product('Silicone Baking Mat', 'A non-stick silicone mat for baking, suitable for use in ovens and microwaves.', get_vendor_id(check_user_username("food_schmood")), 100, 9.99)
+create_product('Bamboo Cutting Board','A durable bamboo cutting board for slicing and chopping ingredients.', get_vendor_id(check_user_username("food_schmood")), 90, 14.99)
 
+# The Clean Mile
+create_product('Microfiber Cleaning Cloths','Pack of reusable and absorbent microfiber cleaning cloths for versatile cleaning tasks.', get_vendor_id(check_user_username("the_clean_mile")), 300, 4.99)
+create_product('Latex Cleaning Gloves','Durable latex gloves for protecting hands during cleaning chores.', get_vendor_id(check_user_username("the_clean_mile")), 400, 2.99)
+
+sql.commit()
 # End of inserting test values
 
 # Routes
