@@ -122,12 +122,15 @@ def check_user_username(username):
 	return user[0].id
 
 # Creating test accounts
-def create_user_account(username, first_name, last_name, email_address, password):
+def create_user_account(account_type, username, first_name, last_name, email_address, password):
 	"""
 	:return:
 		True if the account could be created
 		False otherwise
 	"""
+
+	if account_type not in ("customer", "vendor", "admin"):
+		return False
 
 	if check_user_username(username):
 		print("Duplicate username")
@@ -147,6 +150,15 @@ def create_user_account(username, first_name, last_name, email_address, password
 		   '{last_name}',
 		   '{email_address}',
 		   '{sha_encrypt(password)}'
+		);
+	""")
+
+	run_query(f"""
+		insert into `{account_type}s`
+		values
+		(
+			null,
+			(select last_insert_id())
 		);
 	""")
 
