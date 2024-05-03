@@ -152,27 +152,6 @@ def create_user_account(username, first_name, last_name, email_address, password
 
 	return True
 
-def create_customer_account(username, first_name, last_name, email_address, password):
-	"""
-	:return:
-		False if the account could not be created
-
-		Nothing otherwise
-	"""
-	temp = create_user_account(username, first_name, last_name, email_address, password)
-
-	if not temp:
-		return False
-
-	run_query(f"""
-		insert into `customers`
-		values
-		(
-			null,
-			(select last_insert_id())
-		);
-	""")
-
 # Sessions
 def destroy_session(session):
 	"""
