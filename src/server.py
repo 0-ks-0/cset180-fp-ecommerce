@@ -123,22 +123,16 @@ def check_user_username(username):
 
 # Creating test accounts
 def create_user_account(account_type, username, first_name, last_name, email_address, password):
-	"""
-	:return:
-		True if the account could be created
-		False otherwise
-	"""
-
 	if account_type not in ("customer", "vendor", "admin"):
-		return False
+		return
 
 	if check_user_username(username):
 		print("Duplicate username")
-		return False
+		return
 
 	if check_user_email(email_address):
 		print("Duplicate email address")
-		return False
+		return
 
 	run_query(f"""
 		insert into `users`
@@ -161,8 +155,6 @@ def create_user_account(account_type, username, first_name, last_name, email_add
 			(select last_insert_id())
 		);
 	""")
-
-	return True
 
 # Sessions
 def destroy_session(session):
