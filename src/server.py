@@ -196,7 +196,7 @@ def create_product_discount(product_id, discount, start_date, end_date = None):
 		end_date = f"null"
 
 	run_query(f"""
-		insert into `products`
+		insert into `product_discounts`
 		values
 		(
 			null,
