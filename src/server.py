@@ -410,6 +410,31 @@ def get_username(user_id):
 
 # End of get username
 
+# Get email address
+def get_email(user_id):
+	"""
+	:param int user_id:
+
+	:return:
+	The email associate with the user_id if the account exists
+
+	False otherwise
+
+	:rtype:
+	str if the account exists
+
+	bool otherwise
+	"""
+
+	email = get_query_rows(f"select `email_address` from `users` where `id` = {user_id}")
+
+	if len(email) < 1:
+		return False
+
+	return email[0].email_address
+
+# End of get email addresss=
+
 # Get account type
 def get_account_type(user_id):
 	"""
@@ -504,9 +529,10 @@ def check_login():
 	if username_check:
 		if validate_username_login(username_email, password):
 			session["user_id"] = username_check
-			session["email_address"] = username_email
+			session["email_address"] = get_email(username_check)
 			session["username"] = get_username(username_check)
 			session["account_type"] = get_account_type(username_check)
+
 		else:
 			return render_template(
 				"login.html",
@@ -518,9 +544,10 @@ def check_login():
 	elif email_check:
 		if validate_email_login(username_email, password):
 			session["user_id"] = email_check
-			session["email_address"] = username_email
+			session["email_address"] = get_email(email_check)
 			session["username"] = get_username(email_check)
 			session["account_type"] = get_account_type(email_check)
+
 		else:
 			return render_template(
 				"login.html",
@@ -528,7 +555,8 @@ def check_login():
 				no_navbar = True
 			)
 
-	return render_template("home.html", account_type = session.get("account_type"))
+	return redirect("/home")
+
 
 # Sign up route
 @app.route("/signup/")
