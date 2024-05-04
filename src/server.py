@@ -437,6 +437,8 @@ def create_product(name, description, vendor_id, quantity, price):
 		);
 	""")
 
+# End of creating products
+
 # Check if product id exists
 def product_id_exists(product_id):
 	"""
@@ -455,6 +457,19 @@ def product_id_exists(product_id):
 
 # End of check if product id exits
 
+# Create product images
+def create_product_images(product_id, images):
+	"""
+	:param int product_id:
+	:param list images:
+	"""
+
+	for image in images:
+		run_query(f"insert into `product_images` values ( {product_id}, '{image}' );")
+
+# End of creating product images
+
+# Create product discount
 def create_product_discount(product_id, discount, start_date, end_date = None):
 	# Validate product_id
 	if not product_id_exists(product_id):
@@ -486,7 +501,7 @@ def create_product_discount(product_id, discount, start_date, end_date = None):
 		);
 	""")
 
-# End of creating products
+# End of creating product discount
 
 # Get product_id
 def get_product_id(vendor_id, name):
