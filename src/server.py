@@ -437,6 +437,24 @@ def create_product(name, description, vendor_id, quantity, price):
 		);
 	""")
 
+# Check if product id exists
+def product_id_exists(product_id):
+	"""
+	:return:
+		True if the product_id exists
+
+		False otherwise
+	"""
+
+	product_id = run_query(f"select `id` from `products` where `id`=  {product_id};")
+
+	if len(product_id) < 1:
+		return False
+
+	return True
+
+# End of check if product id exits
+
 def create_product_discount(product_id, discount, start_date, end_date = None):
 	# TODO validate product_id
 
@@ -493,24 +511,6 @@ def get_product_id(vendor_id, name):
 	return product_id[0].id
 
 # End of get product id
-
-# Check if product id exists
-def product_id_exists(product_id):
-	"""
-	:return:
-		True if the product_id exists
-
-		False otherwise
-	"""
-
-	product_id = run_query(f"select `id` from `products` where `id`=  {product_id};")
-
-	if len(product_id) < 1:
-		return False
-
-	return True
-
-# End of check if product id exits
 
 # End of products
 
