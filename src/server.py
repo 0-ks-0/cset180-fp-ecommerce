@@ -550,6 +550,10 @@ create_user_account("admin", 'rcampbell', 'Rebecca', 'Campbell', 'rebecca_campbe
 # Products
 # Food Schmood
 create_product('Silicone Baking Mat', 'A non-stick silicone mat for baking, suitable for use in ovens and microwaves.', get_vendor_id(check_user_username("food_schmood")), 100, 9.99)
+create_product_images(get_product_id(get_vendor_id(check_user_username("food_schmood")), "Silicone Baking Mat"), [
+	"https://thumbs.dreamstime.com/z/preparation-baking-ingredients-flour-sifting-cooking-concept-bake-kitchen-tools-to-make-cake-wheat-red-nonstick-66175738.jpg?ct=jpeg",
+	"https://thumbs.dreamstime.com/z/some-freshly-wrapped-wontons-were-placed-silicone-mat-wonton-delicacies-some-freshly-wrapped-wontons-were-placed-246222245.jpg?ct=jpeg"
+])
 create_product_discount(get_product_id(get_vendor_id(check_user_username("food_schmood")), "Silicone Baking Mat"), 0.20, "2024-05-04 00:00:00")
 
 create_product('Bamboo Cutting Board','A durable bamboo cutting board for slicing and chopping ingredients.', get_vendor_id(check_user_username("food_schmood")), 90, 14.99)
