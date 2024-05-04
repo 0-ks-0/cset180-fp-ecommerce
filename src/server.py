@@ -530,6 +530,32 @@ def get_product_id(vendor_id, name):
 
 # End of get product id
 
+# Get product images
+def get_product_images(product_id):
+	"""
+	:return:
+		List of product images if they exist
+
+		An empty list if there are no images or the product_id does not exist
+	"""
+
+	# Check if the product id exists
+	if not product_id_exists(product_id):
+		return []
+
+	images = get_query_rows(f"select * from `product_images` where `product_id` = {product_id};")
+
+	# Check if there are images
+	if len(images) < 1:
+		return []
+
+	images_list = []
+
+	for image in images:
+		images_list.append(image.image_data)
+
+# End of get product images
+
 # End of products
 
 # End of functions
