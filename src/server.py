@@ -156,84 +156,6 @@ def create_user_account(account_type, username, first_name, last_name, email_add
 		);
 	""")
 
-# Create products
-def create_product(name, description, vendor_id, quantity, price):
-	#TODO Validate vendor_id
-
-	if quantity < 0:
-		raise Exception("Quantity must be greater than 0")
-
-	if price < 0:
-		raise Exception("Price must be greater than 0.00")
-
-	run_query(f"""
-		insert into `products`
-		values
-		(
-			null,
-			'{name}',
-			'{description}',
-			{vendor_id},
-			{quantity},
-			{price}
-		);
-	""")
-
-def create_product_discount(product_id, discount, start_date, end_date = None):
-	# TODO validate product_id
-
-	if discount < 0 or discount > 1:
-		raise Exception("Discount must be between 0.00 and 1.00")
-
-	# TODO check format of start_date
-
-	# Format end_date
-	if end_date:
-		# TODO check format of end_date if not None
-
-		end_date = f"'{end_date}'"
-	else:
-		end_date = f"null"
-
-	run_query(f"""
-		insert into `product_discounts`
-		values
-		(
-			null,
-			{product_id},
-			{discount},
-			'{start_date}',
-			{end_date}
-		);
-	""")
-
-# End of creating products
-
-# Get product_id
-def get_product_id(vendor_id, name):
-	"""
-	:vendor_id:
-	:param str name: the product name
-
-
-	:return:
-		The product_id associated with the vendor_id and product_name
-
-		False if there is no such product
-
-	:rtype:
-		int
-
-		bool if there is no such product
-	"""
-
-	product_id = get_query_rows(f"select `id` from `products` where `vendor_id` = {vendor_id} and `name` = '{name}';")
-
-	if len(product_id) < 1:
-		return False
-
-	return product_id[0].id
-
 # Sessions
 def destroy_session(session):
 	"""
@@ -488,6 +410,91 @@ def get_account_type(user_id):
 	return False
 
 # End of get account type
+
+# End of accounts
+
+# Products
+# Create products
+def create_product(name, description, vendor_id, quantity, price):
+	#TODO Validate vendor_id
+
+	if quantity < 0:
+		raise Exception("Quantity must be greater than 0")
+
+	if price < 0:
+		raise Exception("Price must be greater than 0.00")
+
+	run_query(f"""
+		insert into `products`
+		values
+		(
+			null,
+			'{name}',
+			'{description}',
+			{vendor_id},
+			{quantity},
+			{price}
+		);
+	""")
+
+def create_product_discount(product_id, discount, start_date, end_date = None):
+	# TODO validate product_id
+
+	if discount < 0 or discount > 1:
+		raise Exception("Discount must be between 0.00 and 1.00")
+
+	# TODO check format of start_date
+
+	# Format end_date
+	if end_date:
+		# TODO check format of end_date if not None
+
+		end_date = f"'{end_date}'"
+	else:
+		end_date = f"null"
+
+	run_query(f"""
+		insert into `product_discounts`
+		values
+		(
+			null,
+			{product_id},
+			{discount},
+			'{start_date}',
+			{end_date}
+		);
+	""")
+
+# End of creating products
+
+# Get product_id
+def get_product_id(vendor_id, name):
+	"""
+	:vendor_id:
+	:param str name: the product name
+
+
+	:return:
+		The product_id associated with the vendor_id and product_name
+
+		False if there is no such product
+
+	:rtype:
+		int
+
+		bool if there is no such product
+	"""
+
+	product_id = get_query_rows(f"select `id` from `products` where `vendor_id` = {vendor_id} and `name` = '{name}';")
+
+	if len(product_id) < 1:
+		return False
+
+	return product_id[0].id
+
+# End of get product id
+
+# End of products
 
 # End of functions
 
