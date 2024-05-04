@@ -530,6 +530,24 @@ def get_product_id(vendor_id, name):
 
 # End of get product id
 
+# Get product info
+def get_product_info(product_id):
+	"""
+	:return:
+		All the data in the product table associated with the product_id
+
+		False if the product_id does not exist
+	"""
+
+	if not product_id_exists(product_id):
+		return False
+
+	info = get_query_rows(f"select * from `products` where `id` = {product_id};")
+
+	return info
+
+# End of get product info
+
 # Get product images
 def get_product_images(product_id):
 	"""
