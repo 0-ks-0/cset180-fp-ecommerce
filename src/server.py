@@ -209,6 +209,31 @@ def create_product_discount(product_id, discount, start_date, end_date = None):
 
 # End of creating products
 
+# Get product_id
+def get_product_id(vendor_id, name):
+	"""
+	:vendor_id:
+	:param str name: the product name
+
+
+	:return:
+		The product_id associated with the vendor_id and product_name
+
+		False if there is no such product
+
+	:rtype:
+		int
+
+		bool if there is no such product
+	"""
+
+	product_id = get_query_rows(f"select `id` from `products` where `vendor_id` = {vendor_id} and `name` = '{name}';")
+
+	if len(product_id) < 1:
+		return False
+
+	return product_id[0].id
+
 # Sessions
 def destroy_session(session):
 	"""
