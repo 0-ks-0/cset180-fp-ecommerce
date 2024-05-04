@@ -456,8 +456,11 @@ def product_id_exists(product_id):
 # End of check if product id exits
 
 def create_product_discount(product_id, discount, start_date, end_date = None):
-	# TODO validate product_id
+	# Validate product_id
+	if not product_id_exists(product_id):
+		return
 
+	# Check discount format
 	if discount < 0 or discount > 1:
 		raise Exception("Discount must be between 0.00 and 1.00")
 
