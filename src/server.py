@@ -448,9 +448,9 @@ def product_id_exists(product_id):
 		False otherwise
 	"""
 
-	product_id = run_query(f"select `id` from `products` where `id`=  {product_id};")
+	id = get_query_rows(f"select `id` from `products` where `id`=  {product_id};")
 
-	if len(product_id) < 1:
+	if len(id) < 1:
 		return False
 
 	return True
