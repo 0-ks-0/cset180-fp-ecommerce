@@ -576,6 +576,74 @@ def get_product_images(product_id):
 
 # End of get product images
 
+# Get product data
+def get_product_data(product_id):
+	"""
+	:param int product_id:
+
+	:return:
+		Format:
+
+		{
+			id: 1,
+			images: ["", ""],
+			name: "",
+			description: "",
+			vendor_username: "",
+			quantity: 0,
+			original_price: 0.00,
+			discount: [{}, {}]
+		}
+
+		{} if the product_id does not exist
+	"""
+
+	if not product_id_exists(product_id):
+		return {}
+
+	data  = {}
+
+	data["id"] = product_id
+	data["images"] = get_product_images(product_id)
+
+	product_info = get_product_info(product_id)[0]
+
+	data["name"] = product_info.name
+	data["description"] = product_info.description
+
+	username = get_query_rows(f"""
+		select `username` from `users` as `u`
+		where `u`.`id` =
+		(
+			select `user_id` from `vendors` as `v`
+			where `v`.`id` =
+			(
+				select `vendor_id` from `products` as `p`
+				where `p`.`id` = {product_id}
+			)
+		);""")
+
+	# TODO if vendor account deleted, there would be no username
+	# Maybe handles that
+	if len(username) < 1:
+		username = "Deleted Vendor"
+	else:
+		username = username[0].username
+
+	data["vendor_username"] = username
+	data["quantity"] = product_info.quantity
+	data["original_price"] = product_info.price
+
+	# product_discount = get_query_rows(f"select * from `product_discounts` where `product_id` = {product_id};")
+
+	# past_discounts =
+	# TODO what if there are multiple discounts for a product
+ 	# split into 3? past, current, future discounts?
+	# data["dicounts"] = product_discount
+	# data["past_discounts"] =
+
+	return data
+
 # End of products
 
 # End of functions
