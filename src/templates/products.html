@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}
+Products
+{% endblock %}
+
+{% block body %}
+<div class="page_body">
+	{% for data in product_data %}
+		<div class="product">
+			{{ data.id }}
+
+			<!-- Display the first image if there are any -->
+			{% if data.images | length > 0 %}
+				<img src="{{ data.images[0] }}" alt="">
+			{% endif %}
+
+			<div class="product_info">
+				<h3 class="name">{{ data.name }}</h3>
+				<p class="description">{{ data.description }}</p>
+				<p class="vendor_username">Seller: {{ data.vendor_username }}</p>
+				<p class="price">${{ data.original_price }}</p>
+			</div>
+
+		</div>
+	{% endfor %}
+</div>
+
+{% endblock %}
