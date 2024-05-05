@@ -572,6 +572,8 @@ def get_product_images(product_id):
 	for image in images:
 		images_list.append(image.image_data)
 
+	return images_list
+
 # End of get product images
 
 # End of products
