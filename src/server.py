@@ -828,6 +828,43 @@ def check_signup():
 			message = "Sorry, your account could not be created"
 		)
 
+# Products route
+@app.route("/products/")
+def view_products():
+	if not validate_session(session):
+		destroy_session(session)
+		return redirect("/login")
+
+	products = get_query_rows(f"select * from `products`")
+
+	if len(products) < 1:
+		return render_template(
+			"products.html",
+			account_type = session.get("account_type")
+		)
+
+	# Get all the product_ids
+	product_ids = []
+
+	for product in products:
+		product_ids.append(product.id)
+
+	print(f"product_ids: {product_ids}")
+
+	# Get all the data of each product
+	product_data = []
+
+	for id in product_ids:
+		product_data.append(get_product_data(id))
+
+	# print(f"product_data: {product_data}")
+
+	return render_template(
+		"products.html",
+		account_type = session.get("account_type"),
+		product_data = product_data
+	)
+
 # End of routes
 
 if __name__ == "__main__":
