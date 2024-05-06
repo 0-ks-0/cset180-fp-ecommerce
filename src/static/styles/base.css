@@ -44,9 +44,19 @@ header
 	justify-content: space-between;
 }
 
+#website_name
+{
+	color: white;
+
+	font-size: 1.3em;
+
+	font-weight: 800;
+}
+
 .navbar_links
 {
 	display: flex;
+	align-items: center;
 
 	gap: 1em;
 
