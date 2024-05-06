@@ -487,7 +487,7 @@ def create_product_discount(product_id, discount, start_date, end_date = None):
 
 		end_date = f"'{end_date}'"
 	else:
-		end_date = f"null"
+		end_date = f"'9999-12-31 23:59:59'"
 
 	run_query(f"""
 		insert into `product_discounts`
