@@ -576,6 +576,33 @@ def get_product_images(product_id):
 
 # End of get product images
 
+# Get product discounts
+def get_product_discounts(product_id, type):
+	"""
+	:param int product_id:
+
+	:param str type: "expired", "active", or "upcoming"
+
+	:return:
+		All the discounts of the product_id meeting the type if there are discounts
+
+		An empty list if there are no discounts or the type is not a supported type
+	"""
+
+	discounts = None
+
+	match type:
+		case "expired":
+			discounts = get_query_rows(f"select * from `product_discounts` where now() > `end_date` and `product_id` = {product_id};")
+		case "active":
+			discounts = get_query_rows(f"select * from `product_discounts` where now() between `start_date` and `end_date` and `product_id` = {product_id};")
+		case "upcoming":
+			discounts = get_query_rows(f"select * from `product_discounts` where now() < `start_date` and `product_id` = {product_id};")
+		case _:
+			return []
+
+	return discounts
+
 # Get product data
 def get_product_data(product_id):
 	"""
