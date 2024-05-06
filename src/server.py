@@ -673,7 +673,7 @@ create_product_discount(get_product_id(get_vendor_id(check_user_username("food_s
 
 # Bamboo Cutting Board
 create_product('Bamboo Cutting Board','A durable bamboo cutting board for slicing and chopping ingredients.', get_vendor_id(check_user_username("food_schmood")), 90, 14.99)
-create_product_discount(get_product_id(get_vendor_id(check_user_username("food_schmood")), "Bamboo Cutting Board"), 0.10, "2024-05-04 00:00:00", "2024-05-06 00:00:00")
+create_product_discount(get_product_id(get_vendor_id(check_user_username("food_schmood")), "Bamboo Cutting Board"), 0.10, "2024-05-04 00:00:00", "2024-05-17 00:00:00")
 
 # The Clean Mile
 # Microfiber Cleaning Cloths
@@ -682,6 +682,7 @@ create_product_discount(get_product_id(get_vendor_id(check_user_username("the_cl
 
 # Latex Cleaning Gloves
 create_product('Latex Cleaning Gloves','Durable latex gloves for protecting hands during cleaning chores.', get_vendor_id(check_user_username("the_clean_mile")), 400, 2.99)
+create_product_discount(get_product_id(get_vendor_id(check_user_username("the_clean_mile")), "Latex Cleaning Gloves"), 0.15, "2024-06-01 00:00:00")
 
 sql.commit()
 # End of inserting test values
@@ -849,7 +850,7 @@ def view_products():
 	for product in products:
 		product_ids.append(product.id)
 
-	print(f"product_ids: {product_ids}")
+	# print(f"product_ids: {product_ids}")
 
 	# Get all the data of each product
 	product_data = []
