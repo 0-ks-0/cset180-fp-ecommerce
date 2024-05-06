@@ -1,0 +1,42 @@
+:root
+{
+	--background_gray: lightgray;
+	--border_radius: 15px;
+}
+.page_body
+{
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+
+	gap: 1em;
+
+	padding: 1em 5em;
+}
+
+.product
+{
+	width: 100%;
+	height: 25em;
+
+	background-color: var(--background_gray);
+
+	padding: 1em;
+
+	border-radius: var(--border_radius);
+}
+
+.image_container
+{
+	width: 100%;
+	height: 15em;
+}
+
+img
+{
+	width: 100%;
+	height: 100%;
+
+	object-fit: cover;
+
+	border-radius: var(--border_radius);
+}
