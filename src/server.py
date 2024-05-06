@@ -622,7 +622,7 @@ def get_product_discounts(product_id, type):
 	return discounts
 
 # Get product warranty
-def get_product_warranty(product_id):
+def get_product_warranties(product_id):
 	warranty = get_query_rows(f"select * from `product_warranty` where `product_id` = {product_id};")
 
 	return warranty
@@ -694,7 +694,6 @@ def get_product_data(product_id):
 	data["expired_discounts"] = get_product_discounts(product_id, "expired")
 	data["active_discounts"] = get_product_discounts(product_id, "active")
 	data["upcoming_discounts"] = get_product_discounts(product_id, "upcoming")
-
 
 	return data
 
