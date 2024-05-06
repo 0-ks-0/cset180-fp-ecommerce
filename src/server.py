@@ -695,6 +695,8 @@ def get_product_data(product_id):
 	data["active_discounts"] = get_product_discounts(product_id, "active")
 	data["upcoming_discounts"] = get_product_discounts(product_id, "upcoming")
 
+	data["warranties"] = get_product_warranties(product_id)
+
 	return data
 
 # End of products
