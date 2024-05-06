@@ -9,6 +9,13 @@ Products
 {% endblock %}
 
 {% block body %}
+<script>
+	function addToCart(id)
+	{
+
+	}
+</script>
+
 <div class="page_body">
 	{% for data in product_data %}
 		<div class="product">
@@ -23,6 +30,7 @@ Products
 				<h3 class="name">{{ data.name }}</h3>
 				<p class="vendor_username">Seller: {{ data.vendor_username }}</p>
 				<p class="price">${{ data.original_price }}</p>
+				<button onclick="addToCart({{ data.id }})">Add to Cart</button>
 			</div>
 
 		</div>
