@@ -729,6 +729,7 @@ create_product_discount(get_product_id(get_vendor_id(check_user_username("food_s
 # Bamboo Cutting Board
 create_product('Bamboo Cutting Board','A durable bamboo cutting board for slicing and chopping ingredients.', get_vendor_id(check_user_username("food_schmood")), 90, 14.99)
 create_product_discount(get_product_id(get_vendor_id(check_user_username("food_schmood")), "Bamboo Cutting Board"), 0.10, "2024-05-04 00:00:00", "2024-05-17 00:00:00")
+create_product_warranty(2, 30, "Returnable within 30 days")
 
 # The Clean Mile
 # Microfiber Cleaning Cloths
