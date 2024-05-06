@@ -30,9 +30,9 @@ Products
 				<h3 class="name">{{ data.name }}</h3>
 				<p class="vendor_username">Seller: {{ data.vendor_username }}</p>
 				<p class="price">${{ data.original_price }}</p>
-				<button onclick="addToCart({{ data.id }})">Add to Cart</button>
 			</div>
 
+			<button onclick="addToCart({{ data.id }})">Add to Cart</button>
 		</div>
 	{% endfor %}
 </div>
