@@ -2,6 +2,8 @@
 {
 	--background_gray: lightgray;
 	--border_radius: 15px;
+
+	--no_image_color: aliceblue;
 }
 .page_body
 {
@@ -29,6 +31,10 @@
 {
 	width: 100%;
 	height: 15em;
+
+	background-color: var(--no_image_color);
+
+	border-radius: var(--border_radius);
 }
 
 img
