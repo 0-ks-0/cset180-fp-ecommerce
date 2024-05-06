@@ -28,9 +28,13 @@
 .product
 {
 	width: 100%;
-	height: 24em;
+	height: 25em;
 
 	background-color: var(--background_gray);
+
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
 
 	padding: 1em;
 
@@ -60,7 +64,7 @@ img
 .product_info
 {
 	width: 100%;
-	height: 15em;
+	height: 5em;
 }
 
 .name,
@@ -68,7 +72,7 @@ img
 .price
 {
 	width: 100%;
-	height: 1.4em;
+	height: calc(5em / 3);
 
 	white-space: wrap;
 
