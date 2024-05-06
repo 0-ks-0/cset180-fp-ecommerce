@@ -503,6 +503,24 @@ def create_product_discount(product_id, discount, start_date, end_date = None):
 
 # End of creating product discount
 
+# Create product warranty
+def create_product_warranty(product_id, days, coverage):
+	if not product_id_exists(product_id):
+		return
+
+	run_query(f"""
+		insert into `product_warranty`
+		values
+		(
+		   null,
+		   {product_id},
+		   {days},
+		   '{coverage}'
+		);
+	""")
+
+# End of create product warranty
+
 # Get product_id
 def get_product_id(vendor_id, name):
 	"""
