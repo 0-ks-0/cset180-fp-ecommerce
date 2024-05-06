@@ -645,7 +645,10 @@ def get_product_data(product_id):
 			vendor_username: "",
 			quantity: 0,
 			original_price: 0.00,
-			discount: [{}, {}]
+			expired_discounts: [{}, {}],
+ 			active_discounts: [{}, {}],
+ 			upcoming_discounts: [{}, {}],
+ 			warranties: [{}, {}]
 		}
 
 		{} if the product_id does not exist
@@ -687,13 +690,11 @@ def get_product_data(product_id):
 	data["quantity"] = product_info.quantity
 	data["original_price"] = product_info.price
 
-	# product_discount = get_query_rows(f"select * from `product_discounts` where `product_id` = {product_id};")
+	# Discounts
+	data["expired_discounts"] = get_product_discounts(product_id, "expired")
+	data["active_discounts"] = get_product_discounts(product_id, "active")
+	data["upcoming_discounts"] = get_product_discounts(product_id, "upcoming")
 
-	# past_discounts =
-	# TODO what if there are multiple discounts for a product
- 	# split into 3? past, current, future discounts?
-	# data["dicounts"] = product_discount
-	# data["past_discounts"] =
 
 	return data
 
