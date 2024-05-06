@@ -12,8 +12,6 @@ Products
 <div class="page_body">
 	{% for data in product_data %}
 		<div class="product">
-			{{ data.id }}
-
 			<div class="image_container">
 				<!-- Display the first image if there are any -->
 				{% if data.images | length > 0 %}
@@ -21,10 +19,8 @@ Products
 				{% endif %}
 			</div>
 
-
 			<div class="product_info">
 				<h3 class="name">{{ data.name }}</h3>
-				<p class="description">{{ data.description }}</p>
 				<p class="vendor_username">Seller: {{ data.vendor_username }}</p>
 				<p class="price">${{ data.original_price }}</p>
 			</div>
