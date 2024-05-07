@@ -3,6 +3,9 @@
 	--border_radius: 15px;
 
 	--no_image_color: rgb(189, 218, 243);
+
+	--discounted_price_color: rgb(154, 11, 11);
+	--discounted_price_weight: 700;
 }
 
 .page_body
@@ -37,4 +40,11 @@ img
 	object-fit: cover;
 
 	border-radius: var(--border_radius);
+}
+
+.discounted_price
+{
+	color: var(--discounted_price_color);
+
+	font-weight: var(--discounted_price_weight);
 }
