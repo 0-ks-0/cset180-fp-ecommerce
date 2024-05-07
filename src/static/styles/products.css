@@ -76,7 +76,7 @@ img
 
 .name,
 .vendor_username,
-.price
+.price_container
 {
 	width: 100%;
 	height: calc(5em / 3);
@@ -84,6 +84,14 @@ img
 	white-space: wrap;
 
 	overflow: hidden;
+}
+
+.price_container
+{
+	display: flex;
+	justify-content: flex-start;
+
+	gap: 1em;
 }
 
 button
