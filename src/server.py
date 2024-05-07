@@ -935,7 +935,7 @@ def view_products():
 	)
 
 @app.route("/products", methods = [ "POST" ])
-def add_to_cart():
+def products_add_to_cart():
 	product_id = request.get_json().get("product_id")
 
 	product_name = get_product_info(product_id)[0].name
