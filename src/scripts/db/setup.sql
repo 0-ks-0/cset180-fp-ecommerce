@@ -137,15 +137,10 @@ create table `orders`
 	`cart_id` int unsigned not null,
 	`date` datetime not null,
 	`price` decimal(16, 2) not null,
-	`status` varchar(16) not null,
+	`status` enum ( 'pending', 'confirmed', 'canceled', 'shipped' ) not null,
 
 	primary key (`id`),
 	foreign key (`cart_id`) references `carts` (`id`),
-
-	constraint check
-	(
-		`status` in ( 'pending', 'confirmed', 'canceled', 'shipped', 'delivered' )
-	),
 
 	constraint check
 	(
@@ -161,21 +156,11 @@ create table `complaints`
 	`date` datetime not null,
 	`title` varchar(255) not null,
 	`description` text not null,
-	`demand` varchar(16) not null,
-	`status` varchar(16) not null,
+	`demand` enum ( 'return', 'refund', 'warranty' )  not null,
+	`status` enum ( 'pending', 'reviewed', 'accepted', 'declined' ) not null,
 
 	primary key (`id`),
-	foreign key (`user_id`) references `users` (`id`) on update restrict,
-
-	constraint check
-	(
-		`status` in ( 'pending', 'reviewed', 'accepted', 'declined' )
-	),
-
-	constraint check
-	(
-		`demand` in ( 'return', 'refund', 'warranty' )
-	)
+	foreign key (`user_id`) references `users` (`id`) on update restrict
 );
 
 create table `complaint_images`
