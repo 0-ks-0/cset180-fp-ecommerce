@@ -721,6 +721,22 @@ def create_cart(user_id):
 
 	run_query(f"insert into `carts` values (null, {user_id});")
 
+# Check cart id in carts
+def card_id_exists(cart_id):
+	"""
+	:return:
+		True if the cart_id exists in carts table
+
+		False otherwise
+	"""
+
+	id = get_query_rows(f"select `id` from `carts` where `id` = {cart_id};")
+
+	if len(id) < 1:
+		return False
+
+	return True
+
 # End of functions
 
 # Insert test values
