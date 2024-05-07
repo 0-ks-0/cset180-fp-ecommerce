@@ -4,6 +4,8 @@
 	--border_radius: 15px;
 
 	--no_image_color: aliceblue;
+
+	--discounted_price_color: rgb(154, 11, 11);
 }
 .page_body
 {
@@ -92,6 +94,13 @@ img
 	justify-content: flex-start;
 
 	gap: 1em;
+}
+
+.discounted_price
+{
+	color: var(--discounted_price_color);
+
+	font-weight: 700;
 }
 
 button
