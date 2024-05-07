@@ -9,11 +9,10 @@ Products
 {% endblock %}
 
 {% block body %}
+<script src="{{ url_for('static', filename = 'js/navigator.js')}}"></script>
+
 <script>
-	function set_top(path)
-	{
-		top.location = `${path}`
-	}
+
 
 	function addToCart(id)
 	{
