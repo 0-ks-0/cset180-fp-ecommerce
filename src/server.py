@@ -57,7 +57,7 @@ def user_exists(user_id):
 	:param int user_id:
 
 	:return:
-		True if the account associated with the user_id
+		True if the account associated with the user_id exists
 
 		False otherwise
 
