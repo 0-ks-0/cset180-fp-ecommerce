@@ -8,18 +8,16 @@
 	--discounted_price_weight: 700;
 }
 
-header
+body
 {
-	padding: 0;
-	margin: 0;
+	font-size: 1.8em;
 }
 
-.navbar
+header
 {
-	margin-bottom: 0 !important;
+	/* padding: 1.6rem 3.2rem; */
+	padding: 1rem 2rem;
 
-	/* Not working */
-	justify-content: space-between !important;
 }
 
 .navbar_links
