@@ -15,7 +15,7 @@ Products
 <div class="page_body">
 	{% for data in product_data %}
 		<div class="product">
-			<div class="product_data" onclick="set_top('/products/{{ data.id }}')">
+			<div class="product_data" onclick="setTop('/products/{{ data.id }}')">
 				<div class="image_container">
 					<!-- Display the first image if there is any -->
 					{% if data.images | length > 0 %}

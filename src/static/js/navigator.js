@@ -1,4 +1,4 @@
-function set_top(path)
+function setTop(path)
 {
 	top.location = `${path}`
 }
