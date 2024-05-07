@@ -934,6 +934,19 @@ def view_products():
 		product_data = product_data
 	)
 
+# Products info route
+@app.route("/products/<id>")
+def display_product_info(id):
+	if not validate_session(session):
+		destroy_session(session)
+		return redirect("/login")
+
+	return render_template(
+		"product_info.html",
+		account_type = session.get("account_type"),
+		data = get_product_data(id)
+	)
+
 # End of routes
 
 if __name__ == "__main__":
