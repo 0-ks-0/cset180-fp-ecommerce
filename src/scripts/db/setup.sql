@@ -121,7 +121,7 @@ create table `carts`
 
 create table `cart_items`
 (
-	`id` int unsigned,
+	`id` int unsigned auto_increment,
 	`cart_id` int unsigned,
 	`product_id` int unsigned,
 	`quantity` tinyint unsigned not null,
