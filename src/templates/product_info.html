@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}
+Product Info maybe change to product name
+{% endblock %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+<script src="{{ url_for('static', filename = 'js/cart.js')}}"></script>
+
+<div class="page_body">
+	<div id="images_container">
+		{% for image in data.images %}
+			<img src="{{ image }}" alt="">
+		{% endfor %}
+	</div>
+
+	<h1 class="name">{{ data.name }}</h1>
+	<p class="vendor_username">Seller: {{ data.vendor_username }}</p>
+	<p class="description">{{ data.description }}</p>
+	<p class="quantity">{{ data.quanitity }} left</p>
+
+	<div class="price_container">
+		<p class="price">${{ data.original_price }}</p>
+
+		<!-- Display discount and discounted price if there is one active -->
+		{% if data.current_discount != None %}
+			<p class="price discount">{{ data.current_discount }}% off</p>
+			<p class="price discounted_price">${{ data.discounted_price }}</p>
+		{% endif %}
+	</div>
+
+	<!-- Display warranties if there is any -->
+	{% if data.warranties | length > 0 %}
+		<div class="warranty_container">
+			<h2>Warranty</h1>
+			{% for warranty in data.warranties %}
+				<p class="warranty_days">Covers for {{ warranty.coverage_days }} days</p>
+				<p class="warranty_coverage">{{ warranty.coverage_information }}</p>
+			{% endfor %}
+		</div>
+	{% endif %}
+
+	<button onclick="addToCart({{ data.id }})">Add to Cart</button>
+</div>
+{% endblock %}
