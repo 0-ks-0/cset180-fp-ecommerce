@@ -8,11 +8,23 @@
 	--discounted_price_weight: 700;
 }
 
-.page_body
+header
 {
-	width: 100%;
+	padding: 0;
+	margin: 0;
+}
 
-	padding: 1em 5em;
+.navbar
+{
+	margin-bottom: 0 !important;
+
+	/* Not working */
+	justify-content: space-between !important;
+}
+
+.navbar_links
+{
+	margin-bottom: 0;
 }
 
 #carousel
