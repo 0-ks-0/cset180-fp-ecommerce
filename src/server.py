@@ -647,6 +647,7 @@ def get_product_data(product_id):
 			original_price: 0.00,
 			expired_discounts: [{}, {}],
  			active_discounts: [{}, {}],
+			current_discount: 0.00,
  			upcoming_discounts: [{}, {}],
  			warranties: [{}, {}]
 		}
@@ -693,6 +694,7 @@ def get_product_data(product_id):
 	# Discounts
 	data["expired_discounts"] = get_product_discounts(product_id, "expired")
 	data["active_discounts"] = get_product_discounts(product_id, "active")
+	data["current_discount"] = get_query_rows(f"select max(`discount`) as `current_discount` from `product_discounts` where now() between `start_date` and `end_date` and `product_id` = {product_id};")[0].current_discount
 	data["upcoming_discounts"] = get_product_discounts(product_id, "upcoming")
 
 	data["warranties"] = get_product_warranties(product_id)
