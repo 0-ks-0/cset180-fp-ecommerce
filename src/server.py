@@ -639,22 +639,24 @@ def get_product_data(product_id):
 
 		{
 			id: 1,
-			images: ["", ""],
+			images: ["", ""] or [],
 			name: "",
 			description: "",
 			vendor_username: "",
 			quantity: 0,
 			original_price: 0.00,
-			expired_discounts: [{}, {}],
- 			active_discounts: [{}, {}],
-			current_discount: 0.00,
+			expired_discounts: [{}, {}] or [],
+ 			active_discounts: [{}, {}] or [],
+			current_discount: 0.00 or None,
+			discounted_price: 0.00 or None,
  			upcoming_discounts: [{}, {}],
- 			warranties: [{}, {}]
+ 			warranties: [{}, {}] or []
 		}
 
 		{} if the product_id does not exist
 	"""
 
+	# TODO maybe return a dictionary of the format instead
 	if not product_id_exists(product_id):
 		return {}
 
@@ -694,7 +696,15 @@ def get_product_data(product_id):
 	# Discounts
 	data["expired_discounts"] = get_product_discounts(product_id, "expired")
 	data["active_discounts"] = get_product_discounts(product_id, "active")
+
 	data["current_discount"] = get_query_rows(f"select max(`discount`) as `current_discount` from `product_discounts` where now() between `start_date` and `end_date` and `product_id` = {product_id};")[0].current_discount
+	data["discounted_price"] = None
+
+	# Format current_discount and discounted_price if there is an active discount
+	if data["current_discount"] != None:
+		data["current_discount"] = f"{int(float(data["current_discount"]) * 100)}"
+		data["discounted_price"] = f"{(float(data["original_price"]) * (100 - float(data["current_discount"])) / 100) : 0.2f}"
+
 	data["upcoming_discounts"] = get_product_discounts(product_id, "upcoming")
 
 	data["warranties"] = get_product_warranties(product_id)
