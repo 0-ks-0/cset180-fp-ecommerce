@@ -722,7 +722,7 @@ def create_cart(user_id):
 	run_query(f"insert into `carts` values (null, {user_id});")
 
 # Check cart id in carts
-def card_id_exists(cart_id):
+def cart_id_exists(cart_id):
 	"""
 	:return:
 		True if the cart_id exists in carts table
