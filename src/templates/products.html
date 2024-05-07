@@ -39,7 +39,7 @@ Products
 					<div class="price_container">
 						<p class="price">${{ data.original_price }}</p>
 
-						<!-- Display discount if there is one active -->
+						<!-- Display discount and discounted price if there is one active -->
 						{% if data.current_discount != None %}
 							<p class="price discount">{{ data.current_discount }}% off</p>
 							<p class="price discounted_price">${{ data.discounted_price }}</p>
