@@ -45,9 +45,6 @@ Product Info maybe change to product name
 
 	<h1 class="name">{{ data.name }}</h1>
 	<p class="vendor_username">Seller: {{ data.vendor_username }}</p>
-	<h3>Description</h3>
-	<p class="description">{{ data.description }}</p>
-	<p class="quantity">{{ data.quantity }} left</p>
 
 	<div class="price_container">
 		<p class="price">${{ data.original_price }}</p>
@@ -58,6 +55,11 @@ Product Info maybe change to product name
 			<p class="price discounted_price">${{ data.discounted_price }}</p>
 		{% endif %}
 	</div>
+
+	<p class="quantity">{{ data.quantity }} left</p>
+
+	<h3>Description</h3>
+	<p class="description">{{ data.description }}</p>
 
 	<!-- Display warranties if there is any -->
 	{% if data.warranties | length > 0 %}
