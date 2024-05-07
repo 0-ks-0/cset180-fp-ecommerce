@@ -713,6 +713,14 @@ def get_product_data(product_id):
 
 # End of products
 
+# Cart
+# Create cart
+def create_cart(user_id):
+	if not user_exists(user_id):
+		return
+
+	run_query(f"insert into `carts` values (null, {user_id});")
+
 # End of functions
 
 # Insert test values
