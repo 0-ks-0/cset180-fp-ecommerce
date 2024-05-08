@@ -79,6 +79,15 @@
 		</div>
 	{% endif %}
 
-	<button onclick="addToCart({{ data.id }})">Add to Cart</button>
+	<div class="button_container">
+		{% if account_type == "customer" %}
+			<button onclick="addToCart({{ data.id }})">Add to Cart</button>
+
+		{% elif account_type == "vendor" or account_type == "admin" %}
+			<button class="manage_button" onclick="setTop('/products/edit/{{ data.id }}')">Edit</button>
+			<button class="manage_button" onclick="deleteProduct({{ data.id }})">Delete</button>
+
+		{% endif %}
+	</div>
 </div>
 {% endblock %}
