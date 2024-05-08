@@ -41,7 +41,16 @@ Products
 				</div>
 			</div>
 
-			<button onclick="addToCart({{ data.id }})">Add to Cart</button>
+			<div class="button_container">
+				{% if account_type == "customer" %}
+					<button onclick="addToCart({{ data.id }})">Add to Cart</button>
+
+				{% elif account_type == "vendor" or account_type == "admin" %}
+					<button class="manage_button">Edit</button>
+					<button class="manage_button">Delete</button>
+
+				{% endif %}
+			</div>
 		</div>
 	{% endfor %}
 
