@@ -80,6 +80,26 @@
 	<h3>Description</h3>
 	<p class="description">{{ data.description }}</p>
 
+	{% if account_type == "vendor" or account_type == "admin" %}
+		<!-- Expired discounts -->
+		{% if data.expired_discounts | length > 0 %}
+			<h3>Expired Discounts</h3>
+			<table>
+				<th>Discount</th>
+				<th>Start</th>
+				<th>End</th>
+
+				{% for expired in data.expired_discounts %}
+					<tr>
+						<td class="data_discount">{{ expired.discount * 100 }}</td>
+						<td>{{ expired.start_date }}</td>
+						<td class="data_end_date">{{ expired.end_date }}</td>
+					</tr>
+				{% endfor %}
+			</table>
+		{% endif %}
+	{% endif %}
+
 	<!-- Display warranties if there is any -->
 	{% if data.warranties | length > 0 %}
 		<div class="warranty_container">
