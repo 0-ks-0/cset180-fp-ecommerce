@@ -34,7 +34,12 @@
 
 		<div class="carousel-inner">
 			<div class="item active">
-				<img src="{{ data.images[0] }}" alt="">
+				{% if data.images | length < 1 %}
+					No image
+				{% else %}
+					<img src="{{ data.images[0] }}" alt="">
+				{% endif %}
+
 			</div>
 
 			{% for i in range(1, data.images | length) %}
