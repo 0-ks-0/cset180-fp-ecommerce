@@ -1080,6 +1080,22 @@ def display_product_info(id):
 		destroy_session(session)
 		return redirect("/login")
 
+	# Prevent vendor from accessing product info of another vendor
+	if session.get("account_type") == "vendor":
+		vendor_id = get_vendor_id(session.get("user_id"))
+		vendor_product_ids = get_query_rows(f"select `id` from `products` where `vendor_id` = {vendor_id};")
+
+		if len(vendor_product_ids) < 1:
+			return redirect("/products")
+
+		id_list = []
+
+		for data in vendor_product_ids:
+			id_list.append(data.id)
+
+		if int(id) not in id_list:
+			return redirect("/products")
+
 	return render_template(
 		"product_info.html",
 		account_type = session.get("account_type"),
