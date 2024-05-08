@@ -723,6 +723,21 @@ def create_cart(user_id):
 
 	sql.commit()
 
+def get_current_cart(user_id):
+	"""
+	Creates a new cart for the user if the user does not have a cart
+
+	Otherwise returns the current cart_id associated with the user_id
+	"""
+
+	cart_id = get_query_rows(f"select max(id) as `id` from `carts` where `user_id` = {user_id};")
+
+	if len(cart_id) < 1:
+		create_cart(user_id)
+		return
+
+	return cart_id[0].id
+
 # Check cart id in carts
 def cart_id_exists(cart_id):
 	"""
