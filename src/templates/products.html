@@ -23,6 +23,8 @@ Products
 					<!-- Display the first image if there is any -->
 					{% if data.images | length > 0 %}
 						<img src="{{ data.images[0] }}" alt="">
+					{% else %}
+						No image
 					{% endif %}
 				</div>
 
