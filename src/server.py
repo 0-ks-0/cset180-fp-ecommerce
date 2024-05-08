@@ -1046,6 +1046,11 @@ def view_products():
 			account_type = session.get("account_type")
 		)
 
+	# Get vendor products if vendor account
+	if session.get("account_type") == "vendor":
+		vendor_id = get_vendor_id(session.get("user_id"))
+		products = get_query_rows(f"select * from `products` where `vendor_id` = {vendor_id};")
+
 	# Get all the product_ids
 	product_ids = []
 
