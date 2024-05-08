@@ -98,6 +98,24 @@
 				{% endfor %}
 			</table>
 		{% endif %}
+
+		<!-- Active dicounts -->
+		{% if data.active_discounts | length > 0 %}
+			<h3>Active Discounts</h3>
+			<table>
+				<th>Discount</th>
+				<th>Start</th>
+				<th>End</th>
+
+				{% for active in data.active_discounts %}
+					<tr>
+						<td class="data_discount">{{ active.discount * 100 }}</td>
+						<td>{{ active.start_date }}</td>
+						<td class="data_end_date">{{ active.end_date }}</td>
+					</tr>
+				{% endfor %}
+			</table>
+		{% endif %}
 	{% endif %}
 
 	<!-- Display warranties if there is any -->
