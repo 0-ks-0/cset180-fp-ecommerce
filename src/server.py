@@ -716,12 +716,21 @@ def get_product_data(product_id):
 # Cart
 # Create cart
 def create_cart(user_id):
+	"""
+	:return:
+		The cart_id
+
+	:rtype: int
+	"""
+
 	if not user_exists(user_id):
 		return
 
 	run_query(f"insert into `carts` values (null, {user_id});")
 
 	sql.commit()
+
+	return get_query_rows(f"select last_insert_id() as `id`")[0].id
 
 def get_current_cart(user_id):
 	"""
