@@ -54,6 +54,7 @@
 		<!-- Display discount and discounted price if there is one active -->
 		{% if data.current_discount != None %}
 			<p class="price discount">{{ data.current_discount }}% off</p>
+			<p class="discount_end_time">Until {{ data.current_discount_end }}</p>
 			<p class="price discounted_price">${{ data.discounted_price }}</p>
 		{% endif %}
 	</div>
