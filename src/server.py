@@ -721,6 +721,8 @@ def create_cart(user_id):
 
 	run_query(f"insert into `carts` values (null, {user_id});")
 
+	sql.commit()
+
 # Check cart id in carts
 def cart_id_exists(cart_id):
 	"""
