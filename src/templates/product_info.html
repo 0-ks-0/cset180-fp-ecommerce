@@ -134,7 +134,7 @@
 	// Cut off the decimal points from discounts
 	const discounts = document.querySelectorAll(".data_discount");
 
-	Array.from(discounts).forEach(e => e.innerText = e.innerText.split('.')[0])
+	Array.from(discounts).forEach(e => e.innerText = e.innerText.split('.')[0] + "%")
 
 	// Clear the td if the end date is "9999-12-31 23:59:59"
 	const end_dates = document.querySelectorAll(".data_end_date")
