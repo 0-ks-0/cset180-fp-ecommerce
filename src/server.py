@@ -741,9 +741,8 @@ def get_current_cart(user_id):
 
 	cart_id = get_query_rows(f"select max(id) as `id` from `carts` where `user_id` = {user_id};")
 
-	if len(cart_id) < 1:
-		create_cart(user_id)
-		return
+	if cart_id[0].id == None:
+		return create_cart(user_id)
 
 	return cart_id[0].id
 
