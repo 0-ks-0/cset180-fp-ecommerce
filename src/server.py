@@ -1040,6 +1040,10 @@ def view_products():
 def products_add_to_cart():
 	product_id = request.get_json().get("product_id")
 
+	cart_id = get_current_cart(session.get("user_id"))
+
+	add_to_cart(cart_id, product_id)
+
 	product_name = get_product_info(product_id)[0].name
 
 	return f"{product_name} has been added"
