@@ -763,7 +763,7 @@ def cart_item_exists(cart_id, product_id):
 		0 otherwise
 	"""
 
-	return get_query_rows(f"select exists(select * from `cart_items` where `cart_id` = 1 and `product_id` = 1) as `exists`;")[0].exists
+	return get_query_rows(f"select exists(select * from `cart_items` where `cart_id` = {cart_id} and `product_id` = {product_id}) as `exists`;")[0].exists
 
 # Update quantity of item in cart
 def update_cart_item_quantity(cart_id, product_id):
