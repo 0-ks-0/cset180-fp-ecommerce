@@ -64,7 +64,7 @@ def user_exists(user_id):
 	:rtype: bool
 	"""
 
-	account = get_query_rows(f"select * from `users` where `user_id` = {user_id}")
+	account = get_query_rows(f"select * from `users` where `id` = {user_id}")
 
 	if len(account) < 1:
 		return False
