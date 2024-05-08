@@ -46,8 +46,8 @@ Products
 					<button onclick="addToCart({{ data.id }})">Add to Cart</button>
 
 				{% elif account_type == "vendor" or account_type == "admin" %}
-					<button class="manage_button">Edit</button>
-					<button class="manage_button">Delete</button>
+					<button class="manage_button" onclick="setTop('/products/edit/{{ data.id }}')">Edit</button>
+					<button class="manage_button" onclick="deleteProduct({{ data.id }})">Delete</button>
 
 				{% endif %}
 			</div>
