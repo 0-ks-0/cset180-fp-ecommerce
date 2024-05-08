@@ -19,6 +19,17 @@
 <div class="page_body">
 	<div id="message"></div>
 
+	<div class="button_container">
+		{% if account_type == "customer" %}
+			<button onclick="addToCart({{ data.id }})">Add to Cart</button>
+
+		{% elif account_type == "vendor" or account_type == "admin" %}
+			<button class="manage_button" onclick="setTop('/products/edit/{{ data.id }}')">Edit</button>
+			<button class="manage_button" onclick="deleteProduct('/products/{{ data.id }}', {{ data.id }})">Delete</button>
+
+		{% endif %}
+	</div>
+
 	<div id="carousel" class="carousel slide" data-ride="carousel">
 
 		<div class="carousel-inner">
@@ -79,16 +90,5 @@
 			{% endfor %}
 		</div>
 	{% endif %}
-
-	<div class="button_container">
-		{% if account_type == "customer" %}
-			<button onclick="addToCart({{ data.id }})">Add to Cart</button>
-
-		{% elif account_type == "vendor" or account_type == "admin" %}
-			<button class="manage_button" onclick="setTop('/products/edit/{{ data.id }}')">Edit</button>
-			<button class="manage_button" onclick="deleteProduct('/products/{{ data.id }}', {{ data.id }})">Delete</button>
-
-		{% endif %}
-	</div>
 </div>
 {% endblock %}
