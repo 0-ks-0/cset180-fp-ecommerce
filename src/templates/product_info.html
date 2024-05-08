@@ -116,6 +116,24 @@
 				{% endfor %}
 			</table>
 		{% endif %}
+
+		<!-- Upcoming dicounts -->
+		{% if data.upcoming_discounts | length > 0 %}
+			<h3>Upcoming Discounts</h3>
+			<table>
+				<th>Discount</th>
+				<th>Start</th>
+				<th>End</th>
+
+				{% for upcoming in data.upcoming_discounts %}
+					<tr>
+						<td class="data_discount">{{ upcoming.discount * 100 }}</td>
+						<td>{{ upcoming.start_date }}</td>
+						<td class="data_end_date">{{ upcoming.end_date }}</td>
+					</tr>
+				{% endfor %}
+			</table>
+		{% endif %}
 	{% endif %}
 
 	<!-- Display warranties if there is any -->
