@@ -55,6 +55,7 @@ create table `products`
 
 	primary key (`id`),
 	foreign key (`vendor_id`) references `vendors` (`id`) on update restrict,
+	unique (`name`, `vendor_id`),
 
 	constraint check
 	(
