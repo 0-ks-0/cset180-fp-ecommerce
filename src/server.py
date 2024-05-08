@@ -726,7 +726,6 @@ def get_product_data(product_id):
 		date = data["current_discount_end"][0].end_date
 
 		if date == datetime.datetime(9999, 12, 31, 23, 59, 59):
-			print("asdf")
 			data["current_discount_end"] = "Forever"
 		else:
 			data["current_discount_end"] = data["current_discount_end"][0].end_date
