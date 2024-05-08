@@ -737,6 +737,18 @@ def cart_id_exists(cart_id):
 
 	return True
 
+# Check if item in cart alredy
+def cart_item_exists(cart_id, product_id):
+	"""
+	:return:
+		1 if the product already exists in the cart
+
+		0 otherwise
+	"""
+
+	return get_query_rows(f"select exists(select * from `cart_items` where `cart_id` = 1 and `product_id` = 1) as `exists`;")[0].exists
+
+
 # End of functions
 
 # Insert test values
