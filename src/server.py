@@ -1,4 +1,4 @@
-from flask import Flask, redirect, render_template, request, session
+from flask import Flask, redirect, render_template, request, session, flash, url_for
 from sqlalchemy import create_engine, text
 
 from pathlib import Path
@@ -1093,6 +1093,27 @@ def products_add_to_cart():
 	product_name = get_product_info(product_id)[0].name
 
 	return f"{product_name} has been added"
+
+def route_delete_product():
+	product_id = request.get_json().get("product_id")
+
+	run_query(f"delete from `products` where `id` = {product_id};")
+
+	sql.commit()
+
+	# return redirect(url_for('products')) # Not working
+
+	return {
+		"response": "/products"
+	}
+
+@app.route("/products", methods = [ "DELETE" ])
+def products_delete_product():
+	return route_delete_product()
+
+@app.route("/products/<id>", methods = [ "DELETE" ])
+def products_info_delete_product(id):
+	return route_delete_product()
 
 # End of routes
 
