@@ -762,6 +762,34 @@ def update_cart_item_quantity(cart_id, product_id):
 
 	sql.commit()
 
+# Add to cart
+def add_to_cart(cart_id, product_id):
+	# Check if cart_id exists
+	if not cart_id_exists(cart_id):
+		return
+
+	# Check if product_id exists
+	if not product_id_exists(product_id):
+		return
+
+	# Update quantity if item already in cart
+	if cart_item_exists(cart_id, product_id):
+		update_cart_item_quantity(cart_id, product_id)
+
+	# Add item to cart
+	else:
+		run_query(f"""
+			insert into `cart_items`
+			values
+			(
+				null,
+				{cart_id},
+				{product_id},
+				1
+			);
+		""")
+
+		sql.commit()
 # End of functions
 
 # Insert test values
