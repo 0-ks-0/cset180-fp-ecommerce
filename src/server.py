@@ -621,6 +621,19 @@ def get_product_discounts(product_id, type):
 
 	return discounts
 
+# Get end date of current discount
+def get_current_discount_end(product_id):
+	return get_query_rows(f"""
+		select `end_date`
+		from `product_discounts`
+		where `discount` =
+		(
+			select max(`discount`) as `current_discount`
+			from `product_discounts`
+			where now() between `start_date` and `end_date` and `product_id` = {product_id}
+		);
+	""")
+
 # Get product warranty
 def get_product_warranties(product_id):
 	warranty = get_query_rows(f"select * from `product_warranty` where `product_id` = {product_id};")
