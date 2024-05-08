@@ -122,3 +122,16 @@ button:hover
 
 	color: rgb(255, 255, 255);
 }
+
+.button_container
+{
+	width: 100%;
+
+	display: flex;
+
+	gap: 0.3em;
+}
+.manage_button
+{
+	width: calc(50% - 0.3em);
+}
