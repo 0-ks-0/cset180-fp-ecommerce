@@ -125,25 +125,19 @@ function getProductData()
 	const warranty_days = document.getElementsByName("coverage_days")
 	const coverage_info = document.getElementsByName("coverage_info")
 
-	if (!warranty_days || !coverage_info)
-		data.warranties = warranties
-
 	// TODO maybe check to make sure length of warranty_days and coverage_info is the same
 
-	else
+	for(let i = 0; i < warranty_days.length; i++)
 	{
-		for(let i = 0; i < warranty_days.length; i++)
-		{
-			// Add if there is coverage info
-			if (coverage_info[i].value)
-				warranties.push({
-					"coverage_days": warranty_days[i].value,
-					"coverage_info": coverage_info[i].value
-				})
-		}
-
-		data.warranties = warranties
+		// Add if there is coverage info
+		if (coverage_info[i].value)
+			warranties.push({
+				"coverage_days": warranty_days[i].value,
+				"coverage_info": coverage_info[i].value
+			})
 	}
+
+	data.warranties = warranties
 
 	return data
 }
