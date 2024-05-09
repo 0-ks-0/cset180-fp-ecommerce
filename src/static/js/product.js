@@ -87,38 +87,31 @@ function getProductData()
 
 	// Info
 	const name = document.getElementsByName("name")
-	if (!name) return
 	data.name = name[0].value
 
 	const description = document.getElementsByName("description")
-	if (!description) return
 	data.description = description[0].value
 
 	const quantity = document.getElementsByName("quantity")
-	if (!quantity) return
 	data.quantity = quantity[0].value
 
 	const price = document.getElementsByName("price")
-	if (!price) return
 	data.price = price[0].value
 
 	// Images
 	const images = document.getElementsByName("image")
-	if (!images)
-		data.images = []
-	else
+
+	const image_links = []
+
+	for (const link of images)
 	{
-		const image_links = []
-
-		for (const link of images)
-		{
-			// Add if there is a link
-			if (link.value)
-				image_links.push(link.value)
-		}
-
-		data.images = image_links
+		// Add if there is a link
+		if (link.value)
+			image_links.push(link.value)
 	}
+
+	data.images = image_links
+
 
 	// Warranties
 	const warranties = []
