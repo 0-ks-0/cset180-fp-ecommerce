@@ -1151,9 +1151,12 @@ def display_product_create():
 	if session.get("account_type") not in ["vendor", "admin"]:
 		return redirect("/products")
 
-	return render_template("product_create.html")
+	return render_template(
+		"product_create.html",
+		account_type = session.get("account_type")
+	)
 
 # End of routes
 
 if __name__ == "__main__":
- 	app.run()
+	app.run()
