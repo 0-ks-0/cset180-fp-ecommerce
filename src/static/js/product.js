@@ -61,6 +61,7 @@ function createImage()
 
 	// Button to delete
 	const deleteButton = document.createElement("button")
+	deleteButton.id = "image_delete"
 	deleteButton.innerHTML = "Delete"
 	deleteButton.onclick = () =>
 	{
