@@ -25,4 +25,18 @@ Create Product
 		<button onclick="createWarranty()">+</button>
 	</div>
 </div>
+
+<script>
+	const handleNegative = (event) =>
+	{
+		return (event.charCode != 8 && event.charCode == 0 || (event.charCode >= 48 && event.charCode <= 57))
+	}
+
+	numInputs = document.querySelectorAll("input[type='number']")
+
+	for (input of numInputs)
+	{
+		input.onkeypress = handleNegative
+	}
+</script>
 {% endblock %}
