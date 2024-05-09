@@ -41,6 +41,103 @@ function deleteProduct(url, product_id)
 	})
 }
 
+/*
+*	Create product page
+*/
+
+/**
+ * Format
+ * {
+ * 	"name": "",
+ * 	"description": "",
+ * 	"quantity": "0",
+ * 	"price": "0.00",
+ * 	"images": ["", ""] or [],
+ * 	"warranties": [{"coverage_days" : 0, "coverage_info": ""}] or []
+ * }
+ * @returns Object
+ */
+function getProductData()
+{
+	// Message to display if there is no value in input
+	const message = document.querySelector("#message")
+	if (!message)
+	{
+		message = document.createElement("div")
+
+		const container = document.querySelector(".page_body")
+		if (!container) return
+
+		container[0].appendChild(message)
+	}
+
+	data = {}
+
+	// TODO make sure there actually is value in the input
+
+	// Info
+	const name = document.getElementsByName("name")
+	if (!name) return
+	data.name = name[0].value
+
+	const description = document.getElementsByName("description")
+	if (!description) return
+	data.description = description[0].value
+
+	const quantity = document.getElementsByName("quantity")
+	if (!quantity) return
+	data.quantity = quantity[0].value
+
+	const price = document.getElementsByName("price")
+	if (!price) return
+	data.price = price[0].value
+
+	// Images
+	const images = document.getElementsByName("image")
+	if (!images)
+		data.images = []
+	else
+	{
+		const image_links = []
+
+		for (link of images)
+			image_links.push(link.value)
+
+		data.images = image_links
+	}
+
+	// Warranties
+	const warranties = []
+	const warranty_days = document.getElementsByName("coverage_days")
+	const coverage_info = document.getElementsByName("coverage_info")
+
+	if (!warranty_days || !coverage_info)
+		data.warranties = warranties
+
+	// TODO maybe check to make sure length of warranty_days and coverage_info is the same
+
+	else
+	{
+		for(let i = 0; i < warranty_days.length; i++)
+		{
+			warranties.push({
+				"coverage_days": warranty_days[i].value,
+				"coverage_info": coverage_info[i].value
+			})
+		}
+
+		data.warranties = warranties
+	}
+
+	return data
+}
+
+function createProduct()
+{
+	data = getProductData()
+	console.log(data)
+}
+
 function createImage()
 {
 	const images_div = document.querySelector("#images")
