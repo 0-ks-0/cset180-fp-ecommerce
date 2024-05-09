@@ -36,16 +36,27 @@ Create Product
 </div>
 
 <script>
-	const handleNegative = (event) =>
+	const handleNegative = (event, float = false) =>
 	{
-		return (event.charCode != 8 && event.charCode == 0 || (event.charCode >= 48 && event.charCode <= 57))
+		if (float)
+			return (event.charCode != 8 && event.charCode == 0 || ((event.charCode >= 48 && event.charCode <= 57)  || event.charCode == 46))
+
+		return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 190
 	}
 
-	numInputs = document.querySelectorAll("input[type='number']")
+	quantityInputs = document.getElementsByName("quantity")
 
-	for (input of numInputs)
+	for (const input of quantityInputs)
 	{
 		input.onkeypress = handleNegative
+	}
+
+	priceInputs = document.getElementsByName("price")
+
+	// TODO restrict decimal places to 2
+	for (const input of priceInputs)
+	{
+		input.onkeypress = handleNegative(event, true)
 	}
 </script>
 {% endblock %}
