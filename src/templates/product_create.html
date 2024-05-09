@@ -12,6 +12,7 @@ Create Product
 <script src="{{ url_for('static', filename = 'js/product.js') }}"></script>
 
 <div class="page_body">
+	<!-- Maybe form would have been better -->
 	<div id="product_create_info">
 		{% if account_type == "admin" %}
 			<input type="number" name="vendor_id" placeholder="Vendor ID" required min="1" step="1"><br>
