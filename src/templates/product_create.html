@@ -13,6 +13,10 @@ Create Product
 
 <div class="page_body">
 	<div id="product_create_info">
+		{% if account_type == "admin" %}
+			<input type="number" name="vendor_id" placeholder="Vendor ID" required min="1" step="1"><br>
+		{% endif %}
+
 		<h3>Info</h3>
 		<input type="text" name="name" placeholder="Product Name" required><br>
 		<textarea name="description" placeholder="Description" required></textarea><br>
