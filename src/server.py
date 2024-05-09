@@ -875,7 +875,7 @@ create_product_images(get_product_id(get_vendor_id(check_user_username("food_sch
 ])
 create_product_discount(get_product_id(get_vendor_id(check_user_username("food_schmood")), "Silicone Baking Mat"), 0.20, "2024-05-04 00:00:00")
 # This is just to test a lifetime warranty
-create_product_warranty(1, None, "lifetime warranty" )
+create_product_warranty(1, None, "not realistic. just a lifetime warranty test")
 
 # Bamboo Cutting Board
 create_product('Bamboo Cutting Board','A durable bamboo cutting board for slicing and chopping ingredients.', get_vendor_id(check_user_username("food_schmood")), 90, 14.99)
