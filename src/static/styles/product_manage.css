@@ -1,15 +1,18 @@
 .page_body
 {
 	width: 100%;
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 #product_create_info,
 #warranties,
-#images
+#images,
+#create_button
 {
 	width: 50%;
-
-	margin: 0 auto;
 }
 
 #product_create_info > *
@@ -17,10 +20,13 @@
 	width: 100%;
 }
 
-button
+.add_button
 {
 	width: 100%;
+}
 
+button
+{
 	padding: 0.7em;
 
 	border: none;
