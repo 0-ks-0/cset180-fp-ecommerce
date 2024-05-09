@@ -48,6 +48,10 @@ function createImage()
 
 	if (!images_div) return
 
+	const add_button = document.querySelector("#images .add_button")
+
+	if (!add_button) return
+
 	// Container for link and delete button
 	const div = document.createElement("div")
 	div.classList.add("image_container")
@@ -71,7 +75,7 @@ function createImage()
 	div.appendChild(input)
 	div.appendChild(deleteButton)
 
-	images_div.appendChild(div)
+	images_div.insertBefore(div, add_button)
 }
 
 function createWarranty()
@@ -79,6 +83,10 @@ function createWarranty()
 	const warranty_div = document.querySelector("#warranties")
 
 	if (!warranty_div) return
+
+	const add_button = document.querySelector("#warranties .add_button")
+
+	if (!add_button) return
 
 	// Container for warranty
 	const div = document.createElement("div")
@@ -122,5 +130,5 @@ function createWarranty()
 	div.appendChild(info_div)
 	div.appendChild(deleteButton)
 
-	warranty_div.appendChild(div)
+	warranty_div.insertBefore(div, add_button)
 }
