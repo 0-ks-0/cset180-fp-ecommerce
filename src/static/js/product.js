@@ -41,7 +41,6 @@ function deleteProduct(url, product_id)
 	})
 }
 
-// TODO function to add images
 function createImage()
 {
 	const images_div = document.querySelector("#images")
