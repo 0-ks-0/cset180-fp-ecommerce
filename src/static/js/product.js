@@ -48,6 +48,7 @@ function deleteProduct(url, product_id)
 /**
  * Format
  * {
+ * 	"vendor_id": "0" or ""
  * 	"name": "",
  * 	"description": "",
  * 	"quantity": "0",
