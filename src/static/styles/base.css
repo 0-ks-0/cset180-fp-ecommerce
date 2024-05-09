@@ -36,6 +36,12 @@ header
 	display: flex;
 }
 
+.flex_column
+{
+	display: flex;
+	flex-direction: column;
+}
+
 /*
 *	Navbar
 */
