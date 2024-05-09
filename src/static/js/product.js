@@ -61,7 +61,7 @@ function createImage()
 
 	// Button to delete
 	const deleteButton = document.createElement("button")
-	deleteButton.id = "image_delete"
+	deleteButton.classList.add("delete_button")
 	deleteButton.innerHTML = "Delete"
 	deleteButton.onclick = () =>
 	{
@@ -80,10 +80,14 @@ function createWarranty()
 
 	if (!warranty_div) return
 
-	// Container for warranty info
+	// Container for warranty
 	const div = document.createElement("div")
 	div.classList.add("warranty_container")
-	div.classList.add("flex_column")
+	div.classList.add("flex_row")
+
+	const info_div = document.createElement("div")
+	info_div.id = "warranty_info_div"
+	info_div.classList.add("flex_column")
 
 	// Coverage days
 	const days = document.createElement("input")
@@ -105,14 +109,17 @@ function createWarranty()
 
 	// Button to delete
 	const deleteButton = document.createElement("button")
+	deleteButton.classList.add("delete_button")
 	deleteButton.innerHTML = "Delete"
 	deleteButton.onclick = () =>
 	{
 		warranty_div.removeChild(div)
 	}
 
-	div.appendChild(days)
-	div.appendChild(textarea)
+	info_div.appendChild(days)
+	info_div.appendChild(textarea)
+
+	div.appendChild(info_div)
 	div.appendChild(deleteButton)
 
 	warranty_div.appendChild(div)

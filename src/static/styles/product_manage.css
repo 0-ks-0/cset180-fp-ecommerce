@@ -36,12 +36,13 @@ button:hover
 	color: rgb(255, 255, 255);
 }
 
-#images input
+#images input,
+#warranty_info_div
 {
 	width: 90%;
 }
 
-#image_delete
+.delete_button
 {
 	width: 10%;
 }
