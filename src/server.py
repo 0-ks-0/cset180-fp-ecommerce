@@ -418,6 +418,19 @@ def get_account_type(user_id):
 # Products
 # Create products
 def create_product(name, description, vendor_id, quantity, price):
+	"""
+	:param str name:
+	:param str description:
+	:param int/str vendor_id:
+	:param int quantity:
+	:param int/float price:
+
+	:return:
+		product_id
+
+	:rtype:
+		int
+	"""
 	#TODO Validate vendor_id
 
 	if quantity < 0:
@@ -425,6 +438,8 @@ def create_product(name, description, vendor_id, quantity, price):
 
 	if price < 0:
 		raise Exception("Price must be greater than 0.00")
+
+	price = f"{price : 0.2f}"
 
 	run_query(f"""
 		insert into `products`
