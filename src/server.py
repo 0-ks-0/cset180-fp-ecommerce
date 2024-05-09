@@ -439,6 +439,8 @@ def create_product(name, description, vendor_id, quantity, price):
 		);
 	""")
 
+	return get_query_rows(f"select last_insert_id() as `id`")[0].id
+
 # End of creating products
 
 # Check if product id exists
