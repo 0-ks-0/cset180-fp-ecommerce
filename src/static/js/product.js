@@ -41,6 +41,38 @@ function deleteProduct(url, product_id)
 	})
 }
 
+// TODO function to add images
+function createImage()
+{
+	const images_div = document.querySelector("#images")
+
+	if (!images_div) return
+
+	// Container for link and delete button
+	const div = document.createElement("div")
+	div.classList.add("image_container")
+	div.classList.add("flex_row")
+
+	// Input for image link
+	const input = document.createElement("input")
+	input.setAttribute("type", "text")
+	input.name = "image"
+	input.placeholder = "Image Link"
+
+	// Button to delete
+	const deleteButton = document.createElement("button")
+	deleteButton.innerHTML = "Delete"
+	deleteButton.onclick = () =>
+	{
+		images_div.removeChild(div)
+	}
+
+	div.appendChild(input)
+	div.appendChild(deleteButton)
+
+	images_div.appendChild(div)
+}
+
 function createWarranty()
 {
 	const warranty_div = document.querySelector("#warranties")
