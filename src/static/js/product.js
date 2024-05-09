@@ -79,15 +79,16 @@ function createWarranty()
 
 	if (!warranty_div) return
 
+	// Container for warranty info
 	const div = document.createElement("div")
 	div.classList.add("warranty_container")
 	div.classList.add("flex_column")
 
+	// Coverage days
 	const days = document.createElement("input")
 	days.setAttribute("type", "number")
 	days.name =  "coverage_days"
 	days.placeholder = "Coverage Days"
-	days.required = true
 	days.setAttribute("min", "1")
 	days.setAttribute("step", "1")
 	days.onkeypress = (event) =>
@@ -95,13 +96,23 @@ function createWarranty()
 		return (event.charCode != 8 && event.charCode == 0 || (event.charCode >= 48 && event.charCode <= 57))
 	}
 
+	// Coverage info
 	const textarea = document.createElement("textarea")
 	textarea.name = "coverage_info"
 	textarea.placeholder = "Coverage Info"
 	textarea.required = true
 
+	// Button to delete
+	const deleteButton = document.createElement("button")
+	deleteButton.innerHTML = "Delete"
+	deleteButton.onclick = () =>
+	{
+		warranty_div.removeChild(div)
+	}
+
 	div.appendChild(days)
 	div.appendChild(textarea)
+	div.appendChild(deleteButton)
 
 	warranty_div.appendChild(div)
 }
