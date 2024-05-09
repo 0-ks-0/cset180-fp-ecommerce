@@ -1136,6 +1136,18 @@ def products_delete_product():
 def products_info_delete_product(id):
 	return route_delete_product()
 
+@app.route("/products/create")
+def display_product_create():
+	if not validate_session(session):
+		destroy_session(session)
+		return redirect("/login")
+
+	# Validate account type
+	if session.get("account_type") not in ["vendor", "admin"]:
+		return redirect("/products")
+
+	return render_template("product_create.html")
+
 # End of routes
 
 if __name__ == "__main__":
