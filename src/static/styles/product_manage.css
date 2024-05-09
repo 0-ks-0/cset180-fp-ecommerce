@@ -1,0 +1,36 @@
+.page_body
+{
+	width: 100%;
+}
+
+#product_create_info,
+#warranties
+{
+	width: 50%;
+
+	margin: 0 auto;
+}
+
+#product_create_info > *
+{
+	width: 100%;
+}
+
+button
+{
+	width: 100%;
+
+	padding: 0.7em;
+
+	border: none;
+	border-radius: var(--border_radius);
+}
+
+button:hover
+{
+	cursor: pointer;
+
+	background-color: rgb(65, 65, 51);
+
+	color: rgb(255, 255, 255);
+}
