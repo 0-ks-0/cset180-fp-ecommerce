@@ -101,7 +101,11 @@ function getProductData()
 		const image_links = []
 
 		for (const link of images)
-			image_links.push(link.value)
+		{
+			// Add if there is a link
+			if (link.value)
+				image_links.push(link.value)
+		}
 
 		data.images = image_links
 	}
@@ -120,10 +124,12 @@ function getProductData()
 	{
 		for(let i = 0; i < warranty_days.length; i++)
 		{
-			warranties.push({
-				"coverage_days": warranty_days[i].value,
-				"coverage_info": coverage_info[i].value
-			})
+			// Add if there is coverage info
+			if (coverage_info[i].value)
+				warranties.push({
+					"coverage_days": warranty_days[i].value,
+					"coverage_info": coverage_info[i].value
+				})
 		}
 
 		data.warranties = warranties
@@ -135,7 +141,6 @@ function getProductData()
 function createProduct()
 {
 	data = getProductData()
-	console.log(data)
 }
 
 function createImage()
