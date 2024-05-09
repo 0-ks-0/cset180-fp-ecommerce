@@ -140,9 +140,19 @@ function getProductData()
 	return data
 }
 
-function createProduct()
+function createProduct(account_type)
 {
 	data = getProductData()
+
+	// Make sure Vendor ID is inputted by admin
+	if (account_type == "admin" && !data.vendor_id)
+	{
+		const message = document.querySelector("#message")
+
+		message.innerHTML = "Vendor ID required"
+
+		return
+	}
 
 	fetch("/products/create", {
 		headers:
