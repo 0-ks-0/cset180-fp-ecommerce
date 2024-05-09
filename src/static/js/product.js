@@ -100,7 +100,7 @@ function getProductData()
 	{
 		const image_links = []
 
-		for (link of images)
+		for (const link of images)
 			image_links.push(link.value)
 
 		data.images = image_links
