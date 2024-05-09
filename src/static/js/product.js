@@ -143,6 +143,36 @@ function getProductData()
 function createProduct()
 {
 	data = getProductData()
+
+	fetch("/products/create", {
+		headers:
+		{
+			"Content-Type" : "application/json"
+		},
+		method: "POST",
+		body: JSON.stringify(data)
+	})
+	.then(function (response) // Callback function when response sent from server
+	{
+		// Check if status code between 200 and 300
+		if (response.ok)
+		{
+			return response.json() // Convert response from server to json
+
+			.then(response =>
+			{
+				console.log(response.response)
+			})
+		}
+		else
+		{
+			throw Error(`Error: ${response.status || response.statusText}`)
+		}
+	})
+	.catch(error => // Catch errors from sending / receiving
+	{
+		console.log(error)
+	})
 }
 
 function createImage()
