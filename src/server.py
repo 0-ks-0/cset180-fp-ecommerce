@@ -1173,6 +1173,37 @@ def display_product_create():
 		account_type = session.get("account_type")
 	)
 
+@app.route("/products/create", methods = [ "POST" ])
+def post_product_create():
+	data = request.get_json()
+
+	vendor_id = data.get("vendor_id")
+	if not vendor_id:
+		vendor_id = get_vendor_id(session.get("user_id"))
+
+	name = data.get("name")
+	description = data.get("description")
+	quantity = int(data.get("quantity"))
+	price = float(data.get("price"))
+	images = data.get("images")
+	warranties = data.get("warranties")
+
+	# Create product
+	product_id = create_product(name, description, vendor_id, quantity, price)
+
+	# Create product images
+	create_product_images(product_id, images)
+
+	# Create product warranties
+	for warranty in warranties:
+		create_product_warranty(product_id, warranty.get("coverage_days"), warranty.get("coverage_info"))
+
+	sql.commit()
+
+	return {
+		"message": f"{name} has been created"
+	}
+
 # End of routes
 
 if __name__ == "__main__":

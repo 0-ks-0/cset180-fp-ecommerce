@@ -171,7 +171,14 @@ function createProduct(account_type)
 
 			.then(response =>
 			{
-				console.log(response.response)
+				const message = document.querySelector("#message")
+
+				message.innerHTML = response.message
+
+				// Refresh page
+				setTimeout(() => {
+					top.location = "/products/create"
+				}, 1300)
 			})
 		}
 		else
