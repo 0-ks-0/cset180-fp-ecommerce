@@ -510,6 +510,9 @@ def create_product_warranty(product_id, days, coverage):
 	if not product_id_exists(product_id):
 		return
 
+	if not days:
+		days = "null"
+
 	run_query(f"""
 		insert into `product_warranty`
 		values
@@ -871,6 +874,8 @@ create_product_images(get_product_id(get_vendor_id(check_user_username("food_sch
 	"https://cdn.pixabay.com/photo/2020/02/29/10/17/pretzels-4889633_1280.jpg"
 ])
 create_product_discount(get_product_id(get_vendor_id(check_user_username("food_schmood")), "Silicone Baking Mat"), 0.20, "2024-05-04 00:00:00")
+# This is just to test a lifetime warranty
+create_product_warranty(1, None, "lifetime warranty" )
 
 # Bamboo Cutting Board
 create_product('Bamboo Cutting Board','A durable bamboo cutting board for slicing and chopping ingredients.', get_vendor_id(check_user_username("food_schmood")), 90, 14.99)
