@@ -76,6 +76,15 @@ function getProductData()
 
 	// TODO make sure there actually is value in the input
 
+	// Vendor ID
+	const vendor_id = document.getElementsByName("vendor_id")
+
+	if (vendor_id.length < 1)
+		data.vendor_id = ""
+
+	else
+		data.vendor_id = vendor_id[0].value
+
 	// Info
 	const name = document.getElementsByName("name")
 	if (!name) return
