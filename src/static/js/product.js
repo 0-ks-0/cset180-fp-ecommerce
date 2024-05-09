@@ -71,7 +71,7 @@ function getProductData()
 		container[0].appendChild(message)
 	}
 
-	data = {}
+	const data = {}
 
 	// TODO make sure there actually is value in the input
 
