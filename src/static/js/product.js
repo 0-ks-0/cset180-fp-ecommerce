@@ -81,7 +81,6 @@ function getProductData()
 
 	if (vendor_id.length < 1)
 		data.vendor_id = ""
-
 	else
 		data.vendor_id = vendor_id[0].value
 
@@ -93,10 +92,17 @@ function getProductData()
 	data.description = description[0].value
 
 	const quantity = document.getElementsByName("quantity")
-	data.quantity = quantity[0].value
+	if (!quantity[0].value)
+		data.quantity = "0"
+	else
+		data.quantity = quantity[0].value
 
 	const price = document.getElementsByName("price")
-	data.price = price[0].value
+	console.log(price)
+	if (!price[0].value)
+		data.price = "0.00"
+	else
+		data.price = price[0].value
 
 	// Images
 	const images = document.getElementsByName("image")
@@ -111,7 +117,6 @@ function getProductData()
 	}
 
 	data.images = image_links
-
 
 	// Warranties
 	const warranties = []
