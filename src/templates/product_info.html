@@ -146,7 +146,11 @@
 		<div class="warranty_container">
 			<h2>Warranty</h1>
 			{% for warranty in data.warranties %}
-				<p class="warranty_days">Covers for {{ warranty.coverage_days }} days</p>
+				{% if warranty.coverage_days == None %}
+					<p class="warranty_days">Lifetime coverage</p>
+				{% else %}
+					<p class="warranty_days">Covers for {{ warranty.coverage_days }} days</p>
+				{% endif %}
 				<p class="warranty_coverage">{{ warranty.coverage_information }}</p>
 			{% endfor %}
 		</div>
