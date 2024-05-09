@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}
+Create Product
+{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename = 'styles/product_manage.css') }}">
+{% endblock %}
+
+{% block body %}
+<script src="{{ url_for('static', filename = 'js/product.js') }}"></script>
+
+<div class="page_body">
+	<div id="product_create_info">
+		<h3>Info</h3>
+		<input type="text" name="name" placeholder="Product Name" required><br>
+		<textarea name="description" placeholder="Description" required></textarea><br>
+		<input type="number" name="quantity" placeholder="Inventory" required><br>
+		<input type="number" name="price" placeholder="Price" required>
+	</div>
+
+	<div id="warranties">
+		<h3>Warranties</h3>
+		<button onclick="createWarranty()">+</button>
+	</div>
+</div>
+{% endblock %}
