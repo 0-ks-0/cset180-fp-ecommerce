@@ -1124,9 +1124,7 @@ def display_product_info(id):
 		data = get_product_data(id)
 	)
 
-@app.route("/products", methods = [ "POST" ])
-@app.route("/products/<id>", methods = [ "POST" ])
-def products_add_to_cart():
+def route_add_to_cart():
 	product_id = request.get_json().get("product_id")
 
 	cart_id = get_current_cart(session.get("user_id"))
@@ -1136,6 +1134,14 @@ def products_add_to_cart():
 	product_name = get_product_info(product_id)[0].name
 
 	return f"{product_name} has been added"
+
+@app.route("/products", methods = [ "POST" ])
+def products_add_to_cart():
+	return route_add_to_cart()
+
+@app.route("/products/<id>", methods = [ "POST" ])
+def products_info_add_to_cart(id):
+	return route_add_to_cart()
 
 def route_delete_product():
 	product_id = request.get_json().get("product_id")
