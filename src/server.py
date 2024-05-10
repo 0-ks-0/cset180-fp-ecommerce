@@ -1098,9 +1098,19 @@ def view_products():
 # Products info route
 @app.route("/products/<id>")
 def display_product_info(id):
+
+	# For some reason after creating a product with images,
+	# this route is triggering with the first image of the product passed here as `id`
+	try:
+		int(id)
+	except:
+		return redirect("/products")
+
 	if not validate_session(session):
 		destroy_session(session)
 		return redirect("/login")
+
+	# print(f"product info id: {id}")
 
 	# Prevent vendor from accessing product info of another vendor
 	if session.get("account_type") == "vendor":
