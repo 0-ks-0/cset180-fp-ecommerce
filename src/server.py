@@ -751,6 +751,7 @@ def get_product_data(product_id):
 		else:
 			data["current_discount_end"] = data["current_discount_end"][0].end_date
 
+	# TODO remove discounted_price and use current_price instead
 	data["discounted_price"] = None
 
 	# Format current_discount and discounted_price if there is an active discount
