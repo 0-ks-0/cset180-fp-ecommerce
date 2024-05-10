@@ -1261,6 +1261,16 @@ def display_product_edit(id):
 		data = get_product_data(id)
 	)
 
+@app.route("/products/edit/<id>", methods = [ "PUT" ])
+def update_product_info(id):
+	data = request.get_json()
+
+	print(data)
+
+	return {
+		"response": "test"
+	}
+
 # End of routes
 
 if __name__ == "__main__":

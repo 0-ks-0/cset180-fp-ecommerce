@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block title %}
+Edit - {{ data.name }}
+{% endblock %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+<script src="{{ url_for('static', filename = 'js/product.js') }}"></script>
+
+<script>
+	function removeParent(element)
+	{
+		element.parentElement.remove()
+	}
+
+</script>
+<div class="page_body">
+	<form id="form">
+		<div id="info">
+			<label for="name">Product Name:</label>
+			<input type="text" name="name" id="name" placeholder="Product Name" value="{{ data.name }}" required><br>
+
+			<label for="description">Description:</label>
+			<textarea name="description" id="description" placeholder="Description" required>{{ data.description }}</textarea><br>
+
+			<label for="quantity">Inventory:</label>
+			<input type="number" name="quantity" id="quantity" placeholder="Inventory" value="{{ data.quantity }}" required min="1"><br>
+
+			<label for="price">Price:</label>
+			<input type="number" name="price" id="price" placeholder="Price" value="{{ data.original_price }}" required min="0.00" step="0.01">
+		</div>
+
+		<div id="images">
+			<h3>Images</h3>
+			{% for link in data.images %}
+				<div class="image_container flex_row">
+					<input type="text" name="image" placeholder="Image Link" value="{{ link }}" required>
+					<button class="delete_button" onclick="removeParent(this)">Delete</button>
+				</div>
+			{% endfor %}
+
+			<button class="add_button" onclick="createImage()">+</button>
+		</div>
+
+		<div id="warranties">
+			<h3>Warranties</h3>
+			<div class="warranty_container flex_row">
+				{% for warranty in data.warranties %}
+					<div id="warranty_info_div" class="flex_column">
+						<label for="coverage_days">Coverage Days</label>
+						<input type="number" name="coverage_days" id="coverage_days" placeholder="Coverage Days" value="{{ warranty.coverage_days }}" min="1" step="1" onkeypress="return (event.charCode != 8 && event.charCode == 0 || (event.charCode >= 48 && event.charCode <= 57))">
+
+						<label for="coverage_info">Coverage Info</label>
+						<textarea name="coverage_info" id="coverage_info" required>{{ warranty.coverage_information }}</textarea>
+					</div>
+
+					<button class="delete_button" onclick="removeParent(this)">Delete</button>
+				{% endfor %}
+			</div>
+
+			<button class="add_button" onclick="createWarranty()">+</button>
+		</div>
+
+		<input type="submit" value="Update">
+	</form>
+</div>
+<script>
+	const form = document.querySelector("#form")
+
+	form.addEventListener("submit", (e) =>
+	{
+		editProduct(e, {{ data.id }})
+	})
+</script>
+
+{% endblock %}
