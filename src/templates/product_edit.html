@@ -19,6 +19,10 @@ Edit - {{ data.name }}
 
 </script>
 <div class="page_body">
+	<div class="test">
+		{{data}}
+	</div>
+
 	<form id="form">
 		<div id="info">
 			<label for="name">Product Name:</label>
@@ -63,6 +67,46 @@ Edit - {{ data.name }}
 			</div>
 
 			<button class="add_button" onclick="createWarranty()">+</button>
+		</div>
+
+		<div id="discounts">
+			<div id="active_discounts_container">
+				<h3>Active discounts</h3>
+
+				{% for active in data.active_discounts %}
+					<div class="active_discount flex_row">
+						<input type="number" name="active_discount_amount" placeholder="Discount" value="{{ active.discount }}" readonly>
+						<input type="datetime-local" name="active_start_date" placeholder="Start" value="{{ active.start_date }}" readonly>
+
+						<!-- Format end date -->
+						{% if active.end_date | string == "9999-12-31 23:59:59" %}
+							<input type="text" name="active_end_date" placeholder="End" value="" readonly>
+						{% else %}
+							<input type="datetime-local" name="active_end_date" placeholder="End" value="{{ active.end_date }}" readonly>
+						{% endif %}
+					</div>
+				{% endfor %}
+			</div>
+
+			<div id="upcoming_discounts_container">
+				<h3>Upcoming discounts</h3>
+
+				{% for upcoming in data.upcoming_discounts %}
+					<div class="active_discount flex_row">
+						<input type="number" name="upcoming_discount_amount" placeholder="Discount as decimal" value="{{ upcoming.discount }}">
+						<input type="datetime-local" name="upcoming_start_date" placeholder="Start" value="{{ upcoming.start_date }}">
+
+						{% if upcoming.end_date | string == "9999-12-31 23:59:59" %}
+							<input type="datetime-local" name="upcoming_end_date" placeholder="End" value="">
+						{% else %}
+							<input type="datetime-local" name="upcoming_end_date" placeholder="End" value="{{ upcoming.end_date }}">
+						{% endif %}
+						<button class="delete_button" onclick="removeParent(this)">Delete</button>
+					</div>
+				{% endfor %}
+
+				<button class="add_button" onclick="createDiscount()">+</button>
+			</div>
 		</div>
 
 		<input type="submit" value="Update">
