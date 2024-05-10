@@ -92,7 +92,7 @@ Edit - {{ data.name }}
 				<h3>Upcoming discounts</h3>
 
 				{% for upcoming in data.upcoming_discounts %}
-					<div class="active_discount flex_row">
+					<div class="upcoming_discount flex_row">
 						<input type="number" name="upcoming_discount_amount" placeholder="Discount as decimal" value="{{ upcoming.discount }}" min="0.01" max="1" step="0.01" required onkeypress="return (event.charCode != 8 && event.charCode == 0 || (event.charCode >= 48 && event.charCode <= 57 || event.charCode == 46))">
 						<input type="datetime-local" name="upcoming_start_date" placeholder="Start" value="{{ upcoming.start_date }}" required>
 
