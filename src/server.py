@@ -1220,6 +1220,47 @@ def post_product_create():
 		"message": f"{name} has been created"
 	}
 
+@app.route("/products/edit/<id>")
+def display_product_edit(id):
+	# Make sure id is formatted as a number
+	try:
+		int(id)
+	except:
+		return redirect("/products")
+
+	# Make sure user is logged in
+	if not validate_session(session):
+		destroy_session(session)
+		return redirect("/login")
+
+	# Validate account type
+	if session.get("account_type") not in ["vendor", "admin"]:
+		return redirect("/products")
+
+	# Validate product is from vendor
+	if session.get("account_type") == "vendor":
+		vendor_id = get_vendor_id(session.get("user_id"))
+		vendor_product_ids = get_query_rows(f"select `id` from `products` where `vendor_id` = {vendor_id};")
+
+		# Vendor has no products
+		if len(vendor_product_ids) < 1:
+			return redirect("/products")
+
+		# Vendor trying to access a product that is not theirs
+
+		id_list = []
+
+		for data in vendor_product_ids:
+			id_list.append(data.id)
+
+		if int(id) not in id_list:
+			return redirect("/products")
+
+	return render_template(
+		"product_edit.html",
+		data = get_product_data(id)
+	)
+
 # End of routes
 
 if __name__ == "__main__":
