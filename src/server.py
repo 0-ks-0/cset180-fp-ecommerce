@@ -685,6 +685,7 @@ def get_product_data(product_id):
 			current_discount: 0.00 or None,
 			current_discount_end: "" or None,
 			discounted_price: 0.00 or None,
+			current_price: original_price or discounted_price
  			upcoming_discounts: [{}, {}],
  			warranties: [{}, {}] or []
 		}
@@ -756,6 +757,12 @@ def get_product_data(product_id):
 	if data["current_discount"] != None:
 		data["current_discount"] = f"{int(float(data["current_discount"]) * 100)}"
 		data["discounted_price"] = f"{(float(data["original_price"]) * (100 - float(data["current_discount"])) / 100) : 0.2f}"
+
+	# Current price
+	if data["current_discount"] != None:
+		data["currrent_price"] = data["discounted_price"]
+	else:
+		data["currrent_price"] = data["original_price"]
 
 	data["upcoming_discounts"] = get_product_discounts(product_id, "upcoming")
 
