@@ -286,6 +286,23 @@ function createWarranty()
 /*
 *	Edit product page
 */
+function getFormattedISO(offsetHours)
+{
+	// TODO make sure offsetHours is a number
+
+	const d = new Date()
+
+	// https://stackoverflow.com/questions/10830357/javascript-toisostring-ignores-timezone-offset
+	const timeZoneOffset = d.getTimezoneOffset() * 60000 //offset in milliseconds
+
+	const offsetDate = new Date((Date.now() - timeZoneOffset))
+	offsetDate.setHours(offsetDate.getHours() + offsetHours)
+
+	const offsetDateISO = offsetDate.toISOString()
+
+	return offsetDateISO.slice(0, (offsetDateISO).lastIndexOf(":"))
+}
+
 function createDiscount()
 {
 	const upcomingDiv = document.querySelector("#upcoming_discounts_container")
@@ -340,20 +357,7 @@ function createDiscount()
 	start.required = true
 
 	// Set a min date for start
-	// TODO this doesn't adapt to current time right now
-	{
-		const d = new Date()
-
-		// https://stackoverflow.com/questions/10830357/javascript-toisostring-ignores-timezone-offset
-		const timeZoneOffset = d.getTimezoneOffset() * 60000 //offset in milliseconds
-
-		const offsetDate = new Date((Date.now() - timeZoneOffset))
-		offsetDate.setHours(offsetDate.getHours() + 1)
-
-		const offsetDateISO = offsetDate.toISOString()
-
-		start.min = offsetDateISO.slice(0, (offsetDateISO).lastIndexOf(":"))
-	}
+	start.min = getFormattedISO(1)
 
 	startContainer.appendChild(startLabel)
 	startContainer.appendChild(start)
@@ -400,22 +404,13 @@ function editProduct(e, id)
 	e.preventDefault()
 
 	// Make sure start date > now
-	const endDates = document.querySelectorAll("input[name = 'upcoming_end_date']")
+	const startDates = document.querySelectorAll("input[name = 'upcoming_start_date']")
 
-	for (const end of endDates)
+	for (const start of startDates)
 	{
-		const d = new Date()
+		const formattedISO = getFormattedISO(1)
 
-		// https://stackoverflow.com/questions/10830357/javascript-toisostring-ignores-timezone-offset
-		const timeZoneOffset = d.getTimezoneOffset() * 60000 //offset in milliseconds
-
-		const offsetDate = new Date((Date.now() - timeZoneOffset))
-		offsetDate.setHours(offsetDate.getHours() + 1)
-
-		const offsetDateISO = offsetDate.toISOString()
-		const formattedISO = offsetDateISO.slice(0, (offsetDateISO).lastIndexOf(":"))
-
-		if (end.value < formattedISO)
+		if (start.value < formattedISO)
 		{
 			alert(`Discount must start after ${formattedISO.replace("T", " ")}`)
 			return
