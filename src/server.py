@@ -785,6 +785,21 @@ def update_product(product_id, name, description, quantity, price):
 
 	sql.commit()
 
+# Update product images
+def update_product_images(product_id, images):
+	"""
+	:param int/str product_id:
+	:param list images:
+	"""
+
+	# Delete images
+	run_query(f"delete from `product_images` where `product_id` = {product_id};")
+
+	# Create images
+	create_product_images(product_id, images)
+
+	sql.commit()
+
 # End of products
 
 # Cart
@@ -1287,6 +1302,7 @@ def display_product_edit(id):
 def update_product_info(id):
 	data = request.get_json()
 
+	# Update product info
 	product_id = data.get("product_id")
 	name = data.get("name")
 	description = data.get("description")
