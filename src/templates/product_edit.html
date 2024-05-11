@@ -43,7 +43,7 @@ Edit - {{ data.name }}
 				</div>
 			{% endfor %}
 
-			<button class="add_button" onclick="createImage()">+</button>
+			<button class="add_button" onclick="event.preventDefault(); createImage()">+</button>
 		</div>
 
 		<div id="warranties">
@@ -62,7 +62,7 @@ Edit - {{ data.name }}
 				{% endfor %}
 			</div>
 
-			<button class="add_button" onclick="createWarranty()">+</button>
+			<button class="add_button" onclick="event.preventDefault(); createWarranty()">+</button>
 		</div>
 
 		<div id="discounts">
@@ -116,7 +116,7 @@ Edit - {{ data.name }}
 					</div>
 				{% endfor %}
 
-				<button class="add_button" onclick="createDiscount()">+</button>
+				<button class="add_button" onclick="event.preventDefault(); createDiscount()">+</button>
 			</div>
 		</div>
 
