@@ -527,7 +527,8 @@ function editProduct(e, id)
 
 			.then(response =>
 			{
-				console.log(response.response)
+				alert(response.message)
+				top.location = response.url
 			})
 		}
 		else

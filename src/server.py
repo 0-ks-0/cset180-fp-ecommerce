@@ -1387,10 +1387,9 @@ def update_product_info(id):
 
 	update_product_discounts(product_id, upcoming_discounts)
 
-	print(data)
-
 	return {
-		"response": "test"
+		"message": "Updated successfully",
+		"url": f"/products/{product_id}"
 	}
 
 # End of routes
