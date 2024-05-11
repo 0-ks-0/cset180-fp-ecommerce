@@ -286,9 +286,106 @@ function createWarranty()
 /*
 *	Edit product page
 */
+function createDiscount()
+{
+	const upcomingDiv = document.querySelector("#upcoming_discounts_container")
+
+	if (!upcomingDiv) return
+
+	// Container for the below elements
+	const div = document.createElement("div")
+	div.classList.add("upcoming_discount")
+	div.classList.add("flex_row")
+
+	// Discount amount section
+	// Container
+	const amountContainer = document.createElement("div")
+	amountContainer.classList.add("upcoming_discount_amount_container")
+	amountContainer.classList.add("flex_column")
+
+	// Label
+	const amountLabel = document.createElement("label")
+	amountLabel.innerHTML = "Discount"
+
+	// Input for the discount amount
+	const amount = document.createElement("input")
+	amount.setAttribute("type", "number")
+	amount.name = "upcoming_discount_amount"
+	amount.placeholder = "Discount as decimal"
+	amount.required = true
+	amount.setAttribute("min", "0.01")
+	amount.setAttribute("max", "1")
+	amount.setAttribute("step", "0.01")
+	// Prevent negative numbers
+	amount.onkeypress = (event) =>
+	{
+		return (event.charCode != 8 && event.charCode == 0 || (event.charCode >= 48 && event.charCode <= 57 || event.charCode == 46))
+	}
+	amountContainer.appendChild(amountLabel)
+	amountContainer.appendChild(amount)
+
+	// Start date section
+	const startContainer = document.createElement("div")
+	startContainer.classList.add("upcoming_discount_amount_container")
+	startContainer.classList.add("flex_column")
+
+	// Label
+	const startLabel = document.createElement("label")
+	startLabel.innerHTML = "Start"
+
+	// Input for start date
+	const start = document.createElement("input")
+	start.setAttribute("type", "datetime-local")
+	start.name = "upcoming_start_date"
+	start.required = true
+
+	startContainer.appendChild(startLabel)
+	startContainer.appendChild(start)
+
+	// End date section
+	const endContainer = document.createElement("div")
+	endContainer.classList.add("upcoming_discount_amount_container")
+	endContainer.classList.add("flex_column")
+
+	// Label
+	const endLabel = document.createElement("label")
+	endLabel.innerHTML = "End"
+
+	// Input for end date
+	const end = document.createElement("input")
+	end.setAttribute("type", "datetime-local")
+	end.name = "upcoming_end_date"
+
+	endContainer.appendChild(endLabel)
+	endContainer.appendChild(end)
+
+	// Delete button
+	const deleteButton = document.createElement("button")
+	deleteButton.classList.add("delete_button")
+	deleteButton.innerHTML = "Delete"
+	deleteButton.onclick = () =>
+	{
+		deleteButton.parentElement.remove()
+	}
+
+	div.appendChild(amountContainer)
+	div.appendChild(startContainer)
+	div.appendChild(endContainer)
+	div.appendChild(deleteButton)
+
+	// Get add button
+	const addButton = document.querySelector("#upcoming_discounts_container .add_button")
+
+	upcomingDiv.insertBefore(div, addButton)
+}
+
 function editProduct(e, id)
 {
 	e.preventDefault()
+
+	// TODO clamp product discount
+
+	// TODO make sure start date > now
 
 	const form = document.querySelector("#form")
 
