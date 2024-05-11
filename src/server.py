@@ -1334,6 +1334,12 @@ def update_product_info(id):
 
 	update_product_images(product_id, images)
 
+	# Update warranties
+	warranties = data.get("warranties")
+	print(warranties)
+
+	update_product_warranties(product_id, warranties)
+
 	print(data)
 
 	return {
