@@ -19,10 +19,6 @@ Edit - {{ data.name }}
 <script src="{{ url_for('static', filename = 'js/product.js') }}"></script>
 
 <div class="page_body">
-	<div class="test">
-		{{data}}
-	</div>
-
 	<form id="form">
 		<div id="info">
 			<label for="name">Product Name:</label>
@@ -32,7 +28,7 @@ Edit - {{ data.name }}
 			<textarea name="description" id="description" placeholder="Description" required>{{ data.description }}</textarea><br>
 
 			<label for="quantity">Inventory:</label>
-			<input type="number" name="quantity" id="quantity" placeholder="Inventory" value="{{ data.quantity }}" required min="1"><br>
+			<input type="number" name="quantity" id="quantity" placeholder="Inventory" value="{{ data.quantity }}" required min="1" step="1"><br>
 
 			<label for="price">Price:</label>
 			<input type="number" name="price" id="price" placeholder="Price" value="{{ data.original_price }}" required min="0.00" step="0.01">
