@@ -503,7 +503,7 @@ function editProduct(e, id)
 
 		discountArr.push({
 			"discount": discountAmounts[i].value,
-			"start_date": discountStart[i].value.replace("T", " ").concat(":59"),
+			"start_date": discountStart[i].value.replace("T", " ").concat(":00"),
 			"end_date": endDate
 		})
 	}
