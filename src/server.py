@@ -832,6 +832,33 @@ def update_product_warranties(product_id, warranties):
 
 	sql.commit()
 
+# Update product discounts
+def update_product_discounts(product_id, discounts):
+	"""
+	Deletes discounts and creates new ones
+
+	No time to do this better
+
+	:param int/str product_id:
+	:param list of dictionaries discounts:
+	"""
+
+	# Better way. no time :/
+	# TODO delete everything if len(discounts) == 0
+
+	# TODO if len(discounts) <= num of discounts in database, loop through amount in database and update. delete the rest if they exist
+
+	# TODO if len(discounts) > num of discounts in database, loop through amount in database and create new ones
+
+	# Delete discounts
+	run_query(f"delete from `product_discounts` where `id` = {product_id};")
+
+	# Create discounts
+	for discount in discounts:
+		create_product_discount(product_id, float(discount.get("discount")), discount.get("start_date"), discount.get("end_date"))
+
+	sql.commit()
+
 # End of products
 
 # Cart
