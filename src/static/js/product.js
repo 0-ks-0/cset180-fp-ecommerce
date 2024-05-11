@@ -436,6 +436,18 @@ function editProduct(e, id)
 	const formData = new FormData(form)
 
 	const data = {}
+	/*
+	* Format
+	* {
+	*	"name": "",
+	* 	"description": "",
+	*	"quantity": "0",
+	*	"price": "0.00",
+	*	"images": ["", ""] or [],
+	*	"warranties": [{"coverage_days": "0 or "", "coverage_info": ""}],
+	*	"discounts": [{"discount": "0.00", "start_date": "YYYY-MM-DD HH:MM:SS", "end_date": "YYYY-MM-DD HH:MM:SS" or "" }]
+	* }
+	*/
 
 	// Info
 	data.name = formData.get("name")
