@@ -1287,6 +1287,14 @@ def display_product_edit(id):
 def update_product_info(id):
 	data = request.get_json()
 
+	product_id = data.get("product_id")
+	name = data.get("name")
+	description = data.get("description")
+	quantity = data.get("quantity")
+	price = data.get("price")
+
+	update_product(product_id, name, description, quantity, price)
+
 	print(data)
 
 	return {
