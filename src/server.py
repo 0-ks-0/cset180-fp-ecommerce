@@ -800,6 +800,24 @@ def update_product_images(product_id, images):
 
 	sql.commit()
 
+# Update product warranties
+def update_product_warranties(product_id, warranties):
+	"""
+	Deletes warranties and creates new ones
+
+	:param int/str product_id:
+	:param list of dictionaries warranties:
+	"""
+
+	# Delete warranties
+	run_query(f"delete from `product_warranty` where `product_id` = {product_id};")
+
+	# Create warranties
+	for warranty in warranties:
+		create_product_warranty(product_id, warranty.get("coverage_days"), warranty.get("coverage_info"))
+
+	sql.commit()
+
 # End of products
 
 # Cart
