@@ -771,6 +771,18 @@ def get_product_data(product_id):
 
 	return data
 
+# Update products
+def update_product(product_id, name, description, quantity, price):
+	run_query(f"""
+		update `products`
+		set
+			`name` = '{name}',
+			`description` = '{description}',
+			`quantity` = {quantity},
+			`price` = {price}
+		where `id` = {product_id};
+	""")
+
 # End of products
 
 # Cart
