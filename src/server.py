@@ -783,6 +783,8 @@ def update_product(product_id, name, description, quantity, price):
 		where `id` = {product_id};
 	""")
 
+	sql.commit()
+
 # End of products
 
 # Cart
