@@ -403,7 +403,7 @@ function editProduct(e, id)
 {
 	e.preventDefault()
 
-	// Make sure start date > now
+	// Make sure start date is 1 hour greater than now
 	const startDates = document.querySelectorAll("input[name = 'upcoming_start_date']")
 
 	for (const start of startDates)
@@ -413,6 +413,20 @@ function editProduct(e, id)
 		if (start.value < formattedISO)
 		{
 			alert(`Discount must start after ${formattedISO.replace("T", " ")}`)
+			return
+		}
+	}
+
+	// Make sure end date is at least 1 hour greater than start date
+	const endDates = document.querySelectorAll("input[name = 'upcoming_end_date']")
+
+	for (const end of endDates)
+	{
+		const formattedISO = getFormattedISO(2)
+
+		if (end.value && end.value < formattedISO)
+		{
+			alert(`Discount must end at least one hour after start`)
 			return
 		}
 	}
