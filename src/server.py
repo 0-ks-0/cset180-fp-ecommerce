@@ -792,6 +792,13 @@ def update_product_images(product_id, images):
 	:param list images:
 	"""
 
+	# Better way. no time :/
+	# TODO delete everything if len(images) == 0
+
+	# TODO if len(images) <= num of images in database, loop through amount in database and update. delete the rest if they exist
+
+	# TODO if len(images) > num of images in database, loop through amount in database and create new ones
+
 	# Delete images
 	run_query(f"delete from `product_images` where `product_id` = {product_id};")
 
@@ -808,6 +815,13 @@ def update_product_warranties(product_id, warranties):
 	:param int/str product_id:
 	:param list of dictionaries warranties:
 	"""
+
+	# Better way. no time :/
+	# TODO delete everything if len(images) == 0
+
+	# TODO if len(images) <= num of images in database, loop through amount in database and update. delete the rest if they exist
+
+	# TODO if len(images) > num of images in database, loop through amount in database and create new ones
 
 	# Delete warranties
 	run_query(f"delete from `product_warranty` where `product_id` = {product_id};")
