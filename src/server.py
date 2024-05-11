@@ -817,11 +817,11 @@ def update_product_warranties(product_id, warranties):
 	"""
 
 	# Better way. no time :/
-	# TODO delete everything if len(images) == 0
+	# TODO delete everything if len(warranties) == 0
 
-	# TODO if len(images) <= num of images in database, loop through amount in database and update. delete the rest if they exist
+	# TODO if len(warranties) <= num of warranties in database, loop through amount in database and update. delete the rest if they exist
 
-	# TODO if len(images) > num of images in database, loop through amount in database and create new ones
+	# TODO if len(warranties) > num of warranties in database, loop through amount in database and create new ones
 
 	# Delete warranties
 	run_query(f"delete from `product_warranty` where `product_id` = {product_id};")
