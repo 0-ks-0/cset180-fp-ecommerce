@@ -1311,6 +1311,11 @@ def update_product_info(id):
 
 	update_product(product_id, name, description, quantity, price)
 
+	# Update product images
+	images = data.get("images")
+
+	update_product_images(product_id, images)
+
 	print(data)
 
 	return {
