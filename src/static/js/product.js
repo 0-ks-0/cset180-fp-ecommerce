@@ -484,7 +484,7 @@ function editProduct(e, id)
 		})
 	}
 
-	data.warrantites = warrantyArr
+	data.warranties = warrantyArr
 
 	// Upcoming discounts
 	const discountAmounts = document.getElementsByName("upcoming_discount_amount")
