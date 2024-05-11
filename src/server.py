@@ -859,6 +859,7 @@ def update_product_discounts(product_id, discounts):
 
 	sql.commit()
 
+
 # End of products
 
 # Cart
@@ -1380,6 +1381,11 @@ def update_product_info(id):
 	print(warranties)
 
 	update_product_warranties(product_id, warranties)
+
+	# Update upcoming discounts
+	upcoming_discounts = data.get("discounts")
+
+	update_product_discounts(product_id, upcoming_discounts)
 
 	print(data)
 
