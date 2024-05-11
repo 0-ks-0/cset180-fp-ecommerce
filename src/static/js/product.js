@@ -219,7 +219,7 @@ function createImage()
 	deleteButton.innerHTML = "Delete"
 	deleteButton.onclick = () =>
 	{
-		images_div.removeChild(div)
+		deleteButton.parentElement.remove()
 	}
 
 	div.appendChild(input)
@@ -271,7 +271,7 @@ function createWarranty()
 	deleteButton.innerHTML = "Delete"
 	deleteButton.onclick = () =>
 	{
-		warranty_div.removeChild(div)
+		deleteButton.parentElement.remove()
 	}
 
 	info_div.appendChild(days)
