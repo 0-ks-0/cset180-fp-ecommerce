@@ -437,6 +437,64 @@ function editProduct(e, id)
 
 	const data = {}
 
+	// Info
+	data.name = formData.get("name")
+	data.description = formData.get("description")
+	data.quantity = formData.get("quantity")
+	data.price = formData.get("price")
+
+	// Images
+	const images = document.getElementsByName("image")
+
+	const imagesArr = []
+
+	Array.from(images).forEach((i) =>
+	{
+		imagesArr.push(i.value)
+	})
+
+	data.images = imagesArr
+
+	// Warranties
+	const warrantyDays = document.getElementsByName("coverage_days")
+	const warrantyInfo = document.getElementsByName("coverage_info")
+
+	const warrantyArr = []
+
+	for (let i = 0; i < warrantyDays.length; i++)
+	{
+		warrantyArr.push({
+			"coverage_days": warrantyDays[i].value,
+			"coverage_info": warrantyInfo[i].value
+		})
+	}
+
+	data.warrantites = warrantyArr
+
+	// Upcoming discounts
+	const discountAmounts = document.getElementsByName("upcoming_discount_amount")
+	const discountStart = document.getElementsByName("upcoming_start_date")
+	const discountEnd = document.getElementsByName("upcoming_end_date")
+
+	const discountArr = []
+
+	for (let i = 0; i < discountAmounts.length; i++)
+	{
+		// Format end date
+		let endDate =  discountEnd[i].value
+
+		if (endDate)
+			endDate = endDate.replace("T", " ").concat(":59")
+
+		discountArr.push({
+			"discount": discountAmounts[i].value,
+			"start_date": discountStart[i].value.replace("T", " ").concat(":59"),
+			"end_date": endDate
+		})
+	}
+
+	data.discounts = discountArr
+
 	fetch(`/products/edit/${id}`, {
 		headers:
 		{
