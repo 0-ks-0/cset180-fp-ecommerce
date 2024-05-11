@@ -1378,7 +1378,6 @@ def update_product_info(id):
 
 	# Update warranties
 	warranties = data.get("warranties")
-	print(warranties)
 
 	update_product_warranties(product_id, warranties)
 
