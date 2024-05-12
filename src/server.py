@@ -1051,7 +1051,7 @@ def get_cart_item_data(item):
 # Accounts
 # Customer accounts
 create_user_account("customer", "customer", "Customer", "Account", "c@c.c", "c")
-create_user_account("customer", "lawrencetheflorence", "Jessica", "Lawrence", 'jessicalawrence@gmail.com', 'j')
+create_user_account("customer", "lawrencetheflorence", "Jessica", "Lawrence", 'jessicalawrence@gmail.com', 'l')
 
 # Vendor accounts
 create_user_account("vendor", 'food_schmood', 'Food', 'Schmood', 'contact@foodschmood.com', 'f')
