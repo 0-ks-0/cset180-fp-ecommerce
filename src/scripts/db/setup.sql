@@ -141,7 +141,7 @@ create table `orders`
 	`street` varchar(255) not null,
 	`city` varchar(32) not null,
 	`state` varchar(32) not null,
-	`zip_code` decimal(10, 0) not null,
+	`zip_code` varchar(10) not null,
 	`country` varchar(16) not null,
 	-- payment method
 	`status` enum ( 'pending', 'confirmed', 'canceled', 'shipped' ) not null,
