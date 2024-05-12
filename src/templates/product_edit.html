@@ -9,13 +9,7 @@ Edit - {{ data.name }}
 {% endblock %}
 
 {% block body %}
-<script>
-	function removeParent(element)
-	{
-		element.parentElement.remove()
-	}
-</script>
-
+<script src="{{ url_for('static', filename = 'js/remove.js') }}"></script>
 <script src="{{ url_for('static', filename = 'js/product.js') }}"></script>
 
 <div class="page_body">
