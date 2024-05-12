@@ -142,6 +142,7 @@ create table `orders`
 
 	primary key (`id`),
 	foreign key (`cart_id`) references `carts` (`id`),
+	unique (`cart_id`),
 
 	constraint check
 	(
