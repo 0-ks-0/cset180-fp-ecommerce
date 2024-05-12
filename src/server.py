@@ -883,15 +883,25 @@ def create_cart(user_id):
 
 def get_current_cart(user_id):
 	"""
-	Creates a new cart for the user if the user does not have a cart
+	:return:
+		The current cart_id associated with the user_id if there is one
 
-	Otherwise returns the current cart_id associated with the user_id
+		None otherwise
 	"""
 
-	cart_id = get_query_rows(f"select max(id) as `id` from `carts` where `user_id` = {user_id};")
+	# Get max cart_id of user where not in orders table
+	cart_id = get_query_rows(f"""
+		select max(`id`) as `id` from `carts` as `c`
+		where
+		(
+			`c`.`user_id` = {user_id}
+			and `c`.`id` not in
+			(select `id` from `orders` as `o` where `c`.`id` = `o`.`cart_id`)
+		);
+	""")
 
 	if cart_id[0].id == None:
-		return create_cart(user_id)
+		return
 
 	return cart_id[0].id
 
