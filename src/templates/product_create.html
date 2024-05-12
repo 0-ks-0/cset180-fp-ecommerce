@@ -10,6 +10,7 @@ Create Product
 
 {% block body %}
 <script src="{{ url_for('static', filename = 'js/product.js') }}"></script>
+<script src="{{ url_for('static', filename = 'js/input.js') }}"></script>
 
 <div class="page_body">
 	<!-- Maybe form would have been better -->
@@ -41,27 +42,25 @@ Create Product
 </div>
 
 <script>
-	const handleNegative = (event, float = false) =>
-	{
-		if (float)
-			return (event.charCode != 8 && event.charCode == 0 || ((event.charCode >= 48 && event.charCode <= 57)  || event.charCode == 46))
-
-		return event.charCode >= 48 && event.charCode <= 57 || event.charCode == 190
-	}
-
-	quantityInputs = document.getElementsByName("quantity")
+	const quantityInputs = document.getElementsByName("quantity")
 
 	for (const input of quantityInputs)
 	{
-		input.onkeypress = handleNegative
+		input.onkeypress = (event) =>
+		{
+			return handleNegative(event)
+		}
 	}
 
-	priceInputs = document.getElementsByName("price")
+	const priceInputs = document.getElementsByName("price")
 
 	// TODO restrict decimal places to 2
 	for (const input of priceInputs)
 	{
-		input.onkeypress = handleNegative(event, true)
+		input.onkeypress = (event) =>
+		{
+			return handleNegative(event, true)
+		}
 	}
 </script>
 {% endblock %}
