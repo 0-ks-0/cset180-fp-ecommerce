@@ -24,7 +24,7 @@ Cart
 		<div class="test">
 			{{ data }}
 		</div>
-		<form action="" id="order_form">
+		<form action="" id="cart_form">
 			<div class="item flex_row">
 
 				<div class="item_info_container flex_row" onclick="setTop('/products/{{ data.product_data.id }}')">
@@ -69,9 +69,9 @@ Cart
 </div>
 
 <script>
-	const order_form = document.querySelector("#order_form")
+	const cartForm = document.querySelector("#cart_form")
 
-	order_form.addEventListener("submit", (event) =>
+	cartForm.addEventListener("submit", (event) =>
 	{
 		checkout(event, {{ cart_id }})
 	})
