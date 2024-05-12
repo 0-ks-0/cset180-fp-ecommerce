@@ -1013,6 +1013,38 @@ def get_cart_items(user_id = None, cart_id = None):
 	# Get cart items
 	return get_query_rows(f"select * from `cart_items` where `cart_id` = {user_cart_id};")
 
+# Get cart item data
+def get_cart_item_data(item):
+	"""
+	:param dict item:
+
+	{'id': 1, 'cart_id': 1, 'product_id': 1, 'quantity': 1}
+
+	:return:
+		Format:
+
+		{
+			id: 0,
+			quanitity: 0,
+			product_data: {}
+		}
+
+		{} if there is nothing in item
+
+	"""
+
+	data = {}
+
+	# Nothing in item
+	if len(item) < 1:
+		return data
+
+	data["id"] = item.id
+	data["quantity"] = item.quantity
+	data["product_data"] = get_product_data(item.product_id)
+
+	return data
+
 # End of functions
 
 # Insert test values
