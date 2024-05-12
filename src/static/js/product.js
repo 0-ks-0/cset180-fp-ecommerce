@@ -211,6 +211,7 @@ function createImage()
 	const input = document.createElement("input")
 	input.setAttribute("type", "text")
 	input.name = "image"
+	input.required = true
 	input.placeholder = "Image Link"
 
 	// Button to delete
