@@ -11,6 +11,7 @@ Edit - {{ data.name }}
 {% block body %}
 <script src="{{ url_for('static', filename = 'js/remove.js') }}"></script>
 <script src="{{ url_for('static', filename = 'js/product.js') }}"></script>
+<script src="{{ url_for('static', filename = 'js/input.js') }}"></script>
 
 <div class="page_body">
 	<form id="form">
@@ -22,10 +23,10 @@ Edit - {{ data.name }}
 			<textarea name="description" id="description" placeholder="Description" required>{{ data.description }}</textarea><br>
 
 			<label for="quantity">Inventory:</label>
-			<input type="number" name="quantity" id="quantity" placeholder="Inventory" value="{{ data.quantity }}" required min="1" step="1"><br>
+			<input type="number" name="quantity" id="quantity" placeholder="Inventory" value="{{ data.quantity }}" required min="1" step="1" onkeypress="return handleNegative(event)"><br>
 
 			<label for="price">Price:</label>
-			<input type="number" name="price" id="price" placeholder="Price" value="{{ data.original_price }}" required min="0.00" step="0.01">
+			<input type="number" name="price" id="price" placeholder="Price" value="{{ data.original_price }}" required min="0.00" step="0.01" onkeypress="return handleNegative(event, true)">
 		</div>
 
 		<div id="images">
@@ -46,7 +47,7 @@ Edit - {{ data.name }}
 				{% for warranty in data.warranties %}
 					<div id="warranty_info_div" class="flex_column">
 						<label for="coverage_days">Coverage Days</label>
-						<input type="number" name="coverage_days" id="coverage_days" placeholder="Coverage Days" value="{{ warranty.coverage_days }}" min="1" step="1" onkeypress="return (event.charCode != 8 && event.charCode == 0 || (event.charCode >= 48 && event.charCode <= 57))">
+						<input type="number" name="coverage_days" id="coverage_days" placeholder="Coverage Days" value="{{ warranty.coverage_days }}" min="1" step="1" onkeypress="return handleNegative(event)">
 
 						<label for="coverage_info">Coverage Info</label>
 						<textarea name="coverage_info" id="coverage_info" required>{{ warranty.coverage_information }}</textarea>
@@ -86,7 +87,7 @@ Edit - {{ data.name }}
 						<!-- Discount amount -->
 						<div class="upcoming_discount_amount_container flex_column">
 							<label for="">Discount</label>
-							<input type="number" name="upcoming_discount_amount" placeholder="Discount as decimal" value="{{ upcoming.discount }}" min="0.01" max="1" step="0.01" required onkeypress="return (event.charCode != 8 && event.charCode == 0 || (event.charCode >= 48 && event.charCode <= 57 || event.charCode == 46))">
+							<input type="number" name="upcoming_discount_amount" placeholder="Discount as decimal" value="{{ upcoming.discount }}" min="0.01" max="1" step="0.01" required onkeypress="return handleNegative(event)">
 						</div>
 
 						<!-- Start date -->
