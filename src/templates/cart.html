@@ -20,48 +20,50 @@ Cart
 
 	{% for data in items %}
 
-	<div class="test">
-		{{ data }}
-	</div>
-		<div class="item flex_row">
+		<div class="test">
+			{{ data }}
+		</div>
+		<form action="" id="order_form">
+			<div class="item flex_row">
 
-			<div class="item_info_container flex_row" onclick="setTop('/products/{{ data.product_data.id }}')">
+				<div class="item_info_container flex_row" onclick="setTop('/products/{{ data.product_data.id }}')">
 
-				<div class="image_container">
-					<!-- Display the first image if there is any -->
-					{% if data.product_data.images | length > 0 %}
-						<img src="{{ data.product_data.images[0] }}" alt="">
-					{% else %}
-						No image
-					{% endif %}
-				</div>
-
-				<div class="product_info_container">
-					<h4 class="name">{{ data.product_data.name }}</h4>
-					<p class="vendor_username">Seller: {{ data.product_data.vendor_username }}</p>
-
-					<div class="price_container">
-						<p class="original_price">${{ data.product_data.original_price }}</p>
-
-						{% if data.product_data.current_discount %}
-							<p class="discount">{{ data.product_data.current_discount }}% off</p>
-							<p class="current_price">${{ data.product_data.currrent_price }}</p>
+					<div class="image_container">
+						<!-- Display the first image if there is any -->
+						{% if data.product_data.images | length > 0 %}
+							<img src="{{ data.product_data.images[0] }}" alt="">
+						{% else %}
+							No image
 						{% endif %}
 					</div>
+
+					<div class="product_info_container">
+						<h4 class="name">{{ data.product_data.name }}</h4>
+						<p class="vendor_username">Seller: {{ data.product_data.vendor_username }}</p>
+
+						<div class="price_container">
+							<p class="original_price">${{ data.product_data.original_price }}</p>
+
+							{% if data.product_data.current_discount %}
+								<p class="discount">{{ data.product_data.current_discount }}% off</p>
+								<p class="current_price">${{ data.product_data.currrent_price }}</p>
+							{% endif %}
+						</div>
+					</div>
+
 				</div>
 
+				<div class="quantity_container flex_column">
+					<label for="quantity">Quantity</label>
+					<input type="number" name="quantity" id="quantity" min="1" step="1" value="{{ data.quantity }}"required>
+				</div>
+
+				<button class="delete_buton" onclick="removeItem({{ data.id }})">Delete</button>
 			</div>
 
-			<div class="quantity_container flex_column">
-				<label for="">Quantity</label>
-				<input type="number" name="quantity" min="1" step="1" value="{{ data.quantity }}"required>
-			</div>
+		{% endfor %}
 
-			<button class="delete_buton" onclick="removeItem({{ data.id }})">Delete</button>
-		</div>
-
-	{% endfor %}
-
-	<button id="checkout_button" onclick="checkout({{ cart_id }})">Checkout</button>
+		<input type="submit" id="checkout_button" value="Checkout">
+	</form>
 </div>
 {% endblock %}
