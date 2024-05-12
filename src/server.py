@@ -1535,6 +1535,17 @@ def show_cart():
 		items = data
 	)
 
+@app.route("/cart", methods = [ "DELETE" ])
+def route_delete_cart_item():
+	cart_item_id = request.get_json().get("cart_item_id")
+
+	# Delete cart item
+	delete_cart_item(cart_item_id)
+
+	return {
+		"url": "/cart"
+	}
+
 # End of routes
 
 if __name__ == "__main__":
