@@ -59,7 +59,7 @@ Cart
 					<input type="number" name="quantity" id="quantity" min="1" max="{{ data.product_data.quantity }}" step="1" value="{{ data.quantity }}" required onkeypress="return handleNegative(event)">
 				</div>
 
-				<button class="delete_buton" onclick="removeItem({{ data.id }})">Delete</button>
+				<button class="delete_buton" onclick="removeItem(this, {{ data.id }})">Delete</button>
 			</div>
 
 		{% endfor %}
