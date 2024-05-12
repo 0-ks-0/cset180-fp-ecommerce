@@ -138,6 +138,12 @@ create table `orders`
 	`cart_id` int unsigned not null,
 	`date` datetime not null,
 	`price` decimal(16, 2) not null,
+	`street` varchar(255) not null,
+	`city` varchar(32) not null,
+	`state` varchar(32) not null,
+	`zip_code` decimal(10, 0) not null,
+	`country` varchar(16) not null,
+	-- payment method
 	`status` enum ( 'pending', 'confirmed', 'canceled', 'shipped' ) not null,
 
 	primary key (`id`),
