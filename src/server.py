@@ -1517,7 +1517,7 @@ def show_cart():
 	return render_template(
 		"cart.html",
 		cart_id = cart_id,
-		cart_data = data
+		items = data
 	)
 
 # End of routes
