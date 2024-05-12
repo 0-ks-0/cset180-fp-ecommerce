@@ -48,17 +48,7 @@ function removeItem(element, cart_item_id)
 	})
 	.then(function (response) // Callback function when response sent from server
 	{
-		// Check if status code between 200 and 300
-		if (response.ok)
-		{
-			return response.json() // Convert response from server to json
-
-			.then(response =>
-			{
-				top.location = response.url
-			})
-		}
-		else
+		if (!response.ok)
 		{
 			throw Error(`Error: ${response.status || response.statusText}`)
 		}
