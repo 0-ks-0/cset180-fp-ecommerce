@@ -56,7 +56,7 @@ Cart
 
 				<div class="quantity_container flex_column">
 					<label for="quantity">Quantity</label>
-					<input type="number" name="quantity" id="quantity" min="1" step="1" value="{{ data.quantity }}"required>
+					<input type="number" name="quantity" id="quantity" min="1" step="1" value="{{ data.quantity }}" required onkeypress="return handleNegative(event)">
 				</div>
 
 				<button class="delete_buton" onclick="removeItem({{ data.id }})">Delete</button>
