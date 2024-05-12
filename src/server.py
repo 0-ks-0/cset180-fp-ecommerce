@@ -974,6 +974,45 @@ def add_to_cart(cart_id, product_id):
 		""")
 
 		sql.commit()
+
+# Get cart items
+def get_cart_items(user_id = None, cart_id = None):
+	"""
+	:return:
+		[] of dictionary of each item
+
+		[] if no user_id and cart_id provided OR there are no items
+
+		[] if the user has no current cart or cart_id does not exist
+	"""
+
+	# No parameters provided
+	if not user_id and not cart_id:
+		return []
+
+	user_cart_id = None
+
+	# TODO if both user_id and cart_id passed in, make sure cart_id belongs to user_id
+
+	# user_id passed into function
+	if user_id and not cart_id:
+		user_cart_id = get_current_cart(user_id)
+
+		# User does not have a current cart
+		if not user_cart_id:
+			return [] # or None?
+
+	# cart_id passed into function
+	elif not user_id and cart_id:
+		# cart_id does not exist
+		if not cart_id_exists(cart_id):
+			return [] # or None?
+
+		user_cart_id = cart_id
+
+	# Get cart items
+	return get_query_rows(f"select * from `cart_items` where `cart_id` = {user_cart_id};")
+
 # End of functions
 
 # Insert test values
