@@ -1054,7 +1054,15 @@ create_product_discount(get_product_id(get_vendor_id(check_user_username("the_cl
 create_product('Latex Cleaning Gloves','Durable latex gloves for protecting hands during cleaning chores.', get_vendor_id(check_user_username("the_clean_mile")), 400, 2.99)
 create_product_discount(get_product_id(get_vendor_id(check_user_username("the_clean_mile")), "Latex Cleaning Gloves"), 0.15, "2024-06-01 00:00:00")
 
+# End of products
 sql.commit()
+
+# Cart and items
+test_cart1_id = create_cart(check_user_username("lawrencetheflorence"))
+add_to_cart(test_cart1_id, 1)
+
+# End of cart and items
+
 # End of inserting test values
 
 # Routes
