@@ -67,4 +67,13 @@ Cart
 		<input type="submit" id="checkout_button" value="Checkout">
 	</form>
 </div>
+
+<script>
+	const order_form = document.querySelector("#order_form")
+
+	order_form.addEventListener("submit", (event) =>
+	{
+		checkout(event, {{ cart_id }})
+	})
+</script>
 {% endblock %}
