@@ -1405,6 +1405,33 @@ def update_product_info(id):
 		"url": f"/products/{product_id}"
 	}
 
+# Cart route
+@app.route("/cart")
+def show_cart():
+	# Make sure user is logged in
+	if not validate_session(session):
+		destroy_session(session)
+		return redirect("/login")
+
+	# Validate account type
+	if session.get("account_type") != "customer":
+		# TODO make a page to show account type error
+
+		return redirect("/login")
+
+	cart_id = get_current_cart(session.get("user_id"))
+
+	# Display that there is no cart if none
+	if not cart_id:
+		return render_template(
+			"cart.html",
+			error = "Empty cart"
+		)
+
+	return render_template(
+		"cart.html"
+	)
+
 # End of routes
 
 if __name__ == "__main__":
