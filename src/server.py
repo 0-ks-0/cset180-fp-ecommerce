@@ -1051,6 +1051,15 @@ def get_cart_item_data(item):
 
 	return data
 
+def delete_cart_item(cart_item_id):
+	"""
+	:param int/str cart_item_id:
+	"""
+
+	run_query(f"delete from `cart_items` where `id` = {cart_item_id};")
+
+	sql.commit()
+
 # End of functions
 
 # Insert test values
