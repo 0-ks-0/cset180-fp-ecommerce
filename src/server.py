@@ -1507,8 +1507,16 @@ def show_cart():
 			error = "Empty cart"
 		)
 
+	items = get_cart_items(None, cart_id)
+
+	data = []
+
+	for item in items:
+		data.append(get_cart_item_data(item))
+
 	return render_template(
-		"cart.html"
+		"cart.html",
+		data = data
 	)
 
 # End of routes
