@@ -1246,6 +1246,10 @@ def route_add_to_cart():
 
 	cart_id = get_current_cart(session.get("user_id"))
 
+	# Create cart if user does not have one
+	if not cart_id:
+		cart_id = create_cart(session.get("user_id"))
+
 	add_to_cart(cart_id, product_id)
 
 	product_name = get_product_info(product_id)[0].name
