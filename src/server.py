@@ -530,6 +530,8 @@ def create_product_warranty(product_id, days, coverage):
 	if not days:
 		days = "null"
 
+	# TODO what if coverage starts with a 0
+
 	run_query(f"""
 		insert into `product_warranty`
 		values
@@ -773,6 +775,10 @@ def get_product_data(product_id):
 
 # Update products
 def update_product(product_id, name, description, quantity, price):
+	# TODO what if quantity starts with 0 but not zero
+
+	# TODO handle price format
+
 	run_query(f"""
 		update `products`
 		set
