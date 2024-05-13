@@ -1671,7 +1671,7 @@ def route_add_to_cart():
 
 	return f"{product_name} has been added"
 
-@app.route("/products", methods = [ "POST" ])
+@app.route("/products/", methods = [ "POST" ])
 def products_add_to_cart():
 	return route_add_to_cart()
 
@@ -1695,7 +1695,7 @@ def route_delete_product():
 		"response": "/products"
 	}
 
-@app.route("/products", methods = [ "DELETE" ])
+@app.route("/products/", methods = [ "DELETE" ])
 def products_delete_product():
 	return route_delete_product()
 
@@ -1703,7 +1703,7 @@ def products_delete_product():
 def products_info_delete_product(id):
 	return route_delete_product()
 
-@app.route("/products/create")
+@app.route("/products/create/")
 def display_product_create():
 	if not validate_session(session):
 		destroy_session(session)
@@ -1718,7 +1718,7 @@ def display_product_create():
 		account_type = session.get("account_type")
 	)
 
-@app.route("/products/create", methods = [ "POST" ])
+@app.route("/products/create/", methods = [ "POST" ])
 def post_product_create():
 	data = request.get_json()
 
@@ -1831,7 +1831,7 @@ def update_product_info(id):
 	}
 
 # Cart route
-@app.route("/cart")
+@app.route("/cart/")
 def show_cart():
 	# Make sure user is logged in
 	if not validate_session(session):
@@ -1873,7 +1873,7 @@ def show_cart():
 		items = data
 	)
 
-@app.route("/cart", methods = [ "DELETE" ])
+@app.route("/cart/", methods = [ "DELETE" ])
 def route_delete_cart_item():
 	cart_item_id = request.get_json().get("cart_item_id")
 
@@ -1885,7 +1885,7 @@ def route_delete_cart_item():
 		"url": "/cart"
 	}
 
-@app.route("/cart", methods = [ "POST" ])
+@app.route("/cart/", methods = [ "POST" ])
 def place_order():
 	order_details = request.get_json()
 
@@ -1908,7 +1908,7 @@ def place_order():
 		"url": "/orders"
 	}
 
-@app.route("/orders")
+@app.route("/orders/")
 def display_orders():
 	if not validate_session(session):
 		destroy_session(session)
@@ -1935,6 +1935,7 @@ def display_orders():
 		"orders.html",
 		orders = orders
 	)
+
 
 # End of routes
 
