@@ -1234,6 +1234,28 @@ def issue_warranties(product_id, user_id):
 
 	sql.commit()
 
+# Validate order id
+def validate_order_id(order_id):
+	"""
+	:param int/str order_id:
+
+	:return:
+		True if the order_id exists
+
+		False otherwise
+	"""
+
+	try:
+
+		orders = get_query_rows(f"select `id` from `orders`;")
+
+		order_ids = [o.id for o in orders]
+
+		return int(order_id) in order_ids
+
+	except:
+		return False
+
 # End of orders
 
 # End of functions
