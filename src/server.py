@@ -1767,6 +1767,32 @@ def place_order():
 		"url": "/orders"
 	}
 
+@app.route("/orders")
+def display_orders():
+	if not validate_session(session):
+		destroy_session(session)
+		return redirect("/login")
+
+	orders = []
+
+	if session.get("account_type") in ["vendor", "admin"]:
+		orders = get_query_rows("select * from orders;")
+
+
+	elif session.get("account_type") == "customer":
+		orders = get_query_rows(f"select * from `orders` where `cart_id` in (select `id` from `carts` where `user_id` = {session.get("user_id")});")
+
+	if len(orders) < 1:
+		return render_template(
+			"orders.html",
+			message = "No orders"
+		)
+
+	return render_template(
+		"orders.html",
+		orders = orders
+	)
+
 # End of routes
 
 if __name__ == "__main__":

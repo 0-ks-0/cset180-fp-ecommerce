@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}
+Orders
+{% endblock %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+<div class="page_body">
+	{% if message %}
+		<h3>{{ message }}</h3>
+	{% endif %}
+
+	{% for order in orders %}
+		<div class="order_container">
+			<h3>{{ order.id }}</h3>
+			<p>Date placed: {{ order.date }}</p>
+			<p>Total: ${{ order.price }}</p>
+			<p>Status: {{ order.status }}</p>
+		</div>
+	{% endfor %}
+</div>
+{% endblock %}
