@@ -1175,6 +1175,42 @@ def get_total(cart_id):
 
 	return float(f"{total : 0.2f}")
 
+# Create order
+def create_order(cart_id, address_data, payment_method):
+	"""
+	:param int/str cart_id:
+	:param dict address_data:
+	:param str payment_method:
+	"""
+
+	total = get_total(cart_id)
+
+	street = address_data.get("street")
+	city = address_data.get("city")
+	state = address_data.get("state")
+	zip_code = address_data.get("zip_code")
+	country = address_data.get("country")
+
+	run_query(f"""
+		insert into orders
+		values
+		(
+			null,
+			{cart_id},
+			now(),
+			{total},
+			'{street}',
+			'{city}',
+			'{state}',
+			'{zip_code}',
+			'{country}',
+			'{payment_method}',
+			'pending'
+		);
+	""")
+
+	sql.commit()
+
 # End of orders
 
 # End of functions
