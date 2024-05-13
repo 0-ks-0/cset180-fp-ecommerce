@@ -63,6 +63,14 @@ create table `products`
 	)
 );
 
+create table `deleted_products`
+(
+	`product_id` int unsigned,
+
+	primary key (`product_id`),
+	foreign key (`product_id`) references `products` (`id`) on delete restrict on update restrict
+);
+
 create table `product_warranty`
 (
 	`id` int unsigned auto_increment,
@@ -71,7 +79,15 @@ create table `product_warranty`
 	`coverage_information` text,
 
 	primary key (`id`),
-	foreign key (`product_id`) references `products` (`id`) on delete cascade on update restrict
+	foreign key (`product_id`) references `products` (`id`) on delete restrict on update restrict
+);
+
+create table `deleted_product_warranties`
+(
+	`warranty_id` int unsigned,
+
+	primary key (`warranty_id`),
+	foreign key (`warranty_id`) references `product_warranty` (`id`) on delete restrict on update restrict
 );
 
 create table `active_warranty`
@@ -81,7 +97,7 @@ create table `active_warranty`
 	`activation_date` datetime not null,
 	`expiration_date` datetime,
 
-	foreign key (`warranty_id`) references `product_warranty` (`id`) on delete cascade on update restrict,
+	foreign key (`warranty_id`) references `product_warranty` (`id`) on delete restrict on update restrict,
 	foreign key (`user_id`) references `users` (`id`) on delete cascade on update restrict
 );
 
@@ -90,7 +106,7 @@ create table `product_images`
 	`product_id` int unsigned,
 	`image_data` varchar(255) not null,
 
-	foreign key (`product_id`) references `products` (`id`) on delete cascade on update restrict
+	foreign key (`product_id`) references `products` (`id`) on delete restrict on update restrict
 );
 
 create table `product_discounts`
@@ -102,7 +118,7 @@ create table `product_discounts`
 	`end_date` datetime,
 
 	primary key (`id`),
-	foreign key (`product_id`) references `products` (`id`) on delete cascade on update restrict,
+	foreign key (`product_id`) references `products` (`id`) on delete restrict on update restrict,
 
 	constraint check
 	(
@@ -129,7 +145,7 @@ create table `cart_items`
 
 	primary key (`id`),
 	foreign key (`cart_id`) references `carts` (`id`) on delete cascade on update restrict,
-	foreign key (`product_id`) references `products` (`id`) on delete cascade on update restrict
+	foreign key (`product_id`) references `products` (`id`) on delete restrict on update restrict
 );
 
 create table `orders`
@@ -147,7 +163,7 @@ create table `orders`
 	`status` enum ( 'pending', 'confirmed', 'canceled', 'shipped' ) not null,
 
 	primary key (`id`),
-	foreign key (`cart_id`) references `carts` (`id`),
+	foreign key (`cart_id`) references `carts` (`id`) on delete restrict on update restrict,
 	unique (`cart_id`),
 
 	constraint check
