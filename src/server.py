@@ -1212,6 +1212,9 @@ def create_order(cart_id, address_data, payment_method):
 	:param int/str cart_id:
 	:param dict address_data:
 	:param str payment_method:
+
+	:return:
+		The order_id
 	"""
 
 	total = get_total(cart_id)
@@ -1242,8 +1245,10 @@ def create_order(cart_id, address_data, payment_method):
 
 	sql.commit()
 
+	return get_query_rows(f"select last_insert_id() as `id`")[0].id
+
 # Issue warranties
-def issue_warranties(product_id, user_id):
+def issue_warranties(order_id, product_id, user_id):
 	current_warranties = get_query_rows(f"select * from `product_warranty` where `id` not in (select `warranty_id` from `deleted_warranty`) and product_id = {product_id} ;")
 
 	warranty_ids = [w.id for w in current_warranties]
@@ -1256,7 +1261,7 @@ def issue_warranties(product_id, user_id):
 		if not coverage_days:
 			expiration_date = "null"
 
-		run_query(f"insert into `active_warranty` values ({id}, {user_id}, curdate(), {expiration_date});")
+		run_query(f"insert into `active_warranty` values ({id}, {user_id}, {order_id}, curdate(), {expiration_date});")
 
 	sql.commit()
 
@@ -1808,7 +1813,7 @@ def place_order():
 	address_data = order_details.get("address_data")
 	payment_method = order_details.get("payment_method")
 
-	create_order(cart_id, address_data, payment_method)
+	order_id = create_order(cart_id, address_data, payment_method)
 
 	# Issue warranties
 	cart_items = get_query_rows(f"select * from `cart_items` where `cart_id` = {cart_id};")
@@ -1816,7 +1821,7 @@ def place_order():
 	product_ids = [i.id for i in cart_items]
 
 	for id in product_ids:
-		issue_warranties(id, session.get("user_id"))
+		issue_warranties(order_id, id, session.get("user_id"))
 
 	return {
 		"message": "Order placed successfully",
