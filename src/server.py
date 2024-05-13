@@ -1344,7 +1344,7 @@ add_to_cart(test_cart2_id, 3)
 
 # Orders
 create_order(test_cart1_id, {"street": "street", "city": "city", "state": "state", "zip_code": "zip code", "country": "country"}, "card")
-
+issue_warranties(1, 1, 2)
 # End of orders
 
 # End of inserting test values
