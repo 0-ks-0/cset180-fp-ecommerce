@@ -1275,7 +1275,7 @@ def view_products():
 		destroy_session(session)
 		return redirect("/login")
 
-	products = get_query_rows(f"select * from `products`")
+	products = get_query_rows(f"select * from `products` where `id` not in (select `product_id` from `deleted_products`);")
 
 	if len(products) < 1:
 		return render_template(
@@ -1286,7 +1286,7 @@ def view_products():
 	# Get vendor products if vendor account
 	if session.get("account_type") == "vendor":
 		vendor_id = get_vendor_id(session.get("user_id"))
-		products = get_query_rows(f"select * from `products` where `vendor_id` = {vendor_id};")
+		products = get_query_rows(f"select * from `products` where `vendor_id` = {vendor_id} and `id` not in (select `product_id` from `deleted_products`);")
 
 	# Get all the product_ids
 	product_ids = []
@@ -1330,7 +1330,7 @@ def display_product_info(id):
 	# Prevent vendor from accessing product info of another vendor
 	if session.get("account_type") == "vendor":
 		vendor_id = get_vendor_id(session.get("user_id"))
-		vendor_product_ids = get_query_rows(f"select `id` from `products` where `vendor_id` = {vendor_id};")
+		vendor_product_ids = get_query_rows(f"select `id` from `products` where `vendor_id` = {vendor_id} and `id` not in (select `product_id` from `deleted_products`);")
 
 		if len(vendor_product_ids) < 1:
 			return redirect("/products")
@@ -1375,7 +1375,9 @@ def products_info_add_to_cart(id):
 def route_delete_product():
 	product_id = request.get_json().get("product_id")
 
-	run_query(f"delete from `products` where `id` = {product_id};")
+	# run_query(f"delete from `products` where `id` = {product_id};")
+
+	add_deleted_product(product_id)
 
 	sql.commit()
 
