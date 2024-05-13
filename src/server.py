@@ -946,10 +946,9 @@ def get_current_cart(user_id):
 
 	return cart_id[0].id
 
-# Remove deleted product from current carts
-def delete_product_from_current_carts(product_id):
+def get_current_carts():
 	"""
-
+	:return: list of cart_ids
 	"""
 	# Find distinct user_ids
 	distinct_users = get_query_rows(f"select distinct(`user_id`) from `carts`;")
@@ -961,6 +960,13 @@ def delete_product_from_current_carts(product_id):
 
 	for user in user_ids:
 		current_carts.append(get_current_cart(user))
+
+	return current_carts
+
+# Remove deleted product from current carts
+def delete_product_from_current_carts(product_id):
+	# Get all the current carts of user
+	current_carts = get_current_carts()
 
 	# Delete product from each current cart
 	for cart_id in current_carts:
