@@ -9,13 +9,15 @@ Orders
 {% endblock %}
 
 {% block body %}
+<script src="{{ url_for('static', filename = 'js/navigator.js')}}"></script>
+
 <div class="page_body">
 	{% if message %}
 		<h3>{{ message }}</h3>
 	{% endif %}
 
 	{% for order in orders %}
-		<div class="order_container">
+		<div class="order_container" onclick="setTop('/orders/{{ order.id }}')">
 			<h3>Order ID: {{ order.id }}</h3>
 			<p>Date placed: {{ order.date }}</p>
 			<p>Total: ${{ order.price }}</p>
