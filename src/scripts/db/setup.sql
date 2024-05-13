@@ -82,7 +82,7 @@ create table `product_warranty`
 	foreign key (`product_id`) references `products` (`id`) on delete restrict on update restrict
 );
 
-create table `deleted_product_warranties`
+create table `deleted_warranty`
 (
 	`warranty_id` int unsigned,
 
