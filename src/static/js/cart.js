@@ -78,6 +78,21 @@ function placeOrder(event, cart_id)
 	address_data["zip_code"] = form_data.get("zip_code")
 	address_data["country"] = form_data.get("country")
 
+	/*
+	Format of data passed in body
+	{
+		"cart_id": 0.
+		"address_data": {
+			"street": "",
+			"city": "",
+			"state": "",
+			"zip_code": "",
+			"country": ""
+		}
+		"payment_method": ""
+	}
+	*/
+
 	fetch(`/cart`, {
 		headers:
 		{
