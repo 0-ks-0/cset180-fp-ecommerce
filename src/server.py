@@ -458,6 +458,10 @@ def create_product(name, description, vendor_id, quantity, price):
 
 # End of creating products
 
+# Add deleted product
+def add_deleted_product(product_id):
+	run_query(f"insert into `deleted_products` values ({product_id});")
+
 # Check if product id exists
 def product_id_exists(product_id):
 	"""
