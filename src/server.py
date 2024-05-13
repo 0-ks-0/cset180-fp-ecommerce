@@ -964,7 +964,8 @@ def delete_product_from_current_carts(product_id):
 
 	# Delete product from each current cart
 	for cart_id in current_carts:
-		run_query(f"delete from `cart_items` where product_id = {product_id} and cart_id = {cart_id};")
+		if cart_id: # Prevent removing from cart_id = None
+			run_query(f"delete from `cart_items` where product_id = {product_id} and cart_id = {cart_id};")
 
 # Check cart id in carts
 def cart_id_exists(cart_id):
