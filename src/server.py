@@ -1157,6 +1157,23 @@ def delete_cart_item(cart_item_id):
 # End of cart
 
 # Orders
+# Calculate total of order
+def get_total(cart_id):
+
+	cart_items = get_query_rows(f"select * from cart_items where cart_id = {cart_id};")
+
+	# TODO validate cart_id
+
+	total = 0
+
+	for item in cart_items:
+		unit_price = item.current_unit_price
+		discount_multiplier = 1 - item.current_discount
+		quantity = item.quantity
+
+		total +=  unit_price * discount_multiplier * quantity
+
+	return float(f"{total : 0.2f}")
 
 # End of orders
 
@@ -1673,6 +1690,11 @@ def place_order():
 	order_details = request.get_json()
 
 	print(order_details)
+	cart_id = order_details.get("cart_id")
+	address_data = order_details.get("address_data")
+	payment_method = order_details.get("payment_method")
+
+	create_order()
 
 	return {
 		"message": "Order placed successfully",
