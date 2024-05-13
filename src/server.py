@@ -1084,6 +1084,11 @@ def get_cart_items(user_id = None, cart_id = None):
 	# Get cart items
 	return get_query_rows(f"select * from `cart_items` where `cart_id` = {user_cart_id};")
 
+# Get price of item in current cart
+def get_cart_item_price(cart_id, product_id):
+	return get_query_rows(f"select `current_unit_price` from `cart_items` where `cart_id` = {cart_id} and `product_id` = {product_id};")[0].current_unit_price
+
+
 # Get cart item data
 def get_cart_item_data(item):
 	"""
