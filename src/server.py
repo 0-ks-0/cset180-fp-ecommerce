@@ -675,6 +675,11 @@ def get_product_warranties(product_id, deleted = False):
 	"""
 	:param int/str product_id:
 	:param bool deleted: False if getting active warranties. True if getting all warranties including deleted ones
+
+	:return:
+		empty list if there are no warranties
+
+		list of dicts all the warranties
 	"""
 
 	if deleted:
