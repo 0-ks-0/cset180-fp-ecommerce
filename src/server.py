@@ -1730,7 +1730,9 @@ def place_order():
 	address_data = order_details.get("address_data")
 	payment_method = order_details.get("payment_method")
 
-	create_order()
+	create_order(cart_id, address_data, payment_method)
+
+	# TODO issue warranties
 
 	return {
 		"message": "Order placed successfully",
