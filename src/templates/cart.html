@@ -18,13 +18,14 @@ Cart
 		<h1>{{ error }}</h1>
 	{% endif %}
 
+	<form action="" id="cart_form">
 
-	{% for data in items %}
+		{% for data in items %}
 
-		<div class="test">
-			{{ data }}
-		</div>
-		<form action="" id="cart_form">
+			<div class="test">
+				{{ data }}
+			</div>
+
 			<div class="item flex_row">
 
 				<div class="item_info_container flex_row" onclick="setTop('/products/{{ data.product_data.id }}')">
