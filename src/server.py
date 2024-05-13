@@ -1216,6 +1216,24 @@ def create_order(cart_id, address_data, payment_method):
 
 	sql.commit()
 
+# Issue warranties
+def issue_warranties(product_id, user_id):
+	current_warranties = get_query_rows(f"select * from `product_warranty` where `id` not in (select `warranty_id` from `deleted_warranty`) and product_id = {product_id} ;")
+
+	warranty_ids = [w.id for w in current_warranties]
+
+	for id in warranty_ids:
+		coverage_days = get_query_rows(f"select `coverage_days` from `product_warranty` where `id` = {id};")[0].coverage_days
+
+		expiration_date = f"curdate() + interval {coverage_days} day"
+
+		if not coverage_days:
+			expiration_date = "null"
+
+		run_query(f"insert into `active_warranty` values ({id}, {user_id}, curdate(), {expiration_date});")
+
+	sql.commit()
+
 # End of orders
 
 # End of functions
