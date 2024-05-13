@@ -1286,6 +1286,11 @@ add_to_cart(test_cart1_id, 1)
 
 # End of cart and items
 
+# Orders
+create_order(test_cart1_id, {"street": "street", "city": "city", "state": "state", "zip_code": "zip code", "country": "country"}, "card")
+
+# End of orders
+
 # End of inserting test values
 
 # Routes
