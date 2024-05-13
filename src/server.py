@@ -1591,6 +1591,13 @@ def show_cart():
 
 	items = get_cart_items(None, cart_id)
 
+	# No items in cart
+	if len(items) < 1:
+		return render_template(
+		"cart.html",
+		error = "Empty cart"
+	)
+
 	data = []
 
 	for item in items:
