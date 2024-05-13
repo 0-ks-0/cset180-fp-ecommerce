@@ -1284,6 +1284,9 @@ sql.commit()
 test_cart1_id = create_cart(check_user_username("lawrencetheflorence"))
 add_to_cart(test_cart1_id, 1)
 
+test_cart2_id = create_cart(check_user_username("lawrencetheflorence"))
+add_to_cart(test_cart2_id, 2)
+add_to_cart(test_cart2_id, 3)
 # End of cart and items
 
 # Orders
