@@ -1287,6 +1287,10 @@ def validate_order_id(order_id):
 	except:
 		return False
 
+# Get order warranties
+def get_order_warranties(order_id):
+	return get_query_rows(f"select * from `active_warranty` where `order_id` = {order_id};")
+
 # End of orders
 
 # End of functions
