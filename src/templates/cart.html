@@ -65,7 +65,10 @@ Cart
 
 		{% endfor %}
 
-		<input type="submit" id="checkout_button" value="Checkout">
+		<!-- Display checkout button if there are items in the cart -->
+		{% if items | length > 0 %}
+			<input type="submit" id="checkout_button" value="Checkout">
+		{% endif %}
 	</form>
 </div>
 
