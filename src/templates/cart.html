@@ -67,6 +67,28 @@ Cart
 
 		<!-- Display checkout button if there are items in the cart -->
 		{% if items | length > 0 %}
+			<h3>Almost there</h3>
+			<div id="address_container" class="flex_column">
+				<input type="text" name="street_address" placeholder="Street Address" required>
+				<input type="text" name="city" placeholder="City" required>
+
+				<div class="flex_row">
+					<input type="text" name="state" placeholder="State" required>
+					<input type="text" name="zip_code" placeholder="Zip Code" required>
+				</div>
+
+				<input type="text" name="country" placeholder="Country" required>
+			</div>
+
+			<div id="payment_container" class="flex_row">
+				<label for="payment_select">Payment Method</label>
+
+				<select name="payment" id="payment_select">
+					<option value="card">Card</option>
+					<option value="other">Other Digital Method</option>
+				</select>
+			</div>
+
 			<input type="submit" id="checkout_button" value="Checkout">
 		{% endif %}
 	</form>
