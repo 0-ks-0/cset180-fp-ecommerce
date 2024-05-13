@@ -549,6 +549,10 @@ def create_product_warranty(product_id, days, coverage):
 
 # End of create product warranty
 
+# Add deleted warranty
+def add_deleted_warranty(warranty_id):
+	run_query(f"insert into `deleted_warranty` values ({warranty_id});")
+
 # Get product_id
 def get_product_id(vendor_id, name):
 	"""
