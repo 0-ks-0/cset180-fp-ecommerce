@@ -1092,6 +1092,22 @@ def get_cart_items(user_id = None, cart_id = None):
 def get_cart_item_price(cart_id, product_id):
 	return get_query_rows(f"select `current_unit_price` from `cart_items` where `cart_id` = {cart_id} and `product_id` = {product_id};")[0].current_unit_price
 
+# Update cart item price
+def update_cart_item_price(product_id):
+	current_carts = get_current_carts()
+
+	for cart_id in current_carts:
+		if not cart_id: # Handles None as cart_id
+			continue
+
+		cart_item_price = get_cart_item_price(cart_id, product_id)
+		product_price = get_product_price(product_id)
+
+		if cart_item_price != product_price:
+			run_query(f"update `cart_items` set `current_unit_price` = {product_price} where product_id = {product_id} and `cart_id` = {cart_id};")
+
+	sql.commit()
+
 # Get cart item data
 def get_cart_item_data(item):
 	"""
