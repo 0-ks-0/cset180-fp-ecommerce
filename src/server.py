@@ -1461,7 +1461,7 @@ def display_product_edit(id):
 	# Validate product is from vendor
 	if session.get("account_type") == "vendor":
 		vendor_id = get_vendor_id(session.get("user_id"))
-		vendor_product_ids = get_query_rows(f"select `id` from `products` where `vendor_id` = {vendor_id};")
+		vendor_product_ids = get_query_rows(f"select `id` from `products` where `vendor_id` = {vendor_id} and `id` not in (select `product_id` from `deleted_products`);")
 
 		# Vendor has no products
 		if len(vendor_product_ids) < 1:
