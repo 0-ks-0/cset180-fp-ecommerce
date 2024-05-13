@@ -787,6 +787,27 @@ def get_product_data(product_id):
 
 	return data
 
+# Validate product
+def validate_product(product_id):
+	"""
+	:param int/str product_id:
+
+	:return:
+		True if the product is not deleted
+
+		False otherwise
+	"""
+
+	current_products = get_query_rows(f"select * from `products` where `id` not in (select `product_id` from `deleted_products`);")
+
+	# Get all the ids of current product
+	current_product_ids = []
+
+	for product in current_products:
+		current_product_ids.append(product.id)
+
+	return int(product_id) in current_product_ids
+
 # Update products
 def update_product(product_id, name, description, quantity, price):
 	# TODO what if quantity starts with 0 but not zero
@@ -1327,6 +1348,10 @@ def display_product_info(id):
 
 	# print(f"product info id: {id}")
 
+	# Make sure product is not a deleted one
+	if not validate_product(id):
+		return redirect("/products")
+
 	# Prevent vendor from accessing product info of another vendor
 	if session.get("account_type") == "vendor":
 		vendor_id = get_vendor_id(session.get("user_id"))
@@ -1459,14 +1484,7 @@ def display_product_edit(id):
 		return redirect("/products")
 
 	# Make sure product is not a deleted one
-	current_products = get_query_rows(f"select * from `products` where `id` not in (select `product_id` from `deleted_products`);")
-
-	current_product_ids = []
-
-	for product in current_products:
-		current_product_ids.append(product.id)
-
-	if id not in current_product_ids:
+	if not validate_product(id):
 		return redirect("/products")
 
 	# Validate product is from vendor
