@@ -946,6 +946,26 @@ def get_current_cart(user_id):
 
 	return cart_id[0].id
 
+# Remove deleted product from current carts
+def delete_product_from_current_carts(product_id):
+	"""
+
+	"""
+	# Find distinct user_ids
+	distinct_users = get_query_rows(f"select distinct(`user_id`) from `carts`;")
+
+	user_ids = [u.user_id for u in distinct_users]
+
+	# Find current carts all all users
+	current_carts = []
+
+	for user in user_ids:
+		current_carts.append(get_current_cart(user))
+
+	# Delete product from each current cart
+	for cart_id in current_carts:
+		run_query(f"delete from `cart_items` where product_id = {product_id} and cart_id = {cart_id};")
+
 # Check cart id in carts
 def cart_id_exists(cart_id):
 	"""
@@ -1403,6 +1423,7 @@ def route_delete_product():
 	# run_query(f"delete from `products` where `id` = {product_id};")
 
 	add_deleted_product(product_id)
+	delete_product_from_current_carts(product_id)
 
 	sql.commit()
 
