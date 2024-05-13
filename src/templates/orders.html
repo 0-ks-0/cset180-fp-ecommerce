@@ -5,13 +5,13 @@ Orders
 {% endblock %}
 
 {% block head %}
-
+<link rel="stylesheet" href="{{ url_for('static', filename = 'styles/orders.css') }}">
 {% endblock %}
 
 {% block body %}
 <script src="{{ url_for('static', filename = 'js/navigator.js')}}"></script>
 
-<div class="page_body">
+<div class="page_body" id="orders_page">
 	{% if message %}
 		<h3>{{ message }}</h3>
 	{% endif %}

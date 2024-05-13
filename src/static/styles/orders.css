@@ -1,0 +1,14 @@
+#orders_page
+{
+	gap: 1em;
+}
+
+.order_container
+{
+	background-color: aliceblue;
+}
+
+.order_container:hover
+{
+	cursor: pointer;
+}
