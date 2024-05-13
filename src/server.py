@@ -1458,6 +1458,17 @@ def display_product_edit(id):
 	if session.get("account_type") not in ["vendor", "admin"]:
 		return redirect("/products")
 
+	# Make sure product is not a deleted one
+	current_products = get_query_rows(f"select * from `products` where `id` not in (select `product_id` from `deleted_products`);")
+
+	current_product_ids = []
+
+	for product in current_products:
+		current_product_ids.append(product.id)
+
+	if id not in current_product_ids:
+		return redirect("/products")
+
 	# Validate product is from vendor
 	if session.get("account_type") == "vendor":
 		vendor_id = get_vendor_id(session.get("user_id"))
