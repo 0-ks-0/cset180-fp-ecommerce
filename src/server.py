@@ -1652,6 +1652,7 @@ def route_delete_cart_item():
 	# Delete cart item
 	delete_cart_item(cart_item_id)
 
+	# Doesn't matter what's in the dict since nothing will be done with it in the JS function
 	return {
 		"url": "/cart"
 	}
