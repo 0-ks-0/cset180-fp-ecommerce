@@ -143,7 +143,7 @@ create table `cart_items`
 	`product_id` int unsigned,
 	`quantity` tinyint unsigned not null,
 	`current_unit_price` decimal(8, 2) not null,
-	`current_discount` decimal(1, 0) not null,
+	`current_discount` decimal(3, 2) not null,
 
 	primary key (`id`),
 	foreign key (`cart_id`) references `carts` (`id`) on delete cascade on update restrict,
