@@ -1030,6 +1030,8 @@ def add_to_cart(cart_id, product_id):
 
 	# Add item to cart
 	else:
+		price = get_query_rows(f"select `price` from `products` where `id` = {product_id};")[0].price
+
 		run_query(f"""
 			insert into `cart_items`
 			values
@@ -1037,7 +1039,8 @@ def add_to_cart(cart_id, product_id):
 				null,
 				{cart_id},
 				{product_id},
-				1
+				1,
+				{price}
 			);
 		""")
 
