@@ -1154,6 +1154,12 @@ def delete_cart_item(cart_item_id):
 
 	sql.commit()
 
+# End of cart
+
+# Orders
+
+# End of orders
+
 # End of functions
 
 # Insert test values
