@@ -159,7 +159,7 @@ create table `orders`
 	`state` varchar(32) not null,
 	`zip_code` varchar(10) not null,
 	`country` varchar(16) not null,
-	-- payment method
+	`payment_method` varchar(16) not null,
 	`status` enum ( 'pending', 'confirmed', 'canceled', 'shipped' ) not null,
 
 	primary key (`id`),
