@@ -667,10 +667,16 @@ def get_current_discount_end(product_id):
 	""")
 
 # Get product warranty
-def get_product_warranties(product_id):
-	warranty = get_query_rows(f"select * from `product_warranty` where `product_id` = {product_id};")
+def get_product_warranties(product_id, deleted = False):
+	"""
+	:param int/str product_id:
+	:param bool deleted: False if getting active warranties. True if getting all warranties including deleted ones
+	"""
 
-	return warranty
+	if deleted:
+		return get_query_rows(f"select * from `product_warranty` where `product_id` = {product_id};")
+
+	return get_query_rows(f"select * from `product_warranty` where `product_id` = {product_id} and `id` not in (select `warranty_id` from `deleted_warranty`);")
 
 # End of get product warranty
 
