@@ -1291,6 +1291,81 @@ def validate_order_id(order_id):
 def get_order_warranties(order_id):
 	return get_query_rows(f"select * from `active_warranty` where `order_id` = {order_id};")
 
+# Get order details / data
+def get_order_data(order_id):
+	"""
+	:return:
+		Format
+		{
+			"order_data": {},
+			"user_data: {},
+			"items_data": [{}, {}]
+		}
+
+	"""
+	data = {}
+
+	# Get info on order
+	order_data = get_query_rows(f"select * from `orders` where `id` = {order_id};")
+
+	# order_id does not exist
+	if len(order_data) < 1:
+		return data
+
+	data["order_data"] = order_data[0]
+
+	# Find user info
+	cart_id = order_data[0].cart_id
+
+	cart_data = get_query_rows(f"select * from `carts` where `id` = {cart_id};")
+
+	user_id = cart_data[0].user_id
+
+	user_data = get_query_rows(f"select * from `users` where `id` = {user_id};")[0]
+
+	data["user_data"] = user_data
+
+	# Items info
+	cart_items = get_query_rows(f"select * from `cart_items` where `cart_id` = {cart_id};")
+
+	items_data = []
+
+	# Cart item info and product_info for each item
+	for cart_item in cart_items:
+		product_id = cart_item.product_id
+
+		product_info = get_query_rows(f"select * from `products` where `id` = {product_id};")[0]
+
+		# Active warranties
+		warranty_data = []
+		warranties = get_order_warranties(order_id)
+
+		for warranty in warranties:
+			warranty_id = warranty.warranty_id
+
+			coverage_info = get_query_rows(f"select * from `product_warranty` where `id` = {warranty_id};")
+			warranty_data.append({
+				"coverage_info": coverage_info[0].coverage_information,
+				"start_date": warranty.activation_date,
+				"end_date": warranty.expiration_date
+			})
+
+		items_data.append({
+			"item_id": cart_item.id,
+			"product_id": product_id,
+			"name": product_info.name,
+			"description": product_info.description,
+			"vendor_id": product_info.vendor_id,
+			"vendor_username": get_vendor_username(product_id)[0].username,
+			"item_quantity": cart_item.quantity,
+			"current_unit_price": cart_item.current_unit_price,
+			"current_discount": cart_item.current_discount,
+			"warranties": warranty_data # list of dictionaries
+		})
+
+	data["items_data"] = items_data
+
+	return data
 # End of orders
 
 # End of functions
@@ -1349,6 +1424,7 @@ add_to_cart(test_cart2_id, 3)
 # Orders
 create_order(test_cart1_id, {"street": "street", "city": "city", "state": "state", "zip_code": "zip code", "country": "country"}, "card")
 issue_warranties(1, 1, 2)
+
 # End of orders
 
 # End of inserting test values
