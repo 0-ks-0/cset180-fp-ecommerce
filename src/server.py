@@ -1818,6 +1818,8 @@ def display_orders():
 			message = "No orders"
 		)
 
+	# TODO get user_id and username for each order to be displayed for vendor/admin
+
 	return render_template(
 		"orders.html",
 		orders = orders
