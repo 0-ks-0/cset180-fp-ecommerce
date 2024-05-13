@@ -1748,14 +1748,19 @@ def route_delete_cart_item():
 def place_order():
 	order_details = request.get_json()
 
-	print(order_details)
 	cart_id = order_details.get("cart_id")
 	address_data = order_details.get("address_data")
 	payment_method = order_details.get("payment_method")
 
 	create_order(cart_id, address_data, payment_method)
 
-	# TODO issue warranties
+	# Issue warranties
+	cart_items = get_query_rows(f"select * from `cart_items` where `cart_id` = {cart_id};")
+
+	product_ids = [i.id for i in cart_items]
+
+	for id in product_ids:
+		issue_warranties(id, session.get("user_id"))
 
 	return {
 		"message": "Order placed successfully",
