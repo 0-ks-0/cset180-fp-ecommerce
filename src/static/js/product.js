@@ -287,16 +287,21 @@ function createWarranty()
 /*
 *	Edit product page
 */
-function getFormattedISO(offsetHours)
+function getFormattedISO(offsetHours, start = null)
 {
 	// TODO make sure offsetHours is a number
+	let d = null
 
-	const d = new Date()
+	if (start)
+		d = new Date(start)
+	else
+		d = new Date()
+
 
 	// https://stackoverflow.com/questions/10830357/javascript-toisostring-ignores-timezone-offset
 	const timeZoneOffset = d.getTimezoneOffset() * 60000 //offset in milliseconds
 
-	const offsetDate = new Date((Date.now() - timeZoneOffset))
+	const offsetDate = new Date((d - timeZoneOffset))
 	offsetDate.setHours(offsetDate.getHours() + offsetHours)
 
 	const offsetDateISO = offsetDate.toISOString()
@@ -423,13 +428,25 @@ function editProduct(e, id)
 
 	for (const end of endDates)
 	{
-		const formattedISO = getFormattedISO(2)
+
+		count = 0
+		start = startDates[count].value
+
+		const formattedISO = getFormattedISO(1, start)
+
+		if (end.value && end.value < start)
+		{
+			alert("Discount cannot end before it starts")
+			return
+		}
 
 		if (end.value && end.value < formattedISO)
 		{
 			alert(`Discount must end at least one hour after start`)
 			return
 		}
+
+		count++
 	}
 
 	const form = document.querySelector("#form")
