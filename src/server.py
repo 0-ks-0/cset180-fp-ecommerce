@@ -689,6 +689,20 @@ def get_product_warranties(product_id, deleted = False):
 
 # End of get product warranty
 
+# Get vendor username
+def get_vendor_username(product_id):
+	return get_query_rows(f"""
+		select `username` from `users` as `u`
+		where `u`.`id` =
+		(
+			select `user_id` from `vendors` as `v`
+			where `v`.`id` =
+			(
+				select `vendor_id` from `products` as `p`
+				where `p`.`id` = {product_id}
+			)
+		);""")
+
 # Get product data
 def get_product_data(product_id):
 	"""
@@ -732,17 +746,7 @@ def get_product_data(product_id):
 	data["name"] = product_info.name
 	data["description"] = product_info.description
 
-	username = get_query_rows(f"""
-		select `username` from `users` as `u`
-		where `u`.`id` =
-		(
-			select `user_id` from `vendors` as `v`
-			where `v`.`id` =
-			(
-				select `vendor_id` from `products` as `p`
-				where `p`.`id` = {product_id}
-			)
-		);""")
+	username = get_vendor_username(product_id)
 
 	# TODO if vendor account deleted, there would be no username
 	# Maybe handles that
