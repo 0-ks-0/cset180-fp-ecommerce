@@ -1035,6 +1035,10 @@ def add_to_cart(cart_id, product_id):
 	# Add item to cart
 	else:
 		price = get_query_rows(f"select `price` from `products` where `id` = {product_id};")[0].price
+		discount = get_query_rows(f"select max(`discount`) as `max` from `product_discounts` where `product_id` = {product_id} and (select now() between `start_date` and `end_date`);")[0].max
+
+		if not discount:
+			discount = 0
 
 		run_query(f"""
 			insert into `cart_items`
@@ -1044,7 +1048,8 @@ def add_to_cart(cart_id, product_id):
 				{cart_id},
 				{product_id},
 				1,
-				{price}
+				{price},
+				{discount}
 			);
 		""")
 
@@ -1655,6 +1660,17 @@ def route_delete_cart_item():
 	# Doesn't matter what's in the dict since nothing will be done with it in the JS function
 	return {
 		"url": "/cart"
+	}
+
+@app.route("/cart", methods = [ "POST" ])
+def place_order():
+	order_details = request.get_json()
+
+	print(order_details)
+
+	return {
+		"message": "Order placed successfully",
+		"url": "/orders"
 	}
 
 # End of routes
