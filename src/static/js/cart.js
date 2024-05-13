@@ -63,6 +63,21 @@ function placeOrder(event, cart_id)
 {
 	event.preventDefault()
 
+	const form = document.querySelector("#cart_form")
+
+	if (!form) return
+
+	const form_data = new FormData(form)
+
+	// Get data on address
+	const address_data = {}
+
+	address_data["street"] = form_data.get("street_address")
+	address_data["city"] = form_data.get("city")
+	address_data["state"] = form_data.get("state")
+	address_data["zip_code"] = form_data.get("zip_code")
+	address_data["country"] = form_data.get("country")
+
 	fetch(`/cart`, {
 		headers:
 		{
@@ -70,7 +85,9 @@ function placeOrder(event, cart_id)
 		},
 		method: "POST",
 		body: JSON.stringify({
-			"cart_id": cart_id
+			"cart_id": cart_id,
+			"address_data": address_data,
+			"payment_method": form_data.get("payment")
 		})
 	})
 	.then(function (response) // Callback function when response sent from server
