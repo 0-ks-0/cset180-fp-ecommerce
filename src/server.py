@@ -1594,6 +1594,9 @@ def update_product_info(id):
 
 	update_product_discounts(product_id, upcoming_discounts)
 
+	# Update prices in cart
+	update_cart_item_price(product_id)
+
 	return {
 		"message": "Updated successfully",
 		"url": f"/products/{product_id}"
