@@ -94,8 +94,8 @@ create table `active_warranty`
 (
 	`warranty_id` int unsigned not null,
 	`user_id` int unsigned not null,
-	`activation_date` datetime not null,
-	`expiration_date` datetime,
+	`activation_date` date not null,
+	`expiration_date` date,
 
 	foreign key (`warranty_id`) references `product_warranty` (`id`) on delete restrict on update restrict,
 	foreign key (`user_id`) references `users` (`id`) on delete cascade on update restrict
