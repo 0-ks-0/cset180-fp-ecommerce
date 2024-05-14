@@ -203,12 +203,14 @@ create table `complaint_images`
 create table `reviews`
 (
 	`id` int unsigned auto_increment,
+	`product_id` int unsigned not null,
 	`user_id` int unsigned not null,
 	`rating` decimal(1, 0) not null,
 	`description` text not null,
 	`date` datetime not null,
 
 	primary key (`id`),
+	foreign key (`product_id`) references `products` (`id`) on update restrict,
 	foreign key (`user_id`) references `users` (`id`) on update restrict,
 
 	constraint check
