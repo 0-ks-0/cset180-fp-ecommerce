@@ -1478,6 +1478,10 @@ issue_warranties(1, 1, 2)
 
 # End of orders
 
+# Reviews
+create_review(1, 2, 5, "awesome!")
+# End of reviews
+
 # End of inserting test values
 
 # Routes
