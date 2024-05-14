@@ -1340,10 +1340,17 @@ def get_order_data(order_id):
 		warranty_data = []
 		warranties = get_order_warranties(order_id)
 
+
+		# TODO this might be getting all warranties. need warranties of each product id if exists
+
+		# select * from product_warranty as pw where pw.id in (select warranty_id from active_warranty where order_id = 1) and pw.id = 1;
+
 		for warranty in warranties:
 			warranty_id = warranty.warranty_id
 
 			coverage_info = get_query_rows(f"select * from `product_warranty` where `id` = {warranty_id};")
+
+
 			warranty_data.append({
 				"coverage_info": coverage_info[0].coverage_information,
 				"start_date": warranty.activation_date,
@@ -1360,6 +1367,7 @@ def get_order_data(order_id):
 			"item_quantity": cart_item.quantity,
 			"current_unit_price": cart_item.current_unit_price,
 			"current_discount": cart_item.current_discount,
+			"current_price": float(f"{cart_item.current_unit_price * (1 -  cart_item.current_discount) * cart_item.quantity : 0.2f}"),
 			"warranties": warranty_data # list of dictionaries
 		})
 
@@ -1935,7 +1943,6 @@ def display_orders():
 		"orders.html",
 		orders = orders
 	)
-
 
 # End of routes
 
