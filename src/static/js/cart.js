@@ -59,6 +59,34 @@ function removeItem(element, cart_item_id)
 	})
 }
 
+function updateItemQuantity(element, cart_item_id)
+{
+	console.log("updateing")
+	fetch(`/cart`, {
+		headers:
+		{
+			"Content-Type" : "application/json"
+		},
+		method: "PATCH",
+		body: JSON.stringify({
+			"cart_item_id": cart_item_id,
+			"quantity": parseInt(element.value)
+		})
+	})
+	.then(function (response) // Callback function when response sent from server
+	{
+		if (!response.ok)
+		{
+			throw Error(`Error: ${response.status || response.statusText}`)
+		}
+	})
+	.catch(error => // Catch errors from sending / receiving
+	{
+		console.log(error)
+	})
+}
+
+
 function placeOrder(event, cart_id)
 {
 	event.preventDefault()

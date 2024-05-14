@@ -1899,6 +1899,18 @@ def route_delete_cart_item():
 		"url": "/cart"
 	}
 
+@app.route("/cart/", methods = [ "PATCH" ])
+def update_cart_item_quantity():
+	item_id = request.get_json().get("cart_item_id")
+	quantity = request.get_json().get("quantity")
+
+	run_query(f"update cart_items set quantity = {quantity} where id = {item_id};")
+	sql.commit()
+
+	return {
+		"url": "/cart"
+	}
+
 @app.route("/cart/", methods = [ "POST" ])
 def place_order():
 	order_details = request.get_json()
