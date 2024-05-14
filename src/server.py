@@ -790,9 +790,9 @@ def get_product_data(product_id):
 
 	# Current price
 	if data["current_discount"] != None:
-		data["currrent_price"] = data["discounted_price"]
+		data["current_price"] = data["discounted_price"]
 	else:
-		data["currrent_price"] = data["original_price"]
+		data["current_price"] = data["original_price"]
 
 	data["upcoming_discounts"] = get_product_discounts(product_id, "upcoming")
 
