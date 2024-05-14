@@ -1265,6 +1265,20 @@ def issue_warranties(order_id, product_id, user_id):
 
 	sql.commit()
 
+# Update product quantity
+def update_product_quantity(cart_items):
+	"""
+	Updates from order
+	"""
+	for item in cart_items:
+		product_id = item.product_id
+		quantity = item.quantity
+
+		run_query(f"update products set quantity = quantity - {quantity} where id = {product_id};")
+
+	sql.commit()
+
+
 # Validate order id
 def validate_order_id(order_id):
 	"""
@@ -1902,6 +1916,9 @@ def place_order():
 
 	for id in product_ids:
 		issue_warranties(order_id, id, session.get("user_id"))
+
+	# Update product quantity
+	update_product_quantity(cart_items)
 
 	return {
 		"message": "Order placed successfully",
