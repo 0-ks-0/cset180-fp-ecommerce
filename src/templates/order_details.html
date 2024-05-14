@@ -9,6 +9,8 @@ Order {{ data.order_data.id }}
 {% endblock %}
 
 {% block body %}
+<script src="{{ url_for('static', filename = 'js/order.js') }}"></script>
+
 <div class="page_body">
 	<div id="test">
 		{{ data.order_data }}<br>
@@ -17,6 +19,16 @@ Order {{ data.order_data.id }}
 
 		{{data.items_data }}
 	</div>
+	{% if account_type == "vendor" or account_type == "admin" %}
+		<div id="manage_controls">
+			<h3>Click to set status</h3>
+			<form id="status_form" onsubmit="setOrderStatus(event, {{ data.order_data.id }})">
+				<input type="submit" name="status" value="Confirmed">
+				<input type="submit" name="status" value="Shipped">
+				<input type="submit" name="status" value="Delivered">
+			</form>
+		</div>
+	{% endif %}
 
 	<div id="info_header">
 		<h2>General Info</h2>
@@ -32,7 +44,7 @@ Order {{ data.order_data.id }}
 		</div>
 
 		<div id="address_container">
-			<h2>Delivery Information</h2
+			<h2>Delivery Information</h2>
 			<p>{{ data.order_data.street }}</p>
 			<p>{{ data.order_data.city }},  {{ data.order_data.state }} {{ data.order_data.zip_code }}</p>
 			<p>{{ data.order_data.country }}</p>
