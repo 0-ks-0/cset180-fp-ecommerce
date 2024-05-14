@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block title %}
+Order {{ data.order_data.id }}
+{% endblock %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+<div class="page_body">
+	<div id="test">
+		{{ data.order_data }}<br>
+
+		{{ data.user_data }}<br>
+
+		{{data.items_data }}
+	</div>
+
+	<div id="info_header">
+		<p>Ordered {{ data.order_data.date }}</p>
+		<p>Total: ${{ data.order_data.price }}</p>
+
+		<div id="customer_info">
+			<p>User ID: {{ data.user_data.id }}</p>
+			<p>Username: {{ data.user_data.username }}</p>
+			<p>First Name: {{ data.user_data.first_name }}</p>
+			<p>Last Name: {{ data.user_data.last_name }}</p>
+			<p>Email Address: {{ data.user_data.email_address }}</p>
+		</div>
+
+		<div id="address_container">
+			<h4>Delivery Information</h4>
+			<p>{{ data.order_data.street }}</p>
+			<p>{{ data.order_data.city }},  {{ data.order_data.state }} {{ data.order_data.zip_code }}</p>
+			<p>{{ data.order_data.country }}</p>
+		</div>
+
+		<p>Payment method: {{ data.order_data.payment_method }}</p>
+
+		<h4>Status: {{ data.order_data.status }}</h4>
+	</div>
+
+	<div id="info_body">
+		<table>
+			<tr>
+				<th>Product</th>
+				<th>Quantity</th>
+				<th>Unit Price</th>
+				<th>Discount</th>
+				<th>Total Price</th>
+			</tr>
+			{% for item in data.items_data %}
+				<tr>
+					<td>
+						<h5><a href="/products/{{ item.product_id }}">{{ item.name }}</a></h5>
+						<p>Seller: {{ item.vendor_username }}</p>
+					</td>
+
+					<td>{{ item.item_quantity }}x</td>
+					<td>${{ item.current_unit_price }}</td>
+					<td class="discount_amount">{{ item.current_discount * 100 }}% off </td>
+					<td>${{ item.current_price }}</td>
+
+					<td>
+
+					</td>
+				</tr>
+			{% endfor %}
+		</table>
+	</div>
+
+</div>
+<script>
+	const discounts = document.querySelectorAll(".discount_amount")
+
+	Array.from(discounts).forEach(e => e.innerText = e.innerText.split('.')[0] + "%")
+
+</script>
+{% endblock %}

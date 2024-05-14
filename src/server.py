@@ -1944,6 +1944,23 @@ def display_orders():
 		orders = orders
 	)
 
+@app.route("/orders/<id>")
+def show_order_details(id):
+	# Make sure user is logged in
+	if not validate_session(session):
+		destroy_session(session)
+		return redirect("/login")
+
+	# Make sure order id exists
+	if not validate_order_id(id):
+		return redirect("/orders")
+
+	return render_template(
+		"order_details.html",
+		account_type = session.get("account_type"),
+		data = get_order_data(id)
+	)
+
 # End of routes
 
 if __name__ == "__main__":
