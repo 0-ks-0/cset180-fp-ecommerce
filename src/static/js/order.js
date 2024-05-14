@@ -3,7 +3,6 @@ function setOrderStatus(event, order_id)
 	event.preventDefault()
 
 	const status = (event.target.value).toLowerCase()
-	console.log(status)
 
 	fetch(`/orders/${order_id}`, {
 		headers:
@@ -23,6 +22,12 @@ function setOrderStatus(event, order_id)
 
 			.then(response =>
 			{
+				// const s = `input[value='${response.status}']`
+
+				// const button = document.querySelector(`${s}`)
+
+				// button.disabled = true
+
 				alert(response.message)
 
 				top.location = response.url

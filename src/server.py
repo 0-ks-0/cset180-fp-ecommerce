@@ -1963,7 +1963,8 @@ def update_order_status(id):
 
 	return {
 		"message": f"Status has been set to {status}",
-		"url": f"/orders/{id}"
+		"url": f"/orders/{id}",
+		"status": status.title()
 	}
 
 # End of routes
