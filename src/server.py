@@ -1344,6 +1344,10 @@ def get_order_data(order_id):
 
 	items_data = []
 
+	# run_query(f"insert into deleted_warranty values (1);")
+	# sql.commit()
+	# print(get_query_rows(f"select * from deleted_warranty;"))
+
 	# Cart item info and product_info for each item
 	for cart_item in cart_items:
 		product_id = cart_item.product_id
@@ -1352,8 +1356,14 @@ def get_order_data(order_id):
 
 		# Active warranties and its/their info
 		warranty_data = []
-		product_warranty_info = get_query_rows(f"select * from product_warranty as pw where pw.id in (select warranty_id from active_warranty where order_id = {order_id}) and pw.id = {product_id};")
-		active_product_warranty_info = get_query_rows(f"select * from `active_warranty` where `order_id` = 1 and `warranty_id` in (select `id` from `product_warranty`);")
+		# Select from warranties that are from deleted warranties
+		# TODO why is this not working when user is logged in before inserting deleted warranty into database manually in MySQL
+		product_warranty_info = get_query_rows(f"select * from `product_warranty` as `pw` where `pw`.`id` in (select `warranty_id` from `active_warranty` as `aw` where `aw`.`order_id` = {order_id} and `aw`.`order_id` not in (select `warranty_id` from `deleted_warranty`)) and `pw`.`id` = {product_id};")
+
+		active_product_warranty_info = get_query_rows(f"select * from `active_warranty` where `order_id` = {order_id} and `warranty_id` in (select `id` from `product_warranty` where `id` not in (select `warranty_id` from `deleted_warranty`));")
+
+		# print(product_warranty_info)
+		# print(active_product_warranty_info)
 
 		# Check if there is warranty for the item
 		if len(product_warranty_info) > 0 and len(active_product_warranty_info) > 0:
