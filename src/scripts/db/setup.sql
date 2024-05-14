@@ -151,7 +151,7 @@ create table `orders`
 	`zip_code` varchar(10) not null,
 	`country` varchar(16) not null,
 	`payment_method` varchar(16) not null,
-	`status` enum ( 'pending', 'confirmed', 'canceled', 'shipped' ) not null,
+	`status` enum ( 'pending', 'confirmed', 'canceled', 'shipped', 'delivered' ) not null,
 
 	primary key (`id`),
 	foreign key (`cart_id`) references `carts` (`id`) on delete restrict on update restrict,
