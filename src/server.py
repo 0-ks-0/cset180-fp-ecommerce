@@ -1392,6 +1392,33 @@ def get_order_data(order_id):
 	return data
 # End of orders
 
+# Reviews
+# Create review
+def create_review(product_id, user_id, rating, description, date = None):
+	if not date:
+		date = "now()"
+	else:
+		date = f"'{date}'"
+
+	# TODO validate format of date to be dateime
+
+	run_query(f"""
+		insert into reviews
+		values
+			(
+				null,
+		   		{product_id},
+				{user_id},
+				{rating},
+				'{description}',
+				{date}
+			);
+	""")
+
+	sql.commit()
+
+# End of reviews
+
 # End of functions
 
 # Insert test values
