@@ -1336,25 +1336,17 @@ def get_order_data(order_id):
 
 		product_info = get_query_rows(f"select * from `products` where `id` = {product_id};")[0]
 
-		# Active warranties
+		# Active warranties and its/their info
 		warranty_data = []
-		warranties = get_order_warranties(order_id)
+		product_warranty_info = get_query_rows(f"select * from product_warranty as pw where pw.id in (select warranty_id from active_warranty where order_id = {order_id}) and pw.id = {product_id};")
+		active_product_warranty_info = get_query_rows(f"select * from `active_warranty` where `order_id` = 1 and `warranty_id` in (select `id` from `product_warranty`);")
 
-
-		# TODO this might be getting all warranties. need warranties of each product id if exists
-
-		# select * from product_warranty as pw where pw.id in (select warranty_id from active_warranty where order_id = 1) and pw.id = 1;
-
-		for warranty in warranties:
-			warranty_id = warranty.warranty_id
-
-			coverage_info = get_query_rows(f"select * from `product_warranty` where `id` = {warranty_id};")
-
-
+		# Check if there is warranty for the item
+		if len(product_warranty_info) > 0 and len(active_product_warranty_info) > 0:
 			warranty_data.append({
-				"coverage_info": coverage_info[0].coverage_information,
-				"start_date": warranty.activation_date,
-				"end_date": warranty.expiration_date
+				"coverage_info": product_warranty_info[0].coverage_information,
+				"start_date": active_product_warranty_info[0].activation_date,
+				"end_date": active_product_warranty_info[0].expiration_date
 			})
 
 		items_data.append({
