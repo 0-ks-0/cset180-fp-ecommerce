@@ -22,10 +22,12 @@ Order {{ data.order_data.id }}
 	{% if account_type == "vendor" or account_type == "admin" %}
 		<div id="manage_controls">
 			<h3>Click to set status</h3>
-			<form id="status_form" onsubmit="setOrderStatus(event, {{ data.order_data.id }})">
-				<input type="submit" name="status" value="Confirmed">
-				<input type="submit" name="status" value="Shipped">
-				<input type="submit" name="status" value="Delivered">
+
+			<!-- TODO make this better by only having one button and change the value when clicked and processed -->
+			<form id="status_form">
+				<input type="submit" name="status" value="Confirmed" onclick="setOrderStatus(event, {{ data.order_data.id }})">
+				<input type="submit" name="status" value="Shipped" onclick="setOrderStatus(event, {{ data.order_data.id }})">
+				<input type="submit" name="status" value="Delivered" onclick="setOrderStatus(event, {{ data.order_data.id }})">
 			</form>
 		</div>
 	{% endif %}
