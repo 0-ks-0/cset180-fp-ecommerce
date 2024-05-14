@@ -1953,6 +1953,19 @@ def show_order_details(id):
 		data = get_order_data(id)
 	)
 
+@app.route("/orders/<id>", methods = [ "PATCH" ])
+def update_order_status(id):
+	status = request.get_json().get("status")
+
+	run_query(f"update orders set status = '{status}' where id = {id};")
+
+	sql.commit()
+
+	return {
+		"message": f"Status has been set to {status}",
+		"url": f"/orders/{id}"
+	}
+
 # End of routes
 
 if __name__ == "__main__":
