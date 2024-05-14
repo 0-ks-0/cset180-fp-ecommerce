@@ -56,16 +56,22 @@ Order {{ data.order_data.id }}
 					<td>
 						<h5><a href="/products/{{ item.product_id }}">{{ item.name }}</a></h5>
 						<p>Seller: {{ item.vendor_username }}</p>
+
+						{% if item.warranties | length > 0 %}
+							<h6>Warranty</h6>
+							<p>
+								Coverage:<br>
+								{{ item.warranties[0].coverage_info }}
+							</p>
+							<p>Starts: {{ item.warranties[0].start_date }}</p>
+							<p>Ends: {{ item.warranties[0].end_date }}</p>
+						{% endif %}
 					</td>
 
 					<td>{{ item.item_quantity }}x</td>
 					<td>${{ item.current_unit_price }}</td>
 					<td class="discount_amount">{{ item.current_discount * 100 }}% off </td>
 					<td>${{ item.current_price }}</td>
-
-					<td>
-
-					</td>
 				</tr>
 			{% endfor %}
 		</table>
