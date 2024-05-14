@@ -19,6 +19,7 @@ Order {{ data.order_data.id }}
 	</div>
 
 	<div id="info_header">
+		<h2>General Info</h2>
 		<p>Ordered {{ data.order_data.date }}</p>
 		<p>Total: ${{ data.order_data.price }}</p>
 
@@ -31,7 +32,7 @@ Order {{ data.order_data.id }}
 		</div>
 
 		<div id="address_container">
-			<h4>Delivery Information</h4>
+			<h2>Delivery Information</h2
 			<p>{{ data.order_data.street }}</p>
 			<p>{{ data.order_data.city }},  {{ data.order_data.state }} {{ data.order_data.zip_code }}</p>
 			<p>{{ data.order_data.country }}</p>
@@ -39,7 +40,7 @@ Order {{ data.order_data.id }}
 
 		<p>Payment method: {{ data.order_data.payment_method }}</p>
 
-		<h4>Status: {{ data.order_data.status }}</h4>
+		<h3>Status: {{ data.order_data.status }}</h3>
 	</div>
 
 	<div id="info_body">
@@ -54,11 +55,11 @@ Order {{ data.order_data.id }}
 			{% for item in data.items_data %}
 				<tr>
 					<td>
-						<h5><a href="/products/{{ item.product_id }}">{{ item.name }}</a></h5>
+						<h4><a href="/products/{{ item.product_id }}">{{ item.name }}</a></h4>
 						<p>Seller: {{ item.vendor_username }}</p>
 
 						{% if item.warranties | length > 0 %}
-							<h6>Warranty</h6>
+							<h5>Warranty</h5>
 							<p>
 								Coverage:<br>
 								{{ item.warranties[0].coverage_info }}
