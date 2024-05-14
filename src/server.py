@@ -1734,8 +1734,22 @@ def route_add_to_cart():
 def products_add_to_cart():
 	return route_add_to_cart()
 
+
+def route_create_review(product_id, user_id, rating, description):
+	create_review(product_id, user_id, rating, description)
+
+
 @app.route("/products/<id>", methods = [ "POST" ])
 def products_info_add_to_cart(id):
+	rating = request.form.get("rating")
+
+	if rating:
+		description = request.form.get("description")
+
+		route_create_review(id, session.get("user_id"), rating, description)
+
+		return redirect(f"/products/{id}")
+
 	return route_add_to_cart()
 
 def route_delete_product():

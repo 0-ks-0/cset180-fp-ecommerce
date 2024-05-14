@@ -16,6 +16,8 @@
 <script src="{{ url_for('static', filename = 'js/navigator.js') }}"></script>
 <script src="{{ url_for('static', filename = 'js/cart.js') }}"></script>
 <script src="{{ url_for('static', filename = 'js/product.js') }}"></script>
+<script src="{{ url_for('static', filename = 'js/input.js') }}"></script>
+
 
 <div class="page_body">
 	<div id="message"></div>
@@ -163,6 +165,18 @@
 		<h3>Reviews</h3>
 
 		<div id="reviews">
+			<div id="create_review_section">
+				<form action="/products/{{ data.id }}" method="POST">
+					<label for="rating_input">Rate 1-5</label>
+					<input type="number" name="rating" id="rating_input" min="1" max="5" step="1" required onkeypress="return handleRating(event, this)"><br>
+
+					<label for="description_input">Description</label>
+					<textarea name="description" id="description_input" required></textarea><br>
+
+					<input type="submit" value="Submit Review">
+				</form>
+			</div>
+
 			<!-- Display if there are no reviews -->
 			{% if reviews | length < 1 %}
 				No reviews yet
