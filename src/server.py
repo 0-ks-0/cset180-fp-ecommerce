@@ -1705,10 +1705,14 @@ def display_product_info(id):
 		if int(id) not in id_list:
 			return redirect("/products")
 
+	# TODO find username of user?
+	reviews = get_query_rows(f"select * from `reviews` where `product_id` = {id};")
+
 	return render_template(
 		"product_info.html",
 		account_type = session.get("account_type"),
-		data = get_product_data(id)
+		data = get_product_data(id),
+		reviews = reviews
 	)
 
 def route_add_to_cart():

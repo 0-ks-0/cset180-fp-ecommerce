@@ -20,142 +20,171 @@
 <div class="page_body">
 	<div id="message"></div>
 
-	<div class="button_container">
-		{% if account_type == "customer" %}
-			<button onclick="addToCart({{ data.id }})">Add to Cart</button>
+	<div id="product_section">
+		<div class="button_container">
+			{% if account_type == "customer" %}
+				<button onclick="addToCart({{ data.id }})">Add to Cart</button>
 
-		{% elif account_type == "vendor" or account_type == "admin" %}
-			<button class="manage_button" onclick="setTop('/products/edit/{{ data.id }}')">Edit</button>
-			<button class="manage_button" onclick="deleteProduct('/products/{{ data.id }}', {{ data.id }})">Delete</button>
+			{% elif account_type == "vendor" or account_type == "admin" %}
+				<button class="manage_button" onclick="setTop('/products/edit/{{ data.id }}')">Edit</button>
+				<button class="manage_button" onclick="deleteProduct('/products/{{ data.id }}', {{ data.id }})">Delete</button>
 
+			{% endif %}
+		</div>
+
+		<div id="carousel" class="carousel slide" data-ride="carousel">
+
+			<div class="carousel-inner">
+				<div class="item active">
+					{% if data.images | length < 1 %}
+						No image
+					{% else %}
+						<img src="{{ data.images[0] }}" alt="">
+					{% endif %}
+
+				</div>
+
+				{% for i in range(1, data.images | length) %}
+					<div class="item">
+						<img src="{{ data.images[i] }}" alt="">
+					</div>
+				{% endfor %}
+			</div>
+
+			<!-- Display navigation arrows if there is more than 1 image -->
+			{% if data.images | length > 1 %}
+				<a class="left carousel-control" href="#carousel" data-slide="prev">
+					<span class="glyphicon glyphicon-chevron-left"></span>
+					<span class="sr-only">Previous</span>
+				</a>
+				<a class="right carousel-control" href="#carousel" data-slide="next">
+					<span class="glyphicon glyphicon-chevron-right"></span>
+					<span class="sr-only">Next</span>
+				</a>
+			{% endif %}
+		</div>
+
+		<h1 class="name">{{ data.name }}</h1>
+		<p class="vendor_username">Seller: {{ data.vendor_username }}</p>
+
+		<div class="price_container">
+			<p class="price">${{ data.original_price }}</p>
+
+			<!-- Display discount and discounted price if there is one active -->
+			{% if data.current_discount != None %}
+				<p class="price discount">{{ data.current_discount }}% off</p>
+				{% if data.current_discount_end == "Forever" %}
+					<p class="discount_end_time">{{ data.current_discount_end }}</p>
+				{% else %}
+					<p class="discount_end_time">Until {{ data.current_discount_end }}</p>
+				{% endif %}
+				<p class="price discounted_price">${{ data.discounted_price }}</p>
+			{% endif %}
+		</div>
+
+		<p class="quantity">{{ data.quantity }} left</p>
+
+		<h3>Description</h3>
+		<p class="description">{{ data.description }}</p>
+
+		{% if account_type == "vendor" or account_type == "admin" %}
+			<!-- Expired discounts -->
+			{% if data.expired_discounts | length > 0 %}
+				<h3>Expired Discounts</h3>
+				<table>
+					<th>Discount</th>
+					<th>Start</th>
+					<th>End</th>
+
+					{% for expired in data.expired_discounts %}
+						<tr>
+							<td class="data_discount">{{ expired.discount * 100 }}</td>
+							<td>{{ expired.start_date }}</td>
+							<td class="data_end_date">{{ expired.end_date }}</td>
+						</tr>
+					{% endfor %}
+				</table>
+			{% endif %}
+
+			<!-- Active dicounts -->
+			{% if data.active_discounts | length > 0 %}
+				<h3>Active Discounts</h3>
+				<table>
+					<th>Discount</th>
+					<th>Start</th>
+					<th>End</th>
+
+					{% for active in data.active_discounts %}
+						<tr>
+							<td class="data_discount">{{ active.discount * 100 }}</td>
+							<td>{{ active.start_date }}</td>
+							<td class="data_end_date">{{ active.end_date }}</td>
+						</tr>
+					{% endfor %}
+				</table>
+			{% endif %}
+
+			<!-- Upcoming dicounts -->
+			{% if data.upcoming_discounts | length > 0 %}
+				<h3>Upcoming Discounts</h3>
+				<table>
+					<th>Discount</th>
+					<th>Start</th>
+					<th>End</th>
+
+					{% for upcoming in data.upcoming_discounts %}
+						<tr>
+							<td class="data_discount">{{ upcoming.discount * 100 }}</td>
+							<td>{{ upcoming.start_date }}</td>
+							<td class="data_end_date">{{ upcoming.end_date }}</td>
+						</tr>
+					{% endfor %}
+				</table>
+			{% endif %}
+		{% endif %}
+
+		<!-- Display warranties if there is any -->
+		{% if data.warranties | length > 0 %}
+			<div class="warranty_container">
+				<h2>Warranty</h1>
+				{% for warranty in data.warranties %}
+					{% if warranty.coverage_days == None %}
+						<p class="warranty_days">Lifetime coverage</p>
+					{% else %}
+						<p class="warranty_days">Covers for {{ warranty.coverage_days }} days</p>
+					{% endif %}
+					<p class="warranty_coverage">{{ warranty.coverage_information }}</p>
+				{% endfor %}
+			</div>
 		{% endif %}
 	</div>
 
-	<div id="carousel" class="carousel slide" data-ride="carousel">
+	<div id="reviews_section">
+		<h3>Reviews</h3>
 
-		<div class="carousel-inner">
-			<div class="item active">
-				{% if data.images | length < 1 %}
-					No image
-				{% else %}
-					<img src="{{ data.images[0] }}" alt="">
-				{% endif %}
+		<div id="reviews">
+			<!-- Display if there are no reviews -->
+			{% if reviews | length < 1 %}
+				No reviews yet
+			{% endif %}
 
-			</div>
+			{% for review in reviews %}
+				<div class="review">
+					<!-- TODO fix font size of -->
+					<h5>Review ID: {{ review.id }}</h5>
+					<h5>User ID: {{ review.user_id }}</h5>
 
-			{% for i in range(1, data.images | length) %}
-				<div class="item">
-					<img src="{{ data.images[i] }}" alt="">
+					<!-- <div class="flex_row"> -->
+					<!-- TODO loop through value of rating and put stars instead -->
+					<p>Rating: {{ review.rating }}</p>
+					<p>Reviewed on: {{ review.date }}</p>
+					<!-- </div> -->
+
+					<p>{{ review.description }}</p>
 				</div>
 			{% endfor %}
 		</div>
-
-		<!-- Display navigation arrows if there is more than 1 image -->
-		{% if data.images | length > 1 %}
-			<a class="left carousel-control" href="#carousel" data-slide="prev">
-				<span class="glyphicon glyphicon-chevron-left"></span>
-				<span class="sr-only">Previous</span>
-			</a>
-			<a class="right carousel-control" href="#carousel" data-slide="next">
-				<span class="glyphicon glyphicon-chevron-right"></span>
-				<span class="sr-only">Next</span>
-			</a>
-		{% endif %}
 	</div>
-
-	<h1 class="name">{{ data.name }}</h1>
-	<p class="vendor_username">Seller: {{ data.vendor_username }}</p>
-
-	<div class="price_container">
-		<p class="price">${{ data.original_price }}</p>
-
-		<!-- Display discount and discounted price if there is one active -->
-		{% if data.current_discount != None %}
-			<p class="price discount">{{ data.current_discount }}% off</p>
-			{% if data.current_discount_end == "Forever" %}
-				<p class="discount_end_time">{{ data.current_discount_end }}</p>
-			{% else %}
-				<p class="discount_end_time">Until {{ data.current_discount_end }}</p>
-			{% endif %}
-			<p class="price discounted_price">${{ data.discounted_price }}</p>
-		{% endif %}
-	</div>
-
-	<p class="quantity">{{ data.quantity }} left</p>
-
-	<h3>Description</h3>
-	<p class="description">{{ data.description }}</p>
-
-	{% if account_type == "vendor" or account_type == "admin" %}
-		<!-- Expired discounts -->
-		{% if data.expired_discounts | length > 0 %}
-			<h3>Expired Discounts</h3>
-			<table>
-				<th>Discount</th>
-				<th>Start</th>
-				<th>End</th>
-
-				{% for expired in data.expired_discounts %}
-					<tr>
-						<td class="data_discount">{{ expired.discount * 100 }}</td>
-						<td>{{ expired.start_date }}</td>
-						<td class="data_end_date">{{ expired.end_date }}</td>
-					</tr>
-				{% endfor %}
-			</table>
-		{% endif %}
-
-		<!-- Active dicounts -->
-		{% if data.active_discounts | length > 0 %}
-			<h3>Active Discounts</h3>
-			<table>
-				<th>Discount</th>
-				<th>Start</th>
-				<th>End</th>
-
-				{% for active in data.active_discounts %}
-					<tr>
-						<td class="data_discount">{{ active.discount * 100 }}</td>
-						<td>{{ active.start_date }}</td>
-						<td class="data_end_date">{{ active.end_date }}</td>
-					</tr>
-				{% endfor %}
-			</table>
-		{% endif %}
-
-		<!-- Upcoming dicounts -->
-		{% if data.upcoming_discounts | length > 0 %}
-			<h3>Upcoming Discounts</h3>
-			<table>
-				<th>Discount</th>
-				<th>Start</th>
-				<th>End</th>
-
-				{% for upcoming in data.upcoming_discounts %}
-					<tr>
-						<td class="data_discount">{{ upcoming.discount * 100 }}</td>
-						<td>{{ upcoming.start_date }}</td>
-						<td class="data_end_date">{{ upcoming.end_date }}</td>
-					</tr>
-				{% endfor %}
-			</table>
-		{% endif %}
-	{% endif %}
-
-	<!-- Display warranties if there is any -->
-	{% if data.warranties | length > 0 %}
-		<div class="warranty_container">
-			<h2>Warranty</h1>
-			{% for warranty in data.warranties %}
-				{% if warranty.coverage_days == None %}
-					<p class="warranty_days">Lifetime coverage</p>
-				{% else %}
-					<p class="warranty_days">Covers for {{ warranty.coverage_days }} days</p>
-				{% endif %}
-				<p class="warranty_coverage">{{ warranty.coverage_information }}</p>
-			{% endfor %}
-		</div>
-	{% endif %}
 </div>
 
 <script>
