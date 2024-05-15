@@ -181,6 +181,7 @@ create table `complaints`
 (
 	`id` int unsigned auto_increment,
 	`user_id` int unsigned not null,
+	`order_id` int unsigned not null,
 	`date` datetime not null,
 	`title` varchar(255) not null,
 	`description` text not null,
@@ -188,7 +189,8 @@ create table `complaints`
 	`status` enum ( 'pending', 'reviewed', 'accepted', 'declined' ) not null,
 
 	primary key (`id`),
-	foreign key (`user_id`) references `users` (`id`) on update restrict
+	foreign key (`user_id`) references `users` (`id`) on update restrict,
+	foreign key (`order_id`) references `orders` (`id`) on update restrict on delete restrict
 );
 
 create table `complaint_images`
