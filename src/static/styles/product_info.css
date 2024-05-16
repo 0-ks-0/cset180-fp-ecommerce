@@ -56,3 +56,13 @@ img
 
 	font-weight: var(--discounted_price_weight);
 }
+
+/*
+*	Reviews Section
+*/
+.review_images
+{
+	display: grid;
+
+	grid-template-columns: repeat(7, 1fr);
+}
