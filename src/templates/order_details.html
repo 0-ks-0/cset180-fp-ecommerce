@@ -59,7 +59,7 @@ Order {{ data.order_data.id }}
 	</div>
 
 	{% if account_type == "customer" %}
-		<button onclick="setTop('/complaints/issue')">Issue complaint</button>
+		<button onclick="setTop('/complaints/issue?order_id={{ data.order_data.id }}')">Issue complaint</button>
 	{% endif %}
 
 	<div id="info_body">
