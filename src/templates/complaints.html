@@ -34,7 +34,23 @@ Complaints
 					<td>{{ complaint.title }}</td>
 					<td>{{ complaint.description }}</td>
 					<td>{{ complaint.demand }}</td>
-					<td>{{ complaint.status }}</td>
+					<td>
+						{{ complaint.status }}
+
+						{% if account_type == "vendor" or account_type == "admin" %}
+							<form action="/complaints" method="POST">
+								<input type="hidden" name="complaint_id" value="{{ complaint.id }}">
+
+								{% if complaint.status == "pending" %}
+									<input type="submit" name="status" value="Reviewed">
+
+								{% elif complaint.status == "reviewed" %}
+									<input type="submit" name="status" value="Accepted">
+									<input type="submit" name="status" value="Declined">
+								{% endif %}
+							</form>
+						{% endif %}
+					</td>
 				</tr>
 			{% endfor %}
 		</tbody>

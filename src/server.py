@@ -1506,6 +1506,13 @@ def create_complaint(user_id, order_id, title, description, demand, date = None,
 
 	except:
 		return
+
+# Update complaint status
+def set_complaint_status(complaint_id, status):
+	run_query(f"update `complaints` set `status` = '{status}' where `id` = {complaint_id};")
+
+	sql.commit()
+
 # End of complaints
 
 # End of functions
@@ -2181,6 +2188,16 @@ def show_complaints_page():
 		account_type = session.get("account_type"),
 		complaints = complaints
 	)
+
+@app.route("/complaints/", methods = [ "POST" ])
+def route_update_complaint_status():
+	complaint_id = request.form.get("complaint_id")
+	status = request.form.get("status")
+
+	set_complaint_status(complaint_id, status)
+
+	return redirect("/complaints")
+
 
 @app.route("/complaints/issue/")
 def show_complaint_issue_page():
