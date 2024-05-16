@@ -202,7 +202,9 @@
 					<p>Reviewed on: {{ review.review_data.date }}</p>
 					<!-- </div> -->
 
-					<p>{{ review.review_data.description }}</p>
+					{% if review.review_data.description %}
+						<p>{{ review.review_data.description }}</p>
+					{% endif %}
 
 					<div class="review_images">
 						{% for image in review.images %}
