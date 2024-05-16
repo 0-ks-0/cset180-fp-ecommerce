@@ -1741,14 +1741,19 @@ def route_create_review(product_id, user_id, rating, description):
 
 @app.route("/products/<id>", methods = [ "POST" ])
 def products_info_add_to_cart(id):
-	rating = request.form.get("rating")
+	rating = request.get_json().get("rating")
+
+	print(request.get_json())
 
 	if rating:
-		description = request.form.get("description")
+		product_id = request.get_json().get("id")
+		description = request.get_json().get("description")
 
-		route_create_review(id, session.get("user_id"), rating, description)
+		route_create_review(product_id, session.get("user_id"), rating, description)
 
-		return redirect(f"/products/{id}")
+		return {
+			"url": f"/products/{product_id}"
+		}
 
 	return route_add_to_cart()
 
