@@ -2182,7 +2182,7 @@ def show_complaints_page():
 		complaints = complaints
 	)
 
-@app.route("/complaints/issue")
+@app.route("/complaints/issue/")
 def show_complaint_issue_page():
 	# Make sure user is logged in
 	if not validate_session(session):
@@ -2193,8 +2193,11 @@ def show_complaint_issue_page():
 	if not session.get("account_type") == "customer":
 		return redirect("/login")
 
+	order_id = request.args.get("order_id")
+
 	return render_template(
-		"complaint_issue.html"
+		"complaint_issue.html",
+		order_id = order_id
 	)
 
 # End of routes
