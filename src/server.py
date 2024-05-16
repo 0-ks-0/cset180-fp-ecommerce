@@ -2200,6 +2200,17 @@ def show_complaint_issue_page():
 		order_id = order_id
 	)
 
+@app.route("/complaints/issue/", methods = [ "POST" ])
+def process_complaint_issue():
+	order_id = request.form.get("order_id")
+	title = request.form.get("title")
+	description = request.form.get("description")
+	demand = request.form.get("demand")
+
+	create_complaint(session.get("user_id"), order_id, title, description, demand)
+
+	return redirect("/complaints")
+
 # End of routes
 
 if __name__ == "__main__":
