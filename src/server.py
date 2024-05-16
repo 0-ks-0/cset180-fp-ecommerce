@@ -1473,6 +1473,41 @@ def get_review_data(product_id):
 
 # End of reviews
 
+# Complaints
+def create_complaint(user_id, order_id, title, description, demand, date = None, status = None):
+	if not status:
+		status = "pending"
+
+	if not date:
+		date = "now()"
+
+	else:
+		date = f"'{date}'"
+
+	try:
+		run_query(f"""
+			insert into `complaints`
+			values
+				(
+					null,
+					{user_id},
+					{order_id},
+					{date},
+					'{title}',
+					'{description}',
+					'{demand}',
+					'{status}'
+				);
+		""")
+
+		sql.commit()
+
+		return get_query_rows(f"select last_insert_id() as `id`")[0].id
+
+	except:
+		return
+# End of complaints
+
 # End of functions
 
 # Insert test values
@@ -1537,6 +1572,12 @@ review_id1 = create_review(1, 2, 5, "awesome!")
 create_review_images(review_id1, ["https://cdn.pixabay.com/photo/2021/01/01/21/56/cooking-5880136_1280.jpg", "https://cdn.pixabay.com/photo/2016/11/29/08/24/bakery-1868396_640.jpg"])
 
 # End of reviews
+
+
+# Complaints
+complaint_id1 = create_complaint(2, 1, "ripped", "the mat ripped", "refund")
+complaint_id2 = create_complaint(2, 1, "bad quality", "the mat ripped", "refund")
+# End of complaints
 
 # End of inserting test values
 
@@ -2124,6 +2165,22 @@ def update_order_status(id):
 		"url": f"/orders/{id}",
 		"status": status.title()
 	}
+
+#  Complaints route
+@app.route("/complaints/")
+def show_complaints_page():
+	# Make sure user is logged in
+	if not validate_session(session):
+		destroy_session(session)
+		return redirect("/login")
+
+	complaints = get_query_rows(f"select * from complaints;")
+
+	return render_template(
+		"complaints.html",
+		account_type = session.get("account_type"),
+		complaints = complaints
+	)
 
 # End of routes
 

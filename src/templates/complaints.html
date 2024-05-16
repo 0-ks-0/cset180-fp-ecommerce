@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}
+Complaints
+{% endblock %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+<div class="page_body">
+	<table>
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Issuer User ID</th>
+				<th>Order ID</th>
+				<th>Date</th>
+				<th>Title</th>
+				<th>Description</th>
+				<th>Demand</th>
+				<th>Status</th>
+			</tr>
+		</thead>
+
+		<tbody>
+			{% for complaint in complaints %}
+				<tr>
+					<td>{{ complaint.id }}</td>
+					<td>{{ complaint.user_id }}</td>
+					<td>{{ complaint.order_id }}</td>
+					<td>{{ complaint.date }}</td>
+					<td>{{ complaint.title }}</td>
+					<td>{{ complaint.description }}</td>
+					<td>{{ complaint.demand }}</td>
+					<td>{{ complaint.status }}</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>
+{% endblock %}
