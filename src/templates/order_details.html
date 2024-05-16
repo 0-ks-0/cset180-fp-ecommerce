@@ -10,6 +10,7 @@ Order {{ data.order_data.id }}
 
 {% block body %}
 <script src="{{ url_for('static', filename = 'js/order.js') }}"></script>
+<script src="{{ url_for('static', filename = 'js/navigator.js') }}"></script>
 
 <div class="page_body">
 	<!-- <div id="test">
@@ -56,6 +57,10 @@ Order {{ data.order_data.id }}
 
 		<h3>Status: {{ data.order_data.status }}</h3>
 	</div>
+
+	{% if account_type == "customer" %}
+		<button onclick="setTop('/complaints/issue')">Issue complaint</button>
+	{% endif %}
 
 	<div id="info_body">
 		<table>
