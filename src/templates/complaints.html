@@ -10,50 +10,56 @@ Complaints
 
 {% block body %}
 <div class="page_body">
-	<table>
-		<thead>
-			<tr>
-				<th>ID</th>
-				<th>Issuer User ID</th>
-				<th>Order ID</th>
-				<th>Date</th>
-				<th>Title</th>
-				<th>Description</th>
-				<th>Demand</th>
-				<th>Status</th>
-			</tr>
-		</thead>
+	{% if complaints | length < 1 %}
+		No complaints
 
-		<tbody>
-			{% for complaint in complaints %}
+
+	{% else %}
+		<table>
+			<thead>
 				<tr>
-					<td>{{ complaint.id }}</td>
-					<td>{{ complaint.user_id }}</td>
-					<td>{{ complaint.order_id }}</td>
-					<td>{{ complaint.date }}</td>
-					<td>{{ complaint.title }}</td>
-					<td>{{ complaint.description }}</td>
-					<td>{{ complaint.demand }}</td>
-					<td>
-						{{ complaint.status }}
-
-						{% if account_type == "vendor" or account_type == "admin" %}
-							<form action="/complaints" method="POST">
-								<input type="hidden" name="complaint_id" value="{{ complaint.id }}">
-
-								{% if complaint.status == "pending" %}
-									<input type="submit" name="status" value="Reviewed">
-
-								{% elif complaint.status == "reviewed" %}
-									<input type="submit" name="status" value="Accepted">
-									<input type="submit" name="status" value="Declined">
-								{% endif %}
-							</form>
-						{% endif %}
-					</td>
+					<th>ID</th>
+					<th>Issuer User ID</th>
+					<th>Order ID</th>
+					<th>Date</th>
+					<th>Title</th>
+					<th>Description</th>
+					<th>Demand</th>
+					<th>Status</th>
 				</tr>
-			{% endfor %}
-		</tbody>
-	</table>
+			</thead>
+
+			<tbody>
+				{% for complaint in complaints %}
+					<tr>
+						<td>{{ complaint.id }}</td>
+						<td>{{ complaint.user_id }}</td>
+						<td>{{ complaint.order_id }}</td>
+						<td>{{ complaint.date }}</td>
+						<td>{{ complaint.title }}</td>
+						<td>{{ complaint.description }}</td>
+						<td>{{ complaint.demand }}</td>
+						<td>
+							{{ complaint.status }}
+
+							{% if account_type == "vendor" or account_type == "admin" %}
+								<form action="/complaints" method="POST">
+									<input type="hidden" name="complaint_id" value="{{ complaint.id }}">
+
+									{% if complaint.status == "pending" %}
+										<input type="submit" name="status" value="Reviewed">
+
+									{% elif complaint.status == "reviewed" %}
+										<input type="submit" name="status" value="Accepted">
+										<input type="submit" name="status" value="Declined">
+									{% endif %}
+								</form>
+							{% endif %}
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	{% endif %}
 </div>
 {% endblock %}
