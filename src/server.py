@@ -1436,6 +1436,41 @@ def create_review_images(review_id, images):
 
 	sql.commit()
 
+# Get review data
+def get_review_data(product_id):
+	"""
+	[{
+		"review_data": {} (reviews table),
+		"user_data": {} (users table),
+		"images: [{"image_data"}] (review_images table)
+	}]
+	"""
+	data = []
+
+	review_data = get_query_rows(f"select * from `reviews` where `product_id` = {product_id};")
+
+	if len(review_data) < 1:
+		return data
+
+	review_ids = [r.id for r in review_data]
+
+	for review_id in review_ids:
+		review_data = get_query_rows(f"select * from `reviews` where `id` = {review_id};")[0]
+		images = get_query_rows(f"select `image_data` from `review_images` where `review_id` = 2;")
+
+		# Find user info
+		user_id = review_data.user_id
+
+		user_info = get_query_rows(f"select * from `users` where `id` = {user_id};")[0]
+
+		data.append({
+			"review_data": review_data,
+			"user_data": user_info,
+			"images": images
+		})
+
+	return data
+
 # End of reviews
 
 # End of functions
@@ -1725,13 +1760,13 @@ def display_product_info(id):
 			return redirect("/products")
 
 	# TODO find username of user?
-	reviews = get_query_rows(f"select * from `reviews` where `product_id` = {id};")
+	reviews_data = get_review_data(id)
 
 	return render_template(
 		"product_info.html",
 		account_type = session.get("account_type"),
 		data = get_product_data(id),
-		reviews = reviews
+		reviews_data = reviews_data
 	)
 
 def route_add_to_cart():

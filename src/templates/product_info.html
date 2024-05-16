@@ -190,19 +190,27 @@
 				No reviews yet
 			{% endif %}
 
-			{% for review in reviews %}
+			{% for review in reviews_data %}
 				<div class="review">
 					<!-- TODO fix font size of -->
-					<h5>Review ID: {{ review.id }}</h5>
-					<h5>User ID: {{ review.user_id }}</h5>
+					<h5>Review ID: {{ review.review_data.id }}</h5>
+					<h5>User: {{ review.user_data.username }}</h5>
 
 					<!-- <div class="flex_row"> -->
 					<!-- TODO loop through value of rating and put stars instead -->
-					<p>Rating: {{ review.rating }}</p>
-					<p>Reviewed on: {{ review.date }}</p>
+					<p>Rating: {{ review.review_data.rating }}</p>
+					<p>Reviewed on: {{ review.review_data.date }}</p>
 					<!-- </div> -->
 
-					<p>{{ review.description }}</p>
+					<p>{{ review.review_data.description }}</p>
+
+					<div class="review_images flex_column">
+						{% for image in review.images %}
+							<div class="review_image">
+								<img src="{{ image.image_data }}" alt="">
+							</div>
+						{% endfor %}
+					</div>
 				</div>
 			{% endfor %}
 		</div>
