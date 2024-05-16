@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}
+Issue Complaint
+{% endblock %}
+
+{% block head %}
+
+{% endblock %}
+
+{% block body %}
+<div class="page_body">
+	<form action="/complaints/issue" method="POST">
+		<input type="text" name="title" placeholder="Title" required><br>
+		<textarea name="description" placeholder="Description" required></textarea><br>
+
+		<select name="demand" id="">
+			<option value="return">Return</option>
+			<option value="refund">Refund</option>
+			<option value="warranty">Warranty</option>
+		</select><br>
+
+		<input type="submit" value="Issue">
+	</form>
+</div>
+{% endblock %}

@@ -2182,6 +2182,21 @@ def show_complaints_page():
 		complaints = complaints
 	)
 
+@app.route("/complaints/issue")
+def show_complaint_issue_page():
+	# Make sure user is logged in
+	if not validate_session(session):
+		destroy_session(session)
+		return redirect("/login")
+
+	# Make sure it is customer account
+	if not session.get("account_type") == "customer":
+		return redirect("/login")
+
+	return render_template(
+		"complaint_issue.html"
+	)
+
 # End of routes
 
 if __name__ == "__main__":
