@@ -2198,7 +2198,6 @@ def route_update_complaint_status():
 
 	return redirect("/complaints")
 
-
 @app.route("/complaints/issue/")
 def show_complaint_issue_page():
 	# Make sure user is logged in
