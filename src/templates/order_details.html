@@ -12,13 +12,13 @@ Order {{ data.order_data.id }}
 <script src="{{ url_for('static', filename = 'js/order.js') }}"></script>
 
 <div class="page_body">
-	<div id="test">
+	<!-- <div id="test">
 		{{ data.order_data }}<br>
 
 		{{ data.user_data }}<br>
 
 		{{data.items_data }}
-	</div>
+	</div> -->
 	{% if account_type == "vendor" or account_type == "admin" %}
 		<div id="manage_controls">
 			<h3>Click to set status</h3>
