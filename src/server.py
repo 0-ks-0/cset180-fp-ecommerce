@@ -2202,6 +2202,9 @@ def show_complaints_page():
 
 	complaints = get_query_rows(f"select * from complaints;")
 
+	if session.get("account_type") == "customer":
+		complaints = get_query_rows(f"select * from complaints where user_id = {session.get("user_id")};")
+
 	return render_template(
 		"complaints.html",
 		account_type = session.get("account_type"),
