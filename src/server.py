@@ -1456,7 +1456,7 @@ def get_review_data(product_id):
 
 	for review_id in review_ids:
 		review_data = get_query_rows(f"select * from `reviews` where `id` = {review_id};")[0]
-		images = get_query_rows(f"select `image_data` from `review_images` where `review_id` = 2;")
+		images = get_query_rows(f"select `image_data` from `review_images` where `review_id` = {review_id};")
 
 		# Find user info
 		user_id = review_data.user_id
