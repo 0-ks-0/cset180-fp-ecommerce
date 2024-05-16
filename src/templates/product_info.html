@@ -25,7 +25,12 @@
 	<div id="product_section">
 		<div class="button_container">
 			{% if account_type == "customer" %}
-				<button onclick="addToCart({{ data.id }})">Add to Cart</button>
+				<!-- Disable add to cart button if no inventory -->
+				{% if data.quantity > 0 %}
+					<button onclick="addToCart({{ data.id }})">Add to Cart</button>
+				{% else %}
+					<button onclick="addToCart({{ data.id }})" disabled>Add to Cart</button>
+				{% endif %}
 
 			{% elif account_type == "vendor" or account_type == "admin" %}
 				<button class="manage_button" onclick="setTop('/products/edit/{{ data.id }}')">Edit</button>
