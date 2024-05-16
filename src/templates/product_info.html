@@ -17,6 +17,7 @@
 <script src="{{ url_for('static', filename = 'js/cart.js') }}"></script>
 <script src="{{ url_for('static', filename = 'js/product.js') }}"></script>
 <script src="{{ url_for('static', filename = 'js/input.js') }}"></script>
+<script src="{{ url_for('static', filename = 'js/review.js') }}"></script>
 
 
 <div class="page_body">
@@ -171,7 +172,7 @@
 
 		<div id="reviews">
 			<div id="create_review_section">
-				<form action="/products/{{ data.id }}" method="POST">
+				<form action="/products/{{ data.id }}" id="review_form" method="POST">
 					<!-- TODO allow images -->
 					<label for="rating_input">Rate 1-5</label>
 					<input type="number" name="rating" id="rating_input" min="1" max="5" step="1" required onkeypress="return handleRating(event, this)"><br>
@@ -179,6 +180,7 @@
 					<label for="description_input">Description</label>
 					<textarea name="description" id="description_input" required></textarea><br>
 
+					<input type="button" value="Add Image" id="add_reivew_image_button" onclick="createReviewImage()">
 					<input type="submit" value="Submit Review">
 				</form>
 			</div>
