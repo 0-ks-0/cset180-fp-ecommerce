@@ -1549,7 +1549,13 @@ def home():
 		destroy_session(session)
 		return redirect("/login")
 
-	return render_template("home.html", account_type = session.get("account_type"))
+	account_data = get_query_rows(f"select `id`, `username`, `first_name`, `last_name`, `email_address` from `users` where `id` = {session.get("user_id")};")[0]
+
+	return render_template(
+		"home.html",
+		account_type = session.get("account_type"),
+		account_data = account_data
+	)
 
 # Login route
 @app.route("/login/")

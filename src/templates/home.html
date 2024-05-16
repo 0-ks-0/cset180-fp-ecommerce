@@ -9,5 +9,12 @@ Home
 {% endblock %}
 
 {% block body %}
-test
+<div class="page_body">
+	<p>User ID: {{ account_data.id }}</p>
+	<p>First Name: {{ account_data.first_name }}</p>
+	<p>Last Name: {{ account_data.last_name }}</p>
+	<p>Username: {{ account_data.username }}</p>
+	<p>Email Address: {{ account_data.email_address }}</p>
+	<p>Account Type: {{ account_type }}</p>
+</div>
 {% endblock %}
