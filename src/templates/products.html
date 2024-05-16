@@ -15,6 +15,10 @@ Products
 <script src="{{ url_for('static', filename = 'js/cart.js') }}"></script>
 <script src="{{ url_for('static', filename = 'js/product.js') }}"></script>
 
+{% if account_type == "vendor" or account_type == "admin" %}
+	<button onclick="setTop('/products/create')">Create Product</button>
+{% endif %}
+
 <div class="page_body">
 	{% for data in product_data %}
 		<div class="product">
