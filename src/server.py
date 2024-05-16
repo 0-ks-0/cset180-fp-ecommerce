@@ -1395,6 +1395,10 @@ def get_order_data(order_id):
 # Reviews
 # Create review
 def create_review(product_id, user_id, rating, description, date = None):
+	"""
+	:return:
+		review id
+	"""
 	if not date:
 		date = "now()"
 	else:
@@ -1414,6 +1418,21 @@ def create_review(product_id, user_id, rating, description, date = None):
 				{date}
 			);
 	""")
+
+	sql.commit()
+
+	return get_query_rows(f"select last_insert_id() as `id`")[0].id
+
+
+# Create review images
+def create_review_images(review_id, images):
+	"""
+	:param int/str review_id:
+	:param list images:
+	"""
+
+	for image in images:
+		run_query(f"insert into `review_images` values({review_id}, '{image}');")
 
 	sql.commit()
 
@@ -1735,8 +1754,10 @@ def products_add_to_cart():
 	return route_add_to_cart()
 
 
-def route_create_review(product_id, user_id, rating, description):
-	create_review(product_id, user_id, rating, description)
+def route_create_review(product_id, user_id, rating, description, images):
+	review_id = create_review(product_id, user_id, rating, description)
+
+	create_review_images(review_id, images)
 
 
 @app.route("/products/<id>", methods = [ "POST" ])
@@ -1748,8 +1769,9 @@ def products_info_add_to_cart(id):
 	if rating:
 		product_id = request.get_json().get("id")
 		description = request.get_json().get("description")
+		images = request.get_json().get("images")
 
-		route_create_review(product_id, session.get("user_id"), rating, description)
+		route_create_review(product_id, session.get("user_id"), rating, description, images = images)
 
 		return {
 			"url": f"/products/{product_id}"
