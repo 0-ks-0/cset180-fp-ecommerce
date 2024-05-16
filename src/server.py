@@ -1743,7 +1743,22 @@ def view_products():
 		destroy_session(session)
 		return redirect("/login")
 
-	products = get_query_rows(f"select * from `products` where `id` not in (select `product_id` from `deleted_products`);")
+	query = f"select * from `products` where `id` not in (select `product_id` from `deleted_products`);"
+	search = request.args.get("search")
+	if search:
+		query = f"select * from `products` where `name` like '%{search}%' or `description` like '%{search}%';"
+
+		products = get_query_rows(query)
+
+		if len(products) > 0:
+			product_ids = [p.id for p in products]
+			query = f"select * from `products` where `id` not in (select `product_id` from `deleted_products`) and `id` in ("
+			for product_id in product_ids:
+				query += f"{product_id},"
+			query = query[:-1]
+			query += ");"
+
+	products = get_query_rows(query)
 
 	if len(products) < 1:
 		return render_template(
@@ -1754,7 +1769,11 @@ def view_products():
 	# Get vendor products if vendor account
 	if session.get("account_type") == "vendor":
 		vendor_id = get_vendor_id(session.get("user_id"))
-		products = get_query_rows(f"select * from `products` where `vendor_id` = {vendor_id} and `id` not in (select `product_id` from `deleted_products`);")
+		query = f"select * from `products` where `vendor_id` = {vendor_id} and `id` not in (select `product_id` from `deleted_products`);"
+
+		# TODO if there is search paramter, change query
+
+		products = get_query_rows(query)
 
 	# Get all the product_ids
 	product_ids = []
