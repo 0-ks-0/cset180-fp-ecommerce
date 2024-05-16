@@ -1533,7 +1533,9 @@ issue_warranties(1, 1, 2)
 # End of orders
 
 # Reviews
-create_review(1, 2, 5, "awesome!")
+review_id1 = create_review(1, 2, 5, "awesome!")
+create_review_images(review_id1, ["https://cdn.pixabay.com/photo/2021/01/01/21/56/cooking-5880136_1280.jpg", "https://cdn.pixabay.com/photo/2016/11/29/08/24/bakery-1868396_640.jpg"])
+
 # End of reviews
 
 # End of inserting test values
